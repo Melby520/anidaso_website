@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="600" viewBox="0 0 60 30" role="img" aria-label="Flag of the United Kingdom">
+  <clipPath id="clip">
+    <rect width="60" height="30"/>
+  </clipPath>
+  <g clip-path="url(#clip)">
+    <!-- Blue field -->
+    <rect width="60" height="30" fill="#012169"/>
+
+    <!-- White diagonals -->
+    <path d="M0 0 L25 0 L60 17.5 L60 30 L35 30 L0 12.5 Z" fill="#FFF"/>
+    <path d="M60 0 L35 0 L0 17.5 L0 30 L25 30 L60 12.5 Z" fill="#FFF"/>
+
+    <!-- Red diagonals -->
+    <path d="M0 0 L27 0 L60 16.2 L60 22.8 L33 22.8 L0 6.6 Z" fill="#C8102E"/>
+    <path d="M60 0 L33 0 L0 16.2 L0 22.8 L27 22.8 L60 6.6 Z" fill="#C8102E"/>
+
+    <!-- White cross -->
+    <rect x="0" y="12" width="60" height="6" fill="#FFF"/>
+    <rect x="27" y="0" width="6" height="30" fill="#FFF"/>
+
+    <!-- Red cross -->
+    <rect x="0" y="13" width="60" height="4" fill="#C8102E"/>
+    <rect x="28" y="0" width="4" height="30" fill="#C8102E"/>
+  </g>
+</svg>

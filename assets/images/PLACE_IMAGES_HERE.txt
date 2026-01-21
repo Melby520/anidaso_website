@@ -1,0 +1,25 @@
+Place the exact images you uploaded into this folder and name them exactly as below.
+
+Required files:
+- logo-wide.png                (the ANIDASO logo you uploaded)
+- about-hero.png                (About page photo)
+- how-hero.png                  (How it works hero photo) (optional; falls back to about-hero.png)
+- how-hero.jpg                  (optional alternative)
+- membership-gh-hero.png        (Membership Ghana page hero image) (optional; falls back to home-hero.png)
+- membership-gh-hero.jpg        (optional alternative)
+- membership-uk-hero.png        (Membership UK page hero image) (optional; falls back to home-hero.png)
+- membership-uk-hero.jpg        (optional alternative)
+- home-hero.png                 (home hero image)
+- why-join.jpg                  ("WHY JOIN ANIDASO" wide image)
+- apart-community.jpg           (Community-led tile)
+- apart-affordable.jpg          (Affordable participation tile)
+- apart-transparent.jpg         (Transparent structure tile)
+- apart-families.jpg            (Built for families tile)
+- governance-hero.jpg           (Governance page hero image)
+- trust-hero.jpg                (Trust page hero image)
+- flag-gh.png                   (Ghana flag)
+- flag-uk.png                   (UK flag)
+
+Notes:
+- PNG/JPG both work, but keep these names & extensions.
+- If your images are different extensions, either rename them or tell me and I’ll update the HTML.

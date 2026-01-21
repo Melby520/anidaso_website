@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2a3a47;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a2028;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <rect width="1920" height="1080" fill="url(#bgGradient)"/>
+  
+  <!-- Decorative elements -->
+  <g opacity="0.15" fill="#c41e3a">
+    <!-- Large circles -->
+    <circle cx="200" cy="300" r="150"/>
+    <circle cx="1700" cy="800" r="200"/>
+    <circle cx="1200" cy="200" r="120"/>
+  </g>
+  
+  <!-- People silhouettes -->
+  <g fill="#ffffff" opacity="0.3">
+    <!-- Group of people - family -->
+    <!-- Person 1 -->
+    <circle cx="400" cy="300" r="50"/>
+    <path d="M350 360 L450 360 L450 550 L350 550 Z"/>
+    <path d="M330 380 L370 360 M470 380 L430 360"/>
+    
+    <!-- Person 2 (child) -->
+    <circle cx="650" cy="400" r="40"/>
+    <path d="M610 460 L690 460 L690 650 L610 650 Z"/>
+    <path d="M590 480 L610 460 M690 480 L710 460"/>
+    
+    <!-- Person 3 -->
+    <circle cx="900" cy="320" r="50"/>
+    <path d="M850 380 L950 380 L950 570 L850 570 Z"/>
+    <path d="M830 400 L850 380 M950 400 L970 380"/>
+    
+    <!-- Person 4 -->
+    <circle cx="1150" cy="350" r="45"/>
+    <path d="M1105 410 L1195 410 L1195 600 L1105 600 Z"/>
+    <path d="M1085 430 L1105 410 M1195 430 L1215 410"/>
+  </g>
+  
+  <!-- Accent shapes -->
+  <g stroke="#e8a723" stroke-width="3" fill="none" opacity="0.2">
+    <path d="M100 100 Q300 150 500 100"/>
+    <path d="M1500 900 Q1700 850 1900 900"/>
+  </g>
+</svg>
