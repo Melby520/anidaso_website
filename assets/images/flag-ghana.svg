@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="600" viewBox="0 0 3 2" role="img" aria-label="Flag of Ghana">
+  <rect width="3" height="2" fill="#006B3F"/>
+  <rect width="3" height="1.3333333" y="0" fill="#FCD116"/>
+  <rect width="3" height="0.6666667" y="0" fill="#CE1126"/>
+
+  <!-- Black star centered in the yellow band -->
+  <g transform="translate(1.5 1) scale(0.35)">
+    <path fill="#000" d="M0,-1 L0.2245,-0.3090 L0.9511,-0.3090 L0.3633,0.1180 L0.5878,0.8090 L0,0.3820 L-0.5878,0.8090 L-0.3633,0.1180 L-0.9511,-0.3090 L-0.2245,-0.3090 Z"/>
+  </g>
+</svg>
