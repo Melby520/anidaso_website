@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
   <!-- Shield background -->
-  <path d="M100 20 L160 50 L160 100 Q160 150 100 180 Q40 150 40 100 L40 50 Z" fill="#c41e3a" stroke="#e8a723" stroke-width="2"/>
+  <path d="M100 20 L160 50 L160 100 Q160 150 100 180 Q40 150 40 100 L40 50 Z" fill="#a91e22" stroke="#e8a723" stroke-width="2"/>
   
   <!-- Inner shield -->
-  <path d="M100 30 L155 55 L155 100 Q155 145 100 170 Q45 145 45 100 L45 55 Z" fill="#8b1428" opacity="0.7"/>
+  <path d="M100 30 L155 55 L155 100 Q155 145 100 170 Q45 145 45 100 L45 55 Z" fill="#a91e22" opacity="0.7"/>
   
   <!-- People/family icon -->
   <g fill="#ffffff">

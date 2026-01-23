@@ -10,7 +10,7 @@
   <rect width="1920" height="1080" fill="url(#bgGradient)"/>
   
   <!-- Decorative elements -->
-  <g opacity="0.15" fill="#c41e3a">
+  <g opacity="0.15" fill="#a91e22">
     <!-- Large circles -->
     <circle cx="200" cy="300" r="150"/>
     <circle cx="1700" cy="800" r="200"/>

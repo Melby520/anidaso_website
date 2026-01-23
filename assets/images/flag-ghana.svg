@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="900" height="600" viewBox="0 0 3 2" role="img" aria-label="Flag of Ghana">
   <rect width="3" height="2" fill="#006B3F"/>
   <rect width="3" height="1.3333333" y="0" fill="#FCD116"/>
-  <rect width="3" height="0.6666667" y="0" fill="#CE1126"/>
+  <rect width="3" height="0.6666667" y="0" fill="#a91e22"/>
 
   <!-- Black star centered in the yellow band -->
   <g transform="translate(1.5 1) scale(0.35)">

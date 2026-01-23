@@ -33,7 +33,7 @@
     <section class="hero" id="home">
         <div class="hero-content">
             <h1 class="hero-title">Anidaso Family Protection Fund</h1>
-            <p class="hero-subtitle">Standing together,Supporting each other</p>
+            <p class="hero-subtitle">Standing together, Supporting each other</p>
             <p class="hero-description">Join a trusted community committed to standing together and supporting families in times of loss.</p>
             <div class="hero-buttons">
                 <a href="#membership" class="btn btn-primary">Join Anidaso</a>
@@ -71,14 +71,14 @@
         <picture>
           <source srcset="assets/images/how-hero.png" type="image/png" />
           <source srcset="assets/images/how-hero.jpg" type="image/jpeg" />
-          <img alt="" src="assets/images/about-hero.png" loading="eager" />
+          <img class="how-hero__img" alt="How Anidaso works" src="assets/images/how-hero.png" loading="eager" />
         </picture>
       </div>
 
       <h2 class="how__title">HOW ANIDASO WORKS</h2>
 
       <div class="how-steps" role="list" aria-label="How Anidaso works steps">
-        <article class="how-step" role="listitem">
+        <a href="register.html" class="how-step how-link" role="listitem">
           <div class="how-step__icon" aria-hidden="true">
             <svg viewBox="0 0 64 64" width="54" height="54" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M18 10h20l8 8v36H18V10z" stroke="white" stroke-width="3" />
@@ -87,9 +87,9 @@
             </svg>
           </div>
           <div class="how-step__label">Register</div>
-        </article>
+        </a>
 
-        <article class="how-step" role="listitem">
+        <a href="become-a-member.html" class="how-step how-link" role="listitem">
           <div class="how-step__icon" aria-hidden="true">
             <svg viewBox="0 0 64 64" width="54" height="54" fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle cx="32" cy="22" r="10" stroke="white" stroke-width="3" />
@@ -97,9 +97,9 @@
             </svg>
           </div>
           <div class="how-step__label">Become a Member</div>
-        </article>
+        </a>
 
-        <article class="how-step" role="listitem">
+        <a href="monthly-contribution.html" class="how-step how-link" role="listitem">
           <div class="how-step__icon" aria-hidden="true">
             <svg viewBox="0 0 64 64" width="54" height="54" fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle cx="42" cy="20" r="8" stroke="white" stroke-width="3" />
@@ -109,9 +109,9 @@
             </svg>
           </div>
           <div class="how-step__label">Monthly Contribution</div>
-        </article>
+        </a>
 
-        <article class="how-step" role="listitem">
+        <a href="community-support.html" class="how-step how-link" role="listitem">
           <div class="how-step__icon" aria-hidden="true">
             <svg viewBox="0 0 64 64" width="54" height="54" fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle cx="22" cy="24" r="7" stroke="white" stroke-width="3" />
@@ -123,7 +123,7 @@
             </svg>
           </div>
           <div class="how-step__label">Community Support</div>
-        </article>
+        </a>
       </div>
 
       <section class="how-why" aria-label="Why Join Anidaso">
@@ -225,11 +225,11 @@
       <div class="membership__divider membership__divider--lg" aria-hidden="true"></div>
 
       <div class="form-stack" aria-label="Membership registration form">
+        <form class="form-grid" id="membership-form">
         <section class="form-card form-card--narrow">
           <h3 class="form-card__title">MEMBERSHIP REGISTRATION FORM</h3>
           <h4 class="form-card__subtitle">APPLICANT DETAILS</h4>
 
-          <form class="form-grid" id="membership-form">
             <div class="row">
               <label for="fullName">Full Legal Name</label>
               <input id="fullName" name="fullName" type="text" />
@@ -238,6 +238,8 @@
               <label for="dob">Date of Birth</label>
               <input id="dob" name="dob" type="date" />
             </div>
+        </section>
+
             <div class="row row--inline">
               <span class="label">Gender (optional)</span>
               <label class="tick"><input type="checkbox" name="gender" value="male" /> Male</label>
@@ -264,7 +266,6 @@
               <label for="phone">Telephone Number</label>
               <input id="phone" name="phone" type="tel" />
             </div>
-          </form>
         </section>
 
         <section class="form-card form-card--wide">
@@ -371,18 +372,10 @@
             
           </div>
         </section>
+        </form>
       </div>
 
       <!-- Screenshot sections (placed below Membership content) -->
-      <section class="why-join" aria-label="Why Join Anidaso">
-        <h2 class="why-join__title">WHY JOIN ANIDASO</h2>
-        <div class="why-join__image" aria-label="Why Join Anidaso image">
-          <picture>
-            <source srcset="assets/images/why-join-hero.png" type="image/png" />
-            <img alt="" src="assets/images/why-join-hero.png" loading="lazy" />
-          </picture>
-        </div>
-      </section>
 
       <section class="features" aria-label="What Sets Anidaso Apart">
         <h2 class="features__title">What Sets Anidaso Apart</h2>
@@ -525,7 +518,7 @@
         </ul>
       </div>
 
-      <section class="join-cta" aria-label="Join a community that stands together">
+       <section class="join-cta" aria-label="Join a community that stands together">
         <div class="hero-card">
           <div class="hero-card__media" role="img" aria-label="Join Anidaso">
             <img
@@ -545,18 +538,14 @@
           </div>
         </div>
       </section>
-    </div>
-  </section>
-</main>
 
-<script src="script.js"></script>
 
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-section">
                 <h4>Anidaso</h4>
-                <p>Standing together, supporting each other.</p>
+                <p>Standing together, Supporting each other.</p>
             </div>
             <div class="footer-section">
                 <h4>Quick Links</h4>

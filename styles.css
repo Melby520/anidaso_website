@@ -5,14 +5,131 @@
 }
 
 :root {
-    --primary-red: #c41e3a;
-    --dark-red: #8b1428;
+    --primary-red: #a91e22;
+    --dark-red: var(--primary-red);
     --accent-orange: #e8a723;
+    --primary-red-rgb: 169, 30, 34;
+    --footer-height: 80px;
+    --primary-red-cmyk-user: 23% 100% 0% 0%;
     --white: #ffffff;
     --dark-text: #333333;
     --light-gray: #f5f5f5;
     --transition: all 0.3s ease;
 }
+
+    /* Modernized How-Why section */
+    .how-why {
+        display: grid;
+        grid-template-columns: 420px 1fr;
+        gap: 2.25rem;
+        align-items: center;
+        padding: 2.5rem;
+        background: linear-gradient(180deg, rgba(169,30,34,0.95) 0%, rgba(137,20,30,0.95) 100%);
+        border-radius: 14px;
+        color: #fff;
+        box-shadow: 0 12px 36px rgba(0,0,0,0.12);
+    }
+
+    .how-why__image {
+        width: 100%;
+        max-width: 420px;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+    }
+
+    .how-why__image img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.45s ease;
+    }
+
+    /* Modern image card adjustments */
+    .how-why__image {
+        position: relative;
+        aspect-ratio: 4/3;
+        background: linear-gradient(180deg, rgba(0,0,0,0.06), rgba(0,0,0,0.02));
+    }
+
+    .how-why__image::before {
+        content: '';
+        position: absolute;
+        inset: 6px;
+        border-radius: 10px;
+        pointer-events: none;
+        box-shadow: inset 0 0 0 2px rgba(255,255,255,0.03);
+    }
+
+    .how-why__image::after {
+        content: 'Why Join';
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        background: rgba(0,0,0,0.28);
+        color: var(--accent-orange);
+        padding: 6px 10px;
+        border-radius: 8px;
+        font-weight: 800;
+        font-size: 0.85rem;
+        backdrop-filter: blur(4px);
+    }
+
+    .how-why__image img {
+        transition: transform 0.6s cubic-bezier(.2,.9,.2,1), filter 0.45s ease;
+        transform-origin: center center;
+        will-change: transform;
+    }
+
+    .how-why__image:hover img {
+        transform: scale(1.06) translateY(-4px);
+        filter: brightness(1.03) saturate(1.06);
+    }
+
+    .how-why__image img:hover {
+        transform: scale(1.03);
+    }
+
+    .how-why__content {
+        padding: 0.25rem 0.5rem;
+    }
+
+    .how-why__title {
+        color: var(--accent-orange);
+        font-size: 1.9rem;
+        font-weight: 800;
+        letter-spacing: 0.6px;
+        margin-bottom: 0.6rem;
+    }
+
+    .how-why__copy {
+        font-size: 1.05rem;
+        line-height: 1.85;
+        color: rgba(255,255,255,0.95);
+    }
+
+    @media (max-width: 900px) {
+        .how-why {
+            grid-template-columns: 1fr;
+            padding: 1.5rem;
+            gap: 1.25rem;
+            text-align: center;
+        }
+
+        .how-why__image {
+            margin: 0 auto;
+            max-width: 320px;
+        }
+
+        .how-why__content {
+            padding: 0;
+        }
+
+        .how-why__title {
+            font-size: 1.5rem;
+        }
+    }
 
 html {
     scroll-behavior: smooth;
@@ -22,6 +139,7 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: var(--dark-text);
     line-height: 1.6;
+    padding-bottom: var(--footer-height);
 }
 
 /* Navbar Styles */
@@ -51,9 +169,18 @@ body {
 }
 
 .logo-img {
-    height: 60px;
+    height: 96px;
     width: auto;
     object-fit: contain;
+}
+
+@media (max-width: 600px) {
+    .logo-img {
+        height: 64px;
+    }
+    .navbar {
+        padding: 0.8rem 0;
+    }
 }
 
 .brand-name {
@@ -196,13 +323,13 @@ body {
 .btn-primary {
     background: var(--primary-red);
     color: var(--white);
-    box-shadow: 0 4px 15px rgba(196, 30, 58, 0.3);
+    box-shadow: 0 4px 15px rgba(var(--primary-red-rgb), 0.3);
 }
 
 .btn-primary:hover {
     background: var(--dark-red);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(196, 30, 58, 0.4);
+    box-shadow: 0 6px 20px rgba(var(--primary-red-rgb), 0.4);
 }
 
 .btn-secondary {
@@ -244,12 +371,54 @@ body {
 }
 
 .about-split__media img,
-.about-split__media picture {
+.about-split__media picture,
+.about-split__media img {
     display: block;
     width: 100%;
     height: 100%;
     border-radius: 12px;
+}
+
+.about-split__media img {
     object-fit: cover;
+    object-position: center center;
+}
+
+/* Ensure other large images are centered when using <img> inside picture */
+.wide-image img,
+.wide-image picture img,
+.how-hero img,
+.hero-card__media img,
+.membership__hero img,
+.why-join__image img {
+    object-fit: cover;
+    object-position: center center;
+}
+
+/* Centered, reduced hero image for the How section */
+.how-hero {
+    display: block;
+    margin: 0 auto 24px;
+    text-align: center;
+}
+.how-hero__img {
+    display: block;
+    margin: 0 auto;
+    max-width: 760px;
+    width: 100%;
+    height: auto;
+    max-height: 420px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(15,20,30,0.12);
+}
+
+@media (max-width: 640px) {
+    .how-hero__img {
+        max-width: 360px;
+        max-height: 280px;
+    }
 }
 
 .about-split__content {
@@ -313,6 +482,59 @@ body {
     margin-bottom: 3rem;
 }
 
+/* How Anidaso Works cards */
+.how-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto 2.5rem;
+    align-items: start;
+    padding: 0 1rem;
+}
+
+.how-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.how-step__icon {
+    width: 160px;
+    height: 120px;
+    background: var(--primary-red);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 20px rgba(var(--primary-red-rgb), 0.12);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.how-step__icon svg { width: 58px; height: 58px; stroke: var(--white); }
+
+.how-step__label {
+    color: var(--accent-orange);
+    font-weight: 700;
+    background: transparent;
+    text-align: center;
+}
+
+.how-step:hover .how-step__icon {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(var(--primary-red-rgb), 0.16);
+}
+
+@media (max-width: 1000px) {
+    .how-steps { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 600px) {
+    .how-steps { grid-template-columns: 1fr; }
+    .how-step__icon { width: 120px; height: 100px; }
+}
+
 .steps {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -330,7 +552,7 @@ body {
 }
 
 .step:hover {
-    background: rgba(196, 30, 58, 0.05);
+    background: rgba(var(--primary-red-rgb), 0.05);
     transform: translateY(-5px);
 }
 
@@ -398,13 +620,13 @@ body {
 }
 
 .how__title {
-    font-size: 1.8rem;
-    text-align: left;
+    font-size: 2.5rem;
+    text-align: center;
     color: var(--primary-red);
-    margin-bottom: 1.5rem;
-    margin-top: 1.5rem;
+    margin: 0.75rem auto 1.5rem auto;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    font-weight: 800;
 }
 
 .how-why {
@@ -541,6 +763,189 @@ body {
     object-fit: contain;
     background: var(--light-gray);
     padding: 2rem;
+}
+
+/* Modern form styles for membership sections */
+.form-stack,
+.form-card,
+.form-grid,
+.row {
+    box-sizing: border-box;
+}
+
+.form-stack {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+    align-items: start;
+    margin: 2rem auto;
+    max-width: 1200px;
+    padding: 0 2rem;
+}
+
+.form-card {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    border: 1px solid rgba(var(--primary-red-rgb), 0.08);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.form-card:hover {
+    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+}
+
+.form-card__title {
+    font-size: 1.4rem;
+    margin-bottom: 0.75rem;
+    color: var(--primary-red);
+    font-weight: 700;
+    letter-spacing: -0.3px;
+}
+
+.form-card__subtitle {
+    color: var(--dark-text);
+    margin-bottom: 1.2rem;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: rgba(var(--primary-red-rgb), 0.85);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+.row {
+    display: flex;
+    flex-direction: column;
+}
+
+.row label,
+.form-card .label,
+.form-card .muted {
+    font-size: 0.9rem;
+    color: var(--dark-text);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.row input,
+.row select,
+.row textarea {
+    padding: 0.85rem 1rem;
+    border: 1.5px solid rgba(0,0,0,0.1);
+    border-radius: 10px;
+    font-size: 0.95rem;
+    background: linear-gradient(135deg, #fafafa 0%, #ffffff 100%);
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.row input:hover,
+.row select:hover,
+.row textarea:hover {
+    border-color: rgba(var(--primary-red-rgb), 0.3);
+}
+
+.row input:focus,
+.row select:focus,
+.row textarea:focus {
+    outline: none;
+    border-color: var(--primary-red);
+    box-shadow: 0 8px 24px rgba(var(--primary-red-rgb), 0.15);
+    background: var(--white);
+}
+
+.checks .tick,
+.declarations .tick {
+    display: flex;
+    gap: 0.7rem;
+    align-items: flex-start;
+    margin-bottom: 0.75rem;
+    padding: 0.5rem 0;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.checks .tick:hover,
+.declarations .tick:hover {
+    color: var(--primary-red);
+    transform: translateX(2px);
+}
+
+.checks input[type="checkbox"],
+.declarations input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: var(--primary-red);
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.declarations {
+    background: linear-gradient(135deg, rgba(var(--primary-red-rgb), 0.04), rgba(var(--primary-red-rgb), 0.01));
+    padding: 1.25rem;
+    border-radius: 12px;
+    border-left: 4px solid var(--primary-red);
+    margin-top: 0.5rem;
+}
+
+.checks {
+    background: linear-gradient(135deg, rgba(var(--primary-red-rgb), 0.02), transparent);
+    padding: 1rem;
+    border-radius: 12px;
+}
+
+.form-card--center-title .form-card__subtitle--center {
+    text-align: center;
+}
+
+.form-actions {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1.5rem;
+    gap: 1rem;
+}
+
+.btn {
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    padding: 0.95rem 2.2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    box-shadow: 0 8px 20px rgba(var(--primary-red-rgb), 0.25);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(var(--primary-red-rgb), 0.35);
+}
+
+@media (max-width: 900px) {
+    .form-stack {
+        grid-template-columns: 1fr;
+        padding: 0 1rem;
+    }
+    .form-card {
+        padding: 1.5rem;
+    }
+    .form-actions {
+        justify-content: stretch;
+    }
+    .form-actions .btn {
+        flex: 1;
+    }
 }
 
 .membership__card {
@@ -1111,6 +1516,36 @@ body {
     padding: 3rem 2rem 1rem;
 }
 
+/* Compact fixed footer used across pages */
+.footer--fixed {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
+    padding: 0.6rem 1rem;
+}
+
+.footer--fixed .footer-content {
+    margin: 0 auto;
+    max-width: 1200px;
+    align-items: center;
+    gap: 1rem;
+}
+
+.footer--fixed .footer-section {
+    padding: 0 0.5rem;
+}
+
+.footer--fixed .footer-bottom {
+    padding-top: 0.6rem;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 600px) {
+    :root { --footer-height: 120px; }
+}
+
 .footer-content {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -1157,13 +1592,17 @@ body {
 /* Animations */
 @keyframes slideInLeft {
     from {
-        opacity: 0;
-        transform: translateX(-50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+        /* Primary color updated to match logo (RGB: 169,30,34) */
+        --primary-red: #a91e22;
+        --primary-red-rgb: 169, 30, 34;
+        /* CMYK reference (approx): C:0% M:82% Y:80% K:34% (user provided C:23% M:100% noted separately) */
+        --primary-red-cmyk: 0% 82% 80% 34%;
+        --dark-red: #8b1428;
+        --accent-orange: #e8a723;
+        --white: #ffffff;
+        --dark-text: #333333;
+        --light-gray: #f5f5f5;
+        --transition: all 0.3s ease;
 }
 
 @keyframes fadeIn {
@@ -1561,11 +2000,13 @@ input[type="radio"] {
 .how-hero,
 .wide-image {
     width: 100%;
-    height: 100vh;
+    max-width: 1200px;
+    height: auto;
+    max-height: 520px;
     border-radius: 12px;
     overflow: hidden;
     background: #f0f0f0;
-    margin: 2rem 0;
+    margin: 2rem auto;
 }
 
 .how-hero img,
@@ -1573,31 +2014,134 @@ input[type="radio"] {
 .wide-image img,
 .wide-image picture {
     width: 100%;
-    height: 100%;
+    height: auto;
     object-fit: cover;
     display: block;
 }
 
-/* Why Join Section Image */
-.why-join__image {
-    width: 100%;
-    height: 100vh;
+/* Flush wide images used on Governance/Trust - make them match How hero sizing */
+.wide-image--flush {
+    max-width: 1200px;
+    margin: 1.5rem auto;
     border-radius: 12px;
     overflow: hidden;
-    background: var(--primary-red);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 2rem auto;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+}
+
+/* Page title style for Governance/Trust */
+.page-title {
+    text-align: left;
+    max-width: 1200px;
+    margin: 0.6rem auto 0.6rem;
+    font-size: 1.6rem;
+    color: var(--dark-text);
+}
+
+@media (max-width: 900px) {
+    .page-title { text-align: center; }
+}
+
+/* Governance / Trust modern cards and layout */
+.wide-image--flush img {
+    width: 100%;
+    height: auto;
+    max-height: 420px;
+    object-fit: cover;
+    display: block;
+    border-radius: 8px;
+}
+
+.trust-notes {
+    max-width: 1200px;
+    margin: 1rem auto 2rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    align-items: start;
+}
+
+@media (min-width: 900px) {
+    .trust-notes { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+}
+
+.trust-notes .bullets,
+.trust-notes .trust-bullets {
+    background: var(--white);
+    padding: 1rem 1.25rem;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(8,10,20,0.06);
+}
+
+.trust-notes .bullets li,
+.trust-notes .trust-bullets li {
+    margin-bottom: 0.8rem;
+    line-height: 1.5;
+    color: rgba(0,0,0,0.78);
+}
+
+.trust-notes .bullets li strong,
+.trust-notes .trust-bullets li strong {
+    display: block;
+    color: var(--dark-red);
+    margin-bottom: 0.25rem;
+}
+
+.trust-notes p { margin: 0.35rem 0; color: rgba(0,0,0,0.75); }
+
+
+/* Why Join Section Image (centered, reduced) */
+.why-join__image {
+        width: 100%;
+        max-width: 760px;
+        height: auto;
+        max-height: 420px;
+        border-radius: 12px;
+        overflow: hidden;
+        background: var(--primary-red);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 1.5rem auto;
+        padding: 0.5rem;
 }
 
 .why-join__image picture,
 .why-join__image img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    display: block;
-    padding: 2rem;
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        display: block;
+        padding: 0;
+}
+
+/* Why Join layout: place text under centered image */
+.why-join {
+    max-width: 920px;
+    margin: 1.5rem auto 2rem;
+    padding: 0 1rem;
+    text-align: center;
+}
+.why-join__title {
+    margin-top: 0.9rem;
+    font-size: 1.6rem;
+    color: var(--dark-text);
+    letter-spacing: 0.6px;
+}
+.why-join__copy {
+    max-width: 760px;
+    margin: 0.6rem auto 1.6rem;
+    color: rgba(0,0,0,0.7);
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+@media (max-width: 640px) {
+    .why-join__image {
+        max-width: 360px;
+        max-height: 260px;
+    }
+    .why-join__title { font-size: 1.3rem; }
+    .why-join__copy { font-size: 0.95rem; }
 }
 
 /* Join CTA Section */
