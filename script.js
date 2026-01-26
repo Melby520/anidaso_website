@@ -142,3 +142,78 @@ buttons.forEach(button => {
 });
 
 console.log('Anidaso Website - Loaded Successfully');
+
+/* -------------------------
+   Client-side Pagination
+   - Finds any element with the `paginated` class
+   - Uses direct child elements as items to paginate
+   - Reads `data-page-size` (default 6)
+   - Injects pagination controls after the container
+------------------------- */
+function createPagination(container, pageSize) {
+    const items = Array.from(container.children).filter(c => c.nodeType === 1);
+    if (items.length <= pageSize) return; // no pagination needed
+
+    let currentPage = 1;
+    const totalPages = Math.ceil(items.length / pageSize);
+
+    function showPage(page) {
+        currentPage = Math.max(1, Math.min(totalPages, page));
+        const start = (currentPage - 1) * pageSize;
+        const end = start + pageSize;
+
+        items.forEach((it, idx) => {
+            it.style.display = (idx >= start && idx < end) ? '' : 'none';
+        });
+
+        // update controls
+        const nums = container._pagination.querySelectorAll('.page-num');
+        nums.forEach((btn, i) => {
+            btn.classList.toggle('active', i + 1 === currentPage);
+        });
+
+        const prev = container._pagination.querySelector('.prev');
+        const next = container._pagination.querySelector('.next');
+        if (prev) prev.disabled = currentPage === 1;
+        if (next) next.disabled = currentPage === totalPages;
+    }
+
+    // build controls
+    const controls = document.createElement('div');
+    controls.className = 'pagination';
+
+    const prev = document.createElement('button');
+    prev.type = 'button';
+    prev.className = 'prev';
+    prev.textContent = '‹ Prev';
+    prev.addEventListener('click', () => showPage(currentPage - 1));
+    controls.appendChild(prev);
+
+    for (let i = 1; i <= totalPages; i++) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'page-num';
+        btn.textContent = String(i);
+        btn.addEventListener('click', () => showPage(i));
+        controls.appendChild(btn);
+    }
+
+    const next = document.createElement('button');
+    next.type = 'button';
+    next.className = 'next';
+    next.textContent = 'Next ›';
+    next.addEventListener('click', () => showPage(currentPage + 1));
+    controls.appendChild(next);
+
+    // attach and initialize
+    container._pagination = controls;
+    container.parentNode.insertBefore(controls, container.nextSibling);
+    showPage(1);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.paginated').forEach(el => {
+        const pageSize = parseInt(el.getAttribute('data-page-size') || '6', 10) || 6;
+        try { createPagination(el, pageSize); } catch (e) { /* fail silently */ }
+    });
+});
