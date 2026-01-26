@@ -1,62 +1,142 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>How it works — Anidaso</title>
     <link rel="stylesheet" href="styles.css">
-  </head>
-  <body>
-    <nav class="navbar">
-      <div class="nav-container">
-        <div class="logo">
-          <img src="assets/images/Anidaso logo.png" alt="Anidaso Logo" class="logo-img">
+</head>
+<body>
+    <!-- Navigation Bar (multi-page redesign; content unchanged) -->
+    <nav class="navbar" role="navigation" aria-label="Primary">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="assets/images/Anidaso logo.png" alt="Anidaso Logo" class="logo-img">
+            </div>
+            <ul class="nav-menu" id="primary-nav">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="how-it-works.html" class="nav-link">How it works</a></li>
+                <li><a href="membership.html" class="nav-link">Membership</a></li>
+                <li><a href="governance.html" class="nav-link">Governance</a></li>
+            </ul>
+            <button class="hamburger" type="button" aria-label="Menu" aria-controls="primary-nav" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
-        <ul class="nav-menu">
-          <li><a href="index.html" class="nav-link">Home</a></li>
-          <li><a href="about.html" class="nav-link">About</a></li>
-          <li><a href="how-it-works.html" class="nav-link active">How it works</a></li>
-          <li><a href="membership.html" class="nav-link">Membership</a></li>
-          <li><a href="governance.html" class="nav-link">Governance</a></li>
-        </ul>
-        <div class="hamburger">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-      </div>
     </nav>
 
-    <main class="container">
-      <article class="page">
-        <h1>How Anidaso Works</h1>
-        <p>Joining Anidaso means becoming part of a trusted community built on shared responsibility and mutual care. Our model is simple, transparent, and rooted in the belief that families are strongest when they stand together.</p>
-        <p>Explore the steps: Register → Become a Member → Monthly Contribution → Community Support.</p>
-      </article>
-    </main>
-    <script src="script.js"></script>
+    <main>
+        <!-- HOW IT WORKS (content from original single-page site) -->
+        <section id="how-it-works" class="view" data-view="how">
+          <div class="content">
+            <div class="wide-image how-hero">
+              <picture>
+                <source srcset="assets/images/how-hero.png" type="image/png" />
+                <source srcset="assets/images/how-hero.jpg" type="image/jpeg" />
+                <img class="how-hero__img" alt="How Anidaso works" src="assets/images/how-hero.png" loading="eager" />
+              </picture>
+            </div>
 
-    <!-- Footer (fixed) -->
-    <footer class="footer footer--fixed" role="contentinfo">
-      <div class="footer-content">
-        <div class="footer-section">
-          <h4>About</h4>
-          <p>Helping families through mutual support and shared responsibility.</p>
+            <h2 class="how__title">HOW ANIDASO WORKS</h2>
+
+            <div class="how-steps" role="list" aria-label="How Anidaso works steps">
+              <a href="register.html" class="how-step how-link" role="listitem">
+                <div class="how-step__icon" aria-hidden="true">
+                  <svg viewBox="0 0 64 64" width="54" height="54" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 10h20l8 8v36H18V10z" stroke="white" stroke-width="3" />
+                    <path d="M38 10v10h10" stroke="white" stroke-width="3" />
+                    <path d="M24 30h16M24 38h16M24 46h12" stroke="white" stroke-width="3" stroke-linecap="round" />
+                  </svg>
+                </div>
+                <div class="how-step__label">Register</div>
+              </a>
+
+              <a href="become-a-member.html" class="how-step how-link" role="listitem">
+                <div class="how-step__icon" aria-hidden="true">
+                  <svg viewBox="0 0 64 64" width="54" height="54" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="32" cy="22" r="10" stroke="white" stroke-width="3" />
+                    <path d="M14 54c2-12 14-18 18-18s16 6 18 18" stroke="white" stroke-width="3" stroke-linecap="round" />
+                  </svg>
+                </div>
+                <div class="how-step__label">Become a Member</div>
+              </a>
+
+              <a href="monthly-contribution.html" class="how-step how-link" role="listitem">
+                <div class="how-step__icon" aria-hidden="true">
+                  <svg viewBox="0 0 64 64" width="54" height="54" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="42" cy="20" r="8" stroke="white" stroke-width="3" />
+                    <path d="M10 42h26c5 0 8-3 10-7l4-8" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M10 42l10 10h18c5 0 9-3 11-8" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M20 32h10" stroke="white" stroke-width="3" stroke-linecap="round" />
+                  </svg>
+                </div>
+                <div class="how-step__label">Monthly Contribution</div>
+              </a>
+
+              <a href="community-support.html" class="how-step how-link" role="listitem">
+                <div class="how-step__icon" aria-hidden="true">
+                  <svg viewBox="0 0 64 64" width="54" height="54" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="22" cy="24" r="7" stroke="white" stroke-width="3" />
+                    <circle cx="42" cy="24" r="7" stroke="white" stroke-width="3" />
+                    <path d="M10 54c1-9 10-14 12-14" stroke="white" stroke-width="3" stroke-linecap="round" />
+                    <path d="M54 54c-1-9-10-14-12-14" stroke="white" stroke-width="3" stroke-linecap="round" />
+                    <circle cx="32" cy="20" r="6" stroke="white" stroke-width="3" />
+                    <path d="M22 54c1-8 7-12 10-12s9 4 10 12" stroke="white" stroke-width="3" stroke-linecap="round" />
+                  </svg>
+                </div>
+                <div class="how-step__label">Community Support</div>
+              </a>
+            </div>
+
+            <section class="how-why" aria-label="Why Join Anidaso">
+              <div class="how-why__image">
+                <picture>
+                  <source srcset="assets/images/why-join-hero.png" type="image/png" />
+                  <img alt="" src="assets/images/why-join-hero.png" loading="lazy" />
+                </picture>
+              </div>
+              <div class="how-why__content">
+                <h3 class="how-why__title">Why Join Anidaso</h3>
+                <p class="how-why__copy">
+                  Joining Anidaso means becoming part of a trusted community built on shared responsibility and mutual care.
+                  Our model is simple, transparent, and rooted in the belief that families are strongest when they stand together.
+                </p>
+              </div>
+            </section>
+          </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Anidaso</h4>
+                <p>Standing together, Supporting each other.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="membership.html">Membership</a></li>
+                    <li><a href="governance.html">Governance</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p>Email: info@anidaso.org</p>
+                <p>Phone: Available upon request</p>
+            </div>
         </div>
-        <div class="footer-section">
-          <h4>Quick Links</h4>
-          <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="how-it-works.html">How it works</a></li>
-          </ul>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Anidaso Family Protection Fund. All rights reserved.</p>
         </div>
-        <div class="footer-section">
-          <h4>Contact</h4>
-          <p>hello@anidaso.org</p>
-        </div>
-      </div>
-      <div class="footer-bottom">© 2026 Anidaso. All rights reserved.</div>
     </footer>
-  </body>
+
+    <script src="script.js"></script>
+</body>
 </html>
