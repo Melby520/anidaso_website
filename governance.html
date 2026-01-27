@@ -1,61 +1,146 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Governance — Anidaso</title>
     <link rel="stylesheet" href="styles.css">
-  </head>
-  <body>
-    <nav class="navbar">
-      <div class="nav-container">
-        <div class="logo">
-          <img src="assets/images/Anidaso logo.png" alt="Anidaso Logo" class="logo-img">
+</head>
+<body>
+    <!-- Navigation Bar (multi-page redesign; content unchanged) -->
+    <nav class="navbar" role="navigation" aria-label="Primary">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="assets/images/Anidaso logo.png" alt="Anidaso Logo" class="logo-img">
+            </div>
+            <ul class="nav-menu" id="primary-nav">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="how-it-works.html" class="nav-link">How it works</a></li>
+                <li><a href="membership.html" class="nav-link">Membership</a></li>
+                <li><a href="governance.html" class="nav-link">Governance</a></li>
+            </ul>
+            <button class="hamburger" type="button" aria-label="Menu" aria-controls="primary-nav" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
-        <ul class="nav-menu">
-          <li><a href="index.html" class="nav-link">Home</a></li>
-          <li><a href="about.html" class="nav-link">About</a></li>
-          <li><a href="how-it-works.html" class="nav-link">How it works</a></li>
-          <li><a href="membership.html" class="nav-link">Membership</a></li>
-          <li><a href="governance.html" class="nav-link active">Governance</a></li>
-        </ul>
-        <div class="hamburger">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-      </div>
     </nav>
 
-    <main class="container">
-      <article class="page">
-        <h1>Governance</h1>
-        <p>Anidaso Family Protection Fund is governed with care, responsibility, and integrity. Our governance structure ensures that decisions are made fairly and with transparency.</p>
-      </article>
-    </main>
-    <script src="script.js"></script>
+    <main>
+      <!-- GOVERNANCE (content from original single-page site) -->
+      <section id="governance" class="view governance" data-view="governance">
+        <div class="content">
+          <div class="wide-image wide-image--flush">
+            <img
+              alt=""
+              src="assets/images/government-hero.png"
+              loading="lazy"
+            />
+          </div>
+          <h2 class="page-title">GOVERNANCE</h2>
+          <p class="small" style="margin-top: 10px;">
+            Anidaso Family Protection Fund is governed with care, responsibility, and integrity.
+            Our governance structure ensures that decisions are made fairly, processes are clear,
+            and the interests of members and families are always placed first.
+          </p>
+    <br>
+    <br>
+          <div class="wide-image wide-image--flush">
+            <img
+              alt=""
+              src="assets/images/trust-hero.png"
+              loading="lazy"
+            />
+          </div>
 
-    <!-- Footer (fixed) -->
-    <footer class="footer footer--fixed" role="contentinfo">
-      <div class="footer-content">
-        <div class="footer-section">
-          <h4>About</h4>
-          <p>Helping families through mutual support and shared responsibility.</p>
+          <h2 class="page-title" style="margin-top: 28px;">TRUST</h2>
+
+          <div class="trust-notes">
+            <ul class="bullets paginated" data-page-size="3" aria-label="Our Commitment to Trust">
+              <li><strong>Our Commitment to Trust</strong></li>
+              <li>Managed by a dedicated committee</li>
+              <li>
+                Anidaso is overseen by a committed group of individuals responsible for governance, oversight, and the fair
+                administration of the Fund.
+              </li>
+            </ul>
+
+            <ul class="trust-bullets paginated" data-page-size="3" aria-label="Trust principles">
+              <li>
+                <strong>Clear membership rules</strong>
+                <p>
+                  Membership terms, responsibilities, and eligibility criteria are clearly defined to ensure consistency, fairness, and
+                  understanding for all members.
+                </p>
+              </li>
+              <li>
+                <strong>Transparent processes</strong>
+                <p>
+                  From registration to community contributions and support payments, our processes are documented, communicated,
+                  and applied openly.
+                </p>
+              </li>
+              <li>
+                <strong>Community accountability</strong>
+                <p>
+                  Anidaso is accountable to the community it serves. Decisions are guided by shared values, ethical standards, and the
+                  long-term sustainability of the Fund.
+                </p>
+              </li>
+            </ul>
+          </div>
+    <br>
+
+          <section class="join-cta" aria-label="Join a community that stands together">
+            <div class="hero-card">
+              <div class="hero-card__media" role="img" aria-label="Join Anidaso">
+                <img alt="" src="assets/images/join-hero.png" loading="lazy" />
+                <div class="hero-card__overlay"></div>
+                <div class="hero-card__copy">
+                  <h2 class="hero-title">Join a community that stands together</h2>
+                  <p class="hero-subtitle">Protect your family. Support others. Build community strength.</p>
+                  <p class="hero-description">Join a trusted community committed to standing together and supporting families in times of loss.</p>
+
+                  <div class="hero-buttons hero-card__actions" role="group" aria-label="Join actions">
+                    <a href="membership.html#membership-form" class="btn btn-primary">Join Anidaso</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
         </div>
-        <div class="footer-section">
-          <h4>Quick Links</h4>
-          <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="how-it-works.html">How it works</a></li>
-          </ul>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Anidaso</h4>
+                <p>Standing together, Supporting each other.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="membership.html">Membership</a></li>
+                    <li><a href="governance.html">Governance</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p>Email: info@anidaso.org</p>
+                <p>Phone: Available upon request</p>
+            </div>
         </div>
-        <div class="footer-section">
-          <h4>Contact</h4>
-          <p>hello@anidaso.org</p>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Anidaso Family Protection Fund. All rights reserved.</p>
         </div>
-      </div>
-      <div class="footer-bottom">© 2026 Anidaso. All rights reserved.</div>
     </footer>
-  </body>
+
+    <script src="script.js"></script>
+</body>
 </html>

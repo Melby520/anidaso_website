@@ -1,61 +1,346 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Membership — Anidaso</title>
     <link rel="stylesheet" href="styles.css">
-  </head>
-  <body>
-    <nav class="navbar">
-      <div class="nav-container">
-        <div class="logo">
-          <img src="assets/images/Anidaso logo.png" alt="Anidaso Logo" class="logo-img">
+</head>
+<body>
+    <!-- Navigation Bar (multi-page redesign; content unchanged) -->
+    <nav class="navbar" role="navigation" aria-label="Primary">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="assets/images/Anidaso logo.png" alt="Anidaso Logo" class="logo-img">
+            </div>
+            <ul class="nav-menu" id="primary-nav">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="how-it-works.html" class="nav-link">How it works</a></li>
+                <li><a href="membership.html" class="nav-link">Membership</a></li>
+                <li><a href="governance.html" class="nav-link">Governance</a></li>
+            </ul>
+            <button class="hamburger" type="button" aria-label="Menu" aria-controls="primary-nav" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
-        <ul class="nav-menu">
-          <li><a href="index.html" class="nav-link">Home</a></li>
-          <li><a href="about.html" class="nav-link">About</a></li>
-          <li><a href="how-it-works.html" class="nav-link">How it works</a></li>
-          <li><a href="membership.html" class="nav-link active">Membership</a></li>
-          <li><a href="governance.html" class="nav-link">Governance</a></li>
-        </ul>
-        <div class="hamburger">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-      </div>
     </nav>
 
-    <main class="container">
-      <article class="page">
-        <h1>Membership</h1>
-        <p>Membership details and registration are handled through the membership process. Please register first and then follow the instructions to activate your membership.</p>
-      </article>
-    </main>
-    <script src="script.js"></script>
+    <main>
+      <!-- MEMBERSHIP (content from original single-page site) -->
+      <section id="membership" class="view" data-view="membership">
+        <div class="content membership">
+          
+          <div class="membership__hero" aria-label="United Kingdom membership structure image">
+            <picture>
+              <source srcset="assets/images/membership-uk-hero.png" type="image/png" />
+              <img alt="" src="assets/images/membership-uk-hero.png" loading="eager" />
+            </picture>
+          </div>
 
-    <!-- Footer (fixed) -->
-    <footer class="footer footer--fixed" role="contentinfo">
-      <div class="footer-content">
-        <div class="footer-section">
-          <h4>About</h4>
-          <p>Helping families through mutual support and shared responsibility.</p>
+          <h2 class="membership__title" style="margin-top: 28px;">UNITED KINGDOM - MEMBERSHIP STRUCTURE</h2>
+
+          <section class="membership__card" aria-label="Membership structure">
+          <h3 class="membership__card-title">Membership Contributions</h3>
+          <ul class="membership__list paginated" data-page-size="3" aria-label="Membership contributions list">
+              <li>
+                <div class="membership__item-strong">£50 one-off registration fee</div>
+                <div class="membership__item-sub">Payable at the point of joining Anidaso UK.</div>
+              </li>
+              <li>
+                <div class="membership__item-strong">£25 monthly contribution</div>
+                <div class="membership__item-sub">Paid by active members to sustain the UK community fund.</div>
+              </li>
+            </ul>
+
+            <h3 class="membership__card-title" style="margin-top: 22px;">Community Support Payment</h3>
+            <ul class="membership__list paginated" data-page-size="3" aria-label="Community support payment list">
+              <li>
+                <div class="membership__item-strong">£6,000 community support payment</div>
+                <div class="membership__item-sub">Payable to the deceased member’s nominated next of kin, subject to:</div>
+              </li>
+              <li>A minimum 6 months of active membership</li>
+              <li>Up-to-date monthly contributions</li>
+              <li>Compliance with Anidaso UK membership terms</li>
+              <li>Governance and fund sustainability checks at the time of claim</li>
+            </ul>
+          </section>
+
+         
+
+          <div class="membership__hero membership__hero--gh" aria-label="Ghana membership structure image">
+            <picture>
+              <source srcset="assets/images/membership-gh-hero.png" type="image/png" />
+              <img alt="" src="assets/images/membership-gh-hero.png" loading="eager" />
+            </picture>
+          </div>
+
+          <h2 class="membership__title" style="margin-top: 28px;">GHANA - MEMBERSHIP STRUCTURE</h2>
+
+          <section class="membership__card" aria-label="Ghana membership structure">
+            <h3 class="membership__card-title">Membership Contributions</h3>
+            <ul class="membership__list paginated" data-page-size="3" aria-label="Ghana membership contributions list">
+              <li>
+                <div class="membership__item-strong">GHS 200 one-off registration fee</div>
+                <div class="membership__item-sub">Payable at the point of joining Anidaso Ghana.</div>
+              </li>
+              <li>
+                <div class="membership__item-strong">GHS 50 monthly contribution</div>
+                <div class="membership__item-sub">Paid by active members to sustain the Ghana community fund.</div>
+              </li>
+            </ul>
+
+            <h3 class="membership__card-title" style="margin-top: 22px;">Community Support Payment</h3>
+            <ul class="membership__list paginated" data-page-size="3" aria-label="Ghana community support payment list">
+              <li>
+                <div class="membership__item-strong">GHS 20,000 community support payment</div>
+                <div class="membership__item-sub">Payable to the deceased member’s nominated next of kin, subject to:</div>
+              </li>
+              <li>A minimum 6 months of active membership</li>
+              <li>Up-to-date monthly contributions</li>
+              <li>Compliance with Anidaso Ghana membership terms</li>
+              <li>Governance and fund sustainability checks at the time of claim</li>
+            </ul>
+          </section>
+
+          <div class="membership__divider membership__divider--lg" aria-hidden="true"></div>
+
+          <div class="form-stack" aria-label="Membership registration form">
+            <form class="form-grid" id="membership-form" novalidate>
+            <section class="form-card form-card--narrow">
+              <h3 class="form-card__title">MEMBERSHIP REGISTRATION FORM</h3>
+              <h4 class="form-card__subtitle">APPLICANT DETAILS</h4>
+
+                <div class="row">
+                  <label for="fullName">Full Legal Name</label>
+                  <input id="fullName" name="fullName" type="text" autocomplete="name" required />
+                </div>
+                <div class="row">
+                  <label for="dob">Date of Birth</label>
+                  <input id="dob" name="dob" type="date" autocomplete="bday" required />
+                </div>
+            </section>
+
+                <div class="row row--inline">
+                  <span class="label">Gender (optional)</span>
+                  <label class="tick"><input type="checkbox" name="gender" value="male" /> Male</label>
+                  <label class="tick"><input type="checkbox" name="gender" value="female" /> Female</label>
+                  <label class="tick"><input type="checkbox" name="gender" value="na" /> Prefer not to say</label>
+                </div>
+                <div class="row">
+                  <label for="nationality">Nationality / Ethnic Background (optional)</label>
+                  <input id="nationality" name="nationality" type="text" />
+                </div>
+                <div class="row">
+                  <label for="address">Home Address</label>
+                  <input id="address" name="address" type="text" autocomplete="street-address" required />
+                </div>
+                <div class="row">
+                  <label for="postcode">Postcode:</label>
+                  <input id="postcode" name="postcode" type="text" autocomplete="postal-code" required />
+                </div>
+                <div class="row">
+                  <label for="email">Email Address</label>
+                  <input id="email" name="email" type="email" autocomplete="email" required />
+                </div>
+                <div class="row">
+                  <label for="phone">Telephone Number</label>
+                  <input id="phone" name="phone" type="tel" autocomplete="tel" required />
+                </div>
+            </section>
+
+            <section class="form-card form-card--wide">
+              <h4 class="form-card__subtitle">AGE &amp; GUARDIAN INFORMATION</h4>
+              <div class="checks">
+                <label class="tick"><input type="checkbox" id="over18" /> I confirm that I am 18 years or over</label>
+                <label class="tick"><input type="checkbox" id="under18" /> I am under 18 and registering with a parent / legal guardian</label>
+                <div class="muted">(If under 18 – Guardian Details Required)</div>
+              </div>
+
+              <div class="form-grid">
+                <div class="row">
+                  <label for="guardianName">Parent / Guardian Full Name</label>
+                  <input id="guardianName" name="guardianName" type="text" autocomplete="name" />
+                </div>
+                <div class="row">
+                  <label for="relationship">Relationship to Applicant</label>
+                  <input id="relationship" name="relationship" type="text" />
+                </div>
+                <div class="row">
+                  <label for="guardianPhone">Guardian Contact Number</label>
+                  <input id="guardianPhone" name="guardianPhone" type="tel" autocomplete="tel" />
+                </div>
+                <div class="row">
+                  <label for="guardianEmail">Guardian Email Address</label>
+                  <input id="guardianEmail" name="guardianEmail" type="email" autocomplete="email" />
+                </div>
+              </div>
+
+              <div class="checks checks--footer">
+                <label class="tick"><input type="checkbox" /> I confirm I am the legal guardian and accept responsibility for this membership</label>
+              </div>
+            </section>
+
+            <section class="form-card form-card--wide form-card--center-title">
+              <h4 class="form-card__subtitle form-card__subtitle--center">NEXT OF KIN DETAILS</h4>
+              <div class="form-grid">
+                <div class="row">
+                  <label for="nokName">Next of Kin Full Name</label>
+                  <input id="nokName" name="nokName" type="text" autocomplete="name" required />
+                </div>
+                <div class="row">
+                  <label for="nokRelationship">Relationship to Member</label>
+                  <input id="nokRelationship" name="nokRelationship" type="text" required />
+                </div>
+                <div class="row">
+                  <label for="nokContact">Next of Kin Contact Number</label>
+                  <input id="nokContact" name="nokContact" type="tel" autocomplete="tel" required />
+                </div>
+                <div class="row">
+                  <label for="nokEmail">Next of Kin Email Address (if available)</label>
+                  <input id="nokEmail" name="nokEmail" type="email" autocomplete="email" />
+                </div>
+                <div class="row">
+                  <label for="nokAddress">Address (if different from applicant)</label>
+                  <input id="nokAddress" name="nokAddress" type="text" />
+                </div>
+              </div>
+            </section>
+
+            <section class="form-card form-card--medium">
+              <h4 class="form-card__subtitle">MEMBERSHIP INFORMATION</h4>
+              <div class="form-grid">
+                <div class="row row--stack">
+                  <div class="label">Membership Start Date</div>
+                  <div class="muted">(Office use) ________________________________</div>
+                </div>
+                <div class="row row--stack">
+                  <div class="label">Registration Fee</div>
+                  <label class="tick"><input type="checkbox" /> £50 one-off registration fee paid</label>
+                </div>
+                <div class="row row--inline">
+                  <span class="label">Preferred Method of Communication</span>
+                  <label class="tick"><input type="checkbox" /> Email</label>
+                  <label class="tick"><input type="checkbox" /> SMS</label>
+                  <label class="tick"><input type="checkbox" /> WhatsApp</label>
+                </div>
+              </div>
+            </section>
+
+            <section class="form-card form-card--wide">
+              <h4 class="form-card__subtitle">DECLARATIONS &amp; ACKNOWLEDGEMENTS</h4>
+              <div class="muted" style="margin-bottom: 15px;">Please read and tick to confirm:</div>
+              <div class="declarations">
+                <label class="tick"><input type="checkbox" /> I understand that Anidaso Family Protection Fund is a community-led protection fund and NOT an insurance scheme.</label>
+                <label class="tick"><input type="checkbox" /> I understand that all support payments are discretionary and dependent on community participation.</label>
+                <label class="tick"><input type="checkbox" /> I understand that I must be a member for a minimum of 6 months before any support can be considered.</label>
+                <label class="tick"><input type="checkbox" /> I agree to contribute £10 when notified of a member’s passing, subject to the Fund’s rules.</label>
+                <label class="tick"><input type="checkbox" /> I understand that failure to contribute may result in suspension or removal from membership.</label>
+                <label class="tick"><input type="checkbox" /> I agree to comply with Anidaso’s Membership Agreement, policies, and governance rules.</label>
+              </div>
+            </section>
+          </div>
+
+          <section class="form-card form-card--wide">
+              <h4 class="form-card__subtitle">DATA PROTECTION (GPR)</h4>
+              <div class="muted" style="margin-bottom: 1px;">Please read and tick to confirm:</div>
+              <div class="declarations">
+                <label class="tick"><input type="checkbox" /> I consent to Anidaso Family Protection Fund collecting and processing my personal data for the purposes of membership administration, in accordance with data protection legislation. 
+
+.
+    </label>
+                <label class="tick"><input type="checkbox" /> I understand my data will not be shared with third parties except where required by law or governance processes. 
+    </label>
+                
+              </div>
+            </section>
+            </form>
+          </div>
+
+          <!-- Screenshot sections (placed below Membership content) -->
+
+          <section class="features" aria-label="What Sets Anidaso Apart">
+            <h2 class="features__title">What Sets Anidaso Apart</h2>
+
+            <div class="features__grid paginated" data-page-size="4">
+              <article class="feature-card">
+                <div class="feature-card__image" aria-hidden="true">
+                  <picture>
+                    <source srcset="assets/images/feature-community.png" type="image/png" />
+                    <img alt="" src="assets/images/feature-community.png" loading="lazy" />
+                  </picture>
+                </div>
+                <h3 class="feature-card__title">Community-led</h3>
+                <p class="feature-card__description">Anidaso is shaped and sustained by the people it serves, ensuring decisions are made with fairness and collective wellbeing at the centre</p>
+              </article>
+
+              <article class="feature-card">
+                <div class="feature-card__image" aria-hidden="true">
+                  <picture>
+                    <source srcset="assets/images/feature-affordable.png" type="image/png" />
+                    <img alt="" src="assets/images/feature-affordable.png" loading="lazy" />
+                  </picture>
+                </div>
+                <h3 class="feature-card__title">Affordable participation</h3>
+                <p class="feature-card__description">A modest registration fee and small community contributions make participation accessible without placing undue financial burden on members</p>
+              </article>
+
+              <article class="feature-card">
+                <div class="feature-card__image" aria-hidden="true">
+                  <picture>
+                    <source srcset="assets/images/feature-transparent.png" type="image/png" />
+                    <img alt="" src="assets/images/feature-transparent.png" loading="lazy" />
+                  </picture>
+                </div>
+                <h3 class="feature-card__title">Transparent structure</h3>
+                <p class="feature-card__description">Clear membership rules, defined processes, and accountable governance provide confidence and clarity at every stage</p>
+              </article>
+
+              <article class="feature-card">
+                <div class="feature-card__image" aria-hidden="true">
+                  <picture>
+                    <source srcset="assets/images/feature-families.png" type="image/png" />
+                    <img alt="" src="assets/images/feature-families.png" loading="lazy" />
+                  </picture>
+                </div>
+                <h3 class="feature-card__title">Built for families</h3>
+                <p class="feature-card__description">Designed to support individuals and families of all ages, with provisions for parents or guardians to register on behalf of children</p>
+              </article>
+            </div>
+          </section>
         </div>
-        <div class="footer-section">
-          <h4>Quick Links</h4>
-          <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="how-it-works.html">How it works</a></li>
-          </ul>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Anidaso</h4>
+                <p>Standing together, Supporting each other.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="membership.html">Membership</a></li>
+                    <li><a href="governance.html">Governance</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p>Email: info@anidaso.org</p>
+                <p>Phone: Available upon request</p>
+            </div>
         </div>
-        <div class="footer-section">
-          <h4>Contact</h4>
-          <p>hello@anidaso.org</p>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Anidaso Family Protection Fund. All rights reserved.</p>
         </div>
-      </div>
-      <div class="footer-bottom">© 2026 Anidaso. All rights reserved.</div>
     </footer>
-  </body>
+
+    <script src="script.js"></script>
+</body>
 </html>
