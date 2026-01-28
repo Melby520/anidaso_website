@@ -355,6 +355,76 @@ body {
     pointer-events: none;
 }
 
+/* Replicate homepage hero layout for Join CTA using the join image as a background */
+.join-cta .hero-card__media {
+    background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.12)),
+                url('assets/images/join-hero.png') center/cover no-repeat;
+    height: 60vh;
+    min-height: 420px;
+    width: 100%;
+    position: relative;
+    display: block;
+    overflow: hidden;
+}
+
+/* Hide the <img> fallback so the background shows consistently */
+.join-cta .hero-card__media img {
+    display: none;
+}
+
+/* Place the copy similarly to homepage: left column, readable over the image */
+.join-cta .hero-card__copy {
+    position: absolute;
+    left: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+    max-width: 650px;
+    color: var(--white);
+    text-align: left;
+    padding: 0;
+    background: transparent;
+}
+
+.join-cta .hero-card__copy .hero-title {
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1.08;
+    margin: 0 0 0.6rem 0;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.35);
+}
+
+.join-cta .hero-card__copy .hero-subtitle {
+    font-size: 1.2rem;
+    margin: 0 0 1.2rem 0;
+    line-height: 1.5;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.25);
+}
+
+/* Ensure the join title is white and the copy and button share the same left edge */
+.join-cta .hero-card__copy .hero-title,
+.join-cta .hero-card__copy .hero-subtitle {
+    color: #ffffff;
+}
+
+.join-cta .hero-card__actions {
+    justify-content: flex-start;
+    margin-top: 0.8rem;
+    padding-left: 0;
+}
+
+.join-cta .hero-card__copy, .join-cta .hero-card__actions {
+    left: 2rem; /* ensure same left inset */
+}
+
+@media (max-width: 768px) {
+    .join-cta .hero-card__media { height: 50vh; min-height: 320px; }
+    .join-cta .hero-card__copy { left: 50%; transform: translate(-50%, -50%); max-width: 92%; }
+    .join-cta .hero-card__copy .hero-title { font-size: 1.8rem; }
+    .join-cta .hero-card__copy .hero-subtitle { font-size: 1rem; }
+    .join-cta .hero-card__actions { justify-content: center; margin-top: 1rem; }
+}
+
 .hero-content {
     position: relative;
     z-index: 2;
@@ -526,6 +596,21 @@ body {
 .why-join__image img {
     object-fit: cover;
     object-position: center center;
+}
+
+/* Scale down specific governance hero image for better layout */
+#government-hero-img {
+    display: block;
+    width: 100%;
+    max-width: 760px;
+    height: auto;
+    margin: 0 auto;
+}
+
+@media (max-width: 640px) {
+    #government-hero-img {
+        max-width: 360px;
+    }
 }
 
 /* Centered, reduced hero image for the How section */
@@ -2326,7 +2411,7 @@ input[type="radio"] {
 
 .governance .page-title {
     font-size: 2rem;
-    text-align: center;
+    text-align: left !important;
     color: var(--primary-red);
     text-transform: uppercase;
     font-weight: 800;
@@ -2337,7 +2422,7 @@ input[type="radio"] {
 .governance p.small {
     max-width: 920px;
     margin: 0.6rem auto 1.6rem auto;
-    text-align: center;
+    text-align: left !important;
     color: rgba(0,0,0,0.78);
 }
 
@@ -2397,7 +2482,7 @@ input[type="radio"] {
     content: '';
     width: 12px;
     height: 12px;
-    margin-top: 6px;
+    margin-top: 0;
     flex: 0 0 auto;
     border-radius: 50%;
     background: linear-gradient(180deg, var(--primary-red), var(--dark-red));
@@ -2409,7 +2494,14 @@ input[type="radio"] {
     color: var(--dark-red);
     margin-bottom: 0.25rem;
 }
+.governance .trust-notes li { align-items: center; }
 .governance .trust-notes li p { margin: 0; color: rgba(0,0,0,0.72); }
+
+/* Center list text while keeping the circular marker at left */
+.governance .trust-notes li strong,
+.governance .trust-notes li p {
+    text-align: center;
+}
 .governance .trust-notes .bullets li,
 .governance .trust-notes .trust-bullets li { padding-left: 0.5rem; }
 
@@ -2570,7 +2662,7 @@ input[type="radio"] {
     max-width: 1200px;
     margin: 0 auto;
     position: relative;
-    height: 100vh;
+    height: auto;
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
@@ -2578,22 +2670,32 @@ input[type="radio"] {
 
 .hero-card__media {
     width: 100%;
-    height: 100%;
     position: relative;
     overflow: hidden;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.hero-card__media img {
-    position: absolute;
-    inset: 0;
+/* Join CTA: full-width image with proper sizing */
+.join-cta .hero-card__media img {
+    position: relative;
+    inset: auto;
     width: 100%;
-    height: 100%;
+    max-width: 100%;
+    height: auto;
+    min-height: 400px;
     object-fit: cover;
     display: block;
+    border-radius: 0;
 }
 
 /* Provide a sensible minimum height so the image area is visible before the image loads */
 .hero-card__media { min-height: 360px; }
+/* Make the media container positioned so overlays sit correctly; join CTA goes full-width */
+.hero-card__media { position: relative; max-width: 700px; margin: 1.25rem auto; }
+.join-cta .hero-card__media { max-width: 100%; margin: 0; }
 
 .hero-card__overlay {
     position: absolute;
@@ -2604,6 +2706,11 @@ input[type="radio"] {
     background: linear-gradient(90deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.2) 100%);
     pointer-events: none;
     z-index: 2;
+}
+
+/* Join CTA overlay darker for better text readability */
+.join-cta .hero-card__overlay {
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.15) 100%);
 }
 
 
@@ -2617,22 +2724,51 @@ input[type="radio"] {
     z-index: 10;
     max-width: 520px;
     width: auto;
-    background: linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.22));
-    padding: 1.25rem 1.5rem;
-    border-radius: 12px;
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
 }
 
-.hero-card__copy h1 {
+/* Join CTA copy: position bottom-left on the image */
+.join-cta .hero-card__copy {
+    top: auto;
+    bottom: 14%;
+    left: 8%;
+    transform: none;
+    text-align: left;
+    max-width: 480px;
+    width: auto;
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+}
+
+.hero-card__copy h1,
+.hero-title {
     font-size: 2.6rem;
     font-weight: 800;
     line-height: 1.08;
     margin: 0 0 0.6rem 0;
 }
 
-.hero-card__subhead {
+.join-cta .hero-card__copy .hero-title {
+    font-size: 2.6rem;
+    font-weight: 800;
+    line-height: 1.15;
+    margin: 0 0 0.75rem 0;
+}
+
+.hero-card__subhead,
+.hero-subtitle {
     font-size: 1rem;
     margin: 0 0 1rem 0;
     line-height: 1.5;
+}
+
+.join-cta .hero-card__copy .hero-subtitle {
+    font-size: 1.1rem;
+    margin: 0 0 1.4rem 0;
+    font-weight: 500;
 }
 
 .hero-card__actions {
@@ -2664,9 +2800,11 @@ input[type="radio"] {
     background: var(--dark-red);
 }
 
-/* Ensure join-cta text and button are left-aligned across breakpoints */
+/* Ensure join-cta text and button align left */
 .join-cta .hero-card__copy,
 .join-cta .hero-card__copy h1,
+.join-cta .hero-card__copy h2,
+.join-cta .hero-card__copy .hero-title,
 .join-cta .hero-card__copy .hero-subtitle,
 .join-cta .hero-card__copy p {
     text-align: left;
@@ -2731,4 +2869,131 @@ input[type="radio"] {
         max-width: 360px;
         max-height: 280px;
     }
+}
+
+/* Align text under Governance and Trust headings */
+.governance .wide-image--flush + .page-title,
+.governance .wide-image + .page-title {
+    max-width: 760px;
+    margin: 0 auto 0.6rem auto;
+    text-align: left;
+}
+
+.governance .wide-image--flush + .page-title + p,
+.governance .wide-image + .page-title + p {
+    max-width: 760px;
+    margin: 0.4rem auto 1.25rem auto;
+    text-align: left;
+}
+
+/* Keep trust list item text left-aligned to match the image */
+.governance .trust-notes,
+.governance .trust-notes ul {
+    max-width: 760px;
+    margin: 0.6rem auto 1.5rem auto;
+}
+.governance .trust-notes li strong,
+.governance .trust-notes li p {
+    text-align: left;
+}
+
+
+/* Ensure titles and immediate content align with wide images consistently */
+/* Align page titles and following copy to match wide image widths */
+.wide-image + .page-title,
+.wide-image--flush + .page-title {
+    max-width: 520px;
+    margin: 0.6rem auto 0.6rem;
+}
+
+.wide-image + .page-title + p,
+.wide-image--flush + .page-title + p {
+    max-width: 520px;
+    margin: 0.4rem auto 1.25rem;
+    text-align: center;
+    color: var(--dark-text);
+}
+
+@media (min-width: 900px) {
+    .wide-image + .page-title { text-align: left; max-width: 700px; }
+    .wide-image + .page-title + p { text-align: left; max-width: 700px; }
+}
+
+/* Targeted: center & scale governance, trust, and join hero images */
+/* Targeted: center & scale governance, trust, and join hero images (smaller by default) */
+
+/* Governance: center page title and body text within the governance view */
+#governance .page-title,
+#governance .content > p.small,
+#governance .trust-notes,
+#governance .trust-notes ul,
+#governance .trust-bullets,
+#governance .trust-notes li,
+#governance .trust-bullets li {
+    text-align: left;
+    max-width: 640px;
+    margin: 0.6rem auto;
+}
+
+/* Ensure paragraph copies inside trust lists are also left-aligned */
+#governance .trust-bullets li p,
+#governance .trust-notes li p {
+    text-align: left;
+}
+
+
+
+#government-hero-img,
+#trust-hero-img {
+    display: block;
+    margin: 0.75rem auto;
+    /* Mini sizes: smaller min and max for compact appearance */
+    width: clamp(160px, 36vw, 420px);
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 6px;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.05);
+}
+
+/* Join hero image: full width to mirror homepage hero */
+#join-hero-img {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-height: 400px;
+    height: auto;
+    object-fit: cover;
+    object-position: center;
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+/* Make the trust hero image match the larger governance wide-image sizing */
+#trust-hero-img {
+    display: block;
+    margin: 0.75rem auto;
+    /* Further reduced size and centered */
+    width: clamp(140px, 30vw, 360px);
+    max-width: 100%;
+    max-height: 360px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(15,20,30,0.12);
+}
+
+/* Stronger override so the trust image is visibly smaller in the governance view */
+.governance .wide-image--flush img#trust-hero-img {
+    display: block;
+    margin: 0.75rem auto;
+    width: clamp(100px, 24vw, 280px) !important;
+    max-width: 280px !important;
+    max-height: 260px !important;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(15,20,30,0.12);
 }
