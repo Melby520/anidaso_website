@@ -2062,6 +2062,9 @@ body {
 
     .nav-menu.active {
         transform: translateY(0) !important;
+        /* Ensure the menu becomes visible even when a small-screen rule
+           hides `.nav-menu` with `display: none !important`. */
+        display: flex !important;
     }
 
     .mobile-menu-overlay {
@@ -3214,18 +3217,22 @@ input[type="radio"] {
     .membership__hero--gh {
         height: auto !important;
         min-height: 56vh;
-        padding: 0.5rem 0;
+        padding: 0 !important;
+        margin: 0 auto !important;
+        width: 100% !important;
     }
 
     .membership__hero--gh picture,
-    .membership__hero--gh img {
-        width: 100% !important;
-        max-width: 100% !important;
+    .membership__hero--gh img,
+    .membership__hero--gh picture img {
+        width: 100vw !important;
+        max-width: 100vw !important;
         height: auto !important;
-        margin: 0 auto;
+        min-height: 56vh !important;
+        margin: 0 !important;
         padding: 0 !important;
         display: block !important;
-        object-fit: contain !important;
+        object-fit: cover !important;
     }
 }
 
