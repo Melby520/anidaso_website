@@ -57,9 +57,26 @@ img, picture, figure, video {
     .hero-subtitle { font-size: 0.95rem; }
     .hero-description { font-size: 0.95rem; }
 
-    /* Navigation: hide full menu, show hamburger if present */
-    .nav-menu { display: none !important; }
+    /* Navigation: transform-based mobile menu (hidden off-canvas until toggled) */
     .hamburger { display: inline-flex; }
+    .nav-menu {
+        display: flex !important;
+        position: fixed;
+        top: 56px;
+        left: 0;
+        right: 0;
+        background: linear-gradient(135deg, var(--primary-red) 0%, var(--dark-red) 100%);
+        flex-direction: column;
+        gap: 0;
+        padding: 0.75rem 1rem;
+        transform: translateY(-120%);
+        transition: transform 0.28s ease;
+        z-index: 9999;
+    }
+    .nav-menu li { padding: 0.55rem 0; }
+    .nav-menu a { display: block; padding: 0.55rem 0.5rem; font-size: 1.05rem; color: var(--white); }
+
+    .nav-menu.active { transform: translateY(0) !important; display: flex !important; z-index: 9999 !important; }
 
     /* Reduce image/min heights to avoid scroll jump */
     .hero-card__media, .join-cta .hero-card__media { min-height: 240px; }
@@ -202,7 +219,7 @@ img, picture, figure, video {
         gap: 2.25rem;
         align-items: center;
         padding: 2.5rem;
-        background: linear-gradient(180deg, rgba(169,30,34,0.95) 0%, rgba(137,20,30,0.95) 100%);
+        background: var(--white);
         border-radius: 14px;
         color: #fff;
         box-shadow: 0 12px 36px rgba(0,0,0,0.12);
@@ -241,17 +258,9 @@ img, picture, figure, video {
     }
 
     .how-why__image::after {
-        content: 'Why Join';
-        position: absolute;
-        top: 12px;
-        left: 12px;
-        background: rgba(0,0,0,0.28);
-        color: var(--accent-orange);
-        padding: 6px 10px;
-        border-radius: 8px;
-        font-weight: 800;
-        font-size: 0.85rem;
-        backdrop-filter: blur(4px);
+        /* removed overlay text */
+        content: none;
+        display: none;
     }
 
     .how-why__image img {
@@ -274,7 +283,7 @@ img, picture, figure, video {
     }
 
     .how-why__title {
-        color: var(--accent-orange);
+        color: var(--primary-red);
         font-size: 1.9rem;
         font-weight: 800;
         letter-spacing: 0.6px;
@@ -284,7 +293,7 @@ img, picture, figure, video {
     .how-why__copy {
         font-size: 1.05rem;
         line-height: 1.85;
-        color: rgba(255,255,255,0.95);
+        color: var(--dark-text);
     }
 
     @media (max-width: 900px) {
@@ -662,6 +671,71 @@ body {
     padding: 5rem 2rem;
     background: var(--light-gray);
 }
+    .about {
+        padding: 3rem 1.25rem;
+    }
+    .about .container {
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+    .about-split {
+        display: flex;
+        gap: 2.5rem;
+        align-items: flex-start;
+    }
+    .about-split__media {
+        flex: 0 0 45%;
+        max-width: 45%;
+    }
+    .about-split__content {
+        flex: 1;
+        padding: 0;
+    }
+    .about h2 {
+        text-align: left;
+        font-size: 2.25rem;
+        margin-bottom: 1rem;
+    }
+    .about-split__content p {
+        margin-bottom: 1.25rem;
+        line-height: 1.85;
+        color: var(--dark-text);
+        font-size: 1.02rem;
+    }
+
+    @media (max-width: 900px) {
+        .about {
+            padding: 2rem 1rem;
+        }
+        .about-split {
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+        .about-split__media {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            flex: 0 0 auto;
+        }
+        .about h2 {
+            font-size: 1.9rem;
+            text-align: left;
+        }
+        .about-split__content p {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .about {
+            padding: 1.25rem 0.75rem;
+        }
+        .about h2 {
+            font-size: 1.6rem;
+        }
+    }
 
 .container {
     max-width: 1200px;
@@ -826,12 +900,12 @@ body {
     font-size: 2.5rem;
     margin-bottom: 2rem;
     color: var(--primary-red);
-    text-align: right;
+    text-align: left;
 }
 
 .about-split__content > p {
     font-size: 1.1rem;
-    text-align: right;
+    text-align: left;
     margin-bottom: 1.5rem;
     line-height: 1.8;
     color: var(--dark-text);
@@ -1027,7 +1101,7 @@ body {
     margin-top: 2rem;
     margin-bottom: 2rem;
     padding: 2.5rem;
-    background-color: var(--primary-red);
+    background-color: var(--white);
     border-radius: 12px;
     display: flex;
     gap: 3rem;
@@ -1055,7 +1129,7 @@ body {
 
 .how-why__title {
     font-size: 1.5rem;
-    color: var(--accent-orange);
+    color: var(--primary-red);
     margin-bottom: 1.2rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -1065,7 +1139,7 @@ body {
 .how-why__copy {
     font-size: 1rem;
     line-height: 1.7;
-    color: var(--white);
+    color: var(--dark-text);
 }
 
 /* Icons grid for How It Works / Why Join */
@@ -2062,9 +2136,6 @@ body {
 
     .nav-menu.active {
         transform: translateY(0) !important;
-        /* Ensure the menu becomes visible even when a small-screen rule
-           hides `.nav-menu` with `display: none !important`. */
-        display: flex !important;
     }
 
     .mobile-menu-overlay {
@@ -2092,7 +2163,7 @@ body {
     }
 
     .nav-link:hover {
-        background: rgba(169,30,34,0.06);
+        background: rgba(var(--primary-red-rgb),0.06);
         color: var(--dark-red);
     }
 
@@ -3211,39 +3282,155 @@ input[type="radio"] {
     box-shadow: 0 8px 24px rgba(15,20,30,0.12);
 }
 
-/* Increase membership hero image size on small screens (Ghana image) */
+/* Show membership hero as a horizontal banner on small screens */
 @media (max-width: 768px) {
     .membership__hero,
     .membership__hero--gh {
-        height: auto !important;
-        min-height: 56vh;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        max-height: 160px;
+        overflow: hidden;
         padding: 0 !important;
-        margin: 0 auto !important;
-        width: 100% !important;
+        margin: 0 auto 1rem;
+        display: block;
+        border-radius: 10px;
+        background: var(--light-gray);
     }
 
+    .membership__hero picture,
+    .membership__hero img,
     .membership__hero--gh picture,
-    .membership__hero--gh img,
-    .membership__hero--gh picture img {
-        width: 100vw !important;
-        max-width: 100vw !important;
-        height: auto !important;
-        min-height: 56vh !important;
+    .membership__hero--gh img {
+        width: 100% !important;
+        height: 100% !important;
         margin: 0 !important;
         padding: 0 !important;
         display: block !important;
+        object-fit: cover !important;
+        object-position: center center !important;
+    }
+
+    /* Larger, near full-width banner specifically for Ghana hero */
+    .membership__hero--gh {
+        max-height: 340px !important;
+        width: 100vw !important;
+        margin-left: calc(50% - 50vw) !important;
+        border-radius: 0 !important;
+    }
+
+    .membership__hero--gh picture,
+    .membership__hero--gh img {
+        height: 100% !important;
+        max-height: none !important;
         object-fit: cover !important;
     }
 }
 
 @media (max-width: 480px) {
     .membership__hero--gh {
-        min-height: 48vh;
+        min-height: auto;
+        max-height: 300px !important;
+        width: 100vw !important;
+        margin-left: calc(50% - 50vw) !important;
+        border-radius: 0 !important;
     }
 
+    .membership__hero,
+    .membership__hero--gh {
+        aspect-ratio: 16 / 9;
+        max-height: 140px;
+    }
+
+    .membership__hero picture img,
     .membership__hero--gh picture img {
-        min-height: 300px;
-        max-height: none;
+        height: 100% !important;
+        max-height: none !important;
+        object-fit: cover !important;
+    }
+}
+
+/* Mobile spacing fixes for membership page — tighten gutters and hero margins */
+@media (max-width: 768px) {
+    .content.membership {
+        padding-left: 0.75rem !important;
+        padding-right: 0.75rem !important;
+    }
+
+    .membership__hero,
+    .membership__hero--gh {
+        margin: 0 0 0.75rem !important;
+        padding: 0 !important;
+        border-radius: 8px !important;
+    }
+
+    .membership__hero picture,
+    .membership__hero img,
+    .membership__hero--gh picture,
+    .membership__hero--gh img {
+        display: block !important;
+        width: 100% !important;
+        height: 100% !important;
+        padding: 0 !important;
+        object-fit: cover !important;
+        object-position: center center !important;
+    }
+
+    .membership__title {
+        margin-top: 12px !important;
+        font-size: 1rem !important;
+        text-align: left !important;
+        padding-left: 0.25rem !important;
+        padding-right: 0.25rem !important;
+    }
+
+    .membership__card {
+        padding: 0.75rem !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .content.membership {
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+    }
+
+    .membership__hero,
+    .membership__hero--gh {
+        margin: 0 0 0.6rem !important;
+        border-radius: 6px !important;
+    }
+
+    .membership__title {
+        margin-top: 10px !important;
+        font-size: 0.95rem !important;
+    }
+
+    .membership__card {
+        padding: 0.6rem !important;
+    }
+}
+
+/* Optional: rotate/tilt membership hero images to display horizontally.
+   Usage: add the class `membership__hero--rotate` to the `.membership__hero` element
+   (e.g. <div class="membership__hero membership__hero--rotate">).
+   Only applied on small screens to help portrait images display as landscape. */
+@media (max-width: 768px) {
+    .membership__hero--rotate,
+    .membership__hero--rotate picture,
+    .membership__hero--rotate img {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 !important;
+    }
+
+    .membership__hero--rotate picture img {
+        transform: rotate(90deg) !important;
+        transform-origin: center center !important;
+        width: auto !important;
+        height: 60vh !important;
+        max-height: 420px !important;
+        object-fit: contain !important;
     }
 }
 
@@ -3259,3 +3446,50 @@ input[type="radio"] {
     border-radius: 10px;
     box-shadow: 0 8px 24px rgba(15,20,30,0.12);
 }
+
+/* Minimal override: ensure hero secondary button is white with primary red text only */
+.hero .hero-buttons a.btn.btn-secondary,
+.hero .btn.btn-secondary {
+    background: var(--white) !important;
+    color: var(--primary-red) !important;
+}
+
+/* Emergency: strongest mobile-only override for Ghana membership hero
+   Placed at the end to ensure it wins against other rules and cached files.
+*/
+@media (max-width: 768px) {
+    body .membership__hero--gh {
+        width: 100vw !important;
+        margin-left: calc(50% - 50vw) !important;
+        max-height: 420px !important;
+        height: 420px !important;
+        overflow: hidden !important;
+        border-radius: 0 !important;
+        display: block !important;
+    }
+    body .membership__hero--gh picture,
+    body .membership__hero--gh img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        object-position: center center !important;
+    }
+}
+
+@media (max-width: 480px) {
+    body .membership__hero--gh {
+        width: 100vw !important;
+        margin-left: calc(50% - 50vw) !important;
+        max-height: 380px !important;
+        height: 380px !important;
+        overflow: hidden !important;
+    }
+    body .membership__hero--gh picture,
+    body .membership__hero--gh img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+    }
+}
+
+

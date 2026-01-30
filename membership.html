@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Membership — Anidaso</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=5">
 </head>
 <body>
     <!-- Navigation Bar (multi-page redesign; content unchanged) -->
@@ -341,5 +341,82 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+    // Diagnostic: log computed styles for Ghana membership hero on load
+    document.addEventListener('DOMContentLoaded', function () {
+      try {
+        const el = document.querySelector('.membership__hero--gh');
+        if (!el) { console.log('Diagnostic: .membership__hero--gh not found'); return; }
+        const cs = getComputedStyle(el);
+        console.log('Diagnostic: Ghana hero bbox', el.getBoundingClientRect());
+        console.log('Diagnostic: Ghana hero computed', {
+          width: cs.width,
+          height: cs.height,
+          maxHeight: cs.maxHeight,
+          overflow: cs.overflow,
+          display: cs.display,
+          borderRadius: cs.borderRadius
+        });
+        const img = el.querySelector('img');
+        if (img) {
+          const csi = getComputedStyle(img);
+          console.log('Diagnostic: Ghana hero img computed', { objectFit: csi.objectFit, width: csi.width, height: csi.height });
+        }
+        const sheets = Array.from(document.styleSheets).map(s => s.href).filter(Boolean);
+        console.log('Diagnostic: loaded stylesheets', sheets);
+      } catch (e) { console.error('Diagnostic error', e); }
+    });
+    </script>
+    <script>
+    // Apply full-bleed larger Ghana hero only on mobile viewports (<=768px)
+    (function() {
+      const TARGET = '.membership__hero--gh';
+      const IMG = TARGET + ' img';
+
+      function applyMobileHero(enable) {
+        const el = document.querySelector(TARGET);
+        const img = document.querySelector(IMG);
+        if (!el) return;
+        if (enable) {
+          el.style.width = '100vw';
+          el.style.marginLeft = 'calc(50% - 50vw)';
+          el.style.height = '420px';
+          el.style.maxHeight = '420px';
+          el.style.overflow = 'hidden';
+          el.style.borderRadius = '0';
+          el.style.display = 'block';
+          if (img) {
+            img.style.width = '100%';
+            img.style.height = '100%';
+            img.style.objectFit = 'cover';
+            img.style.display = 'block';
+          }
+        } else {
+          // remove inline styles so stylesheet rules take over
+          el.style.width = '';
+          el.style.marginLeft = '';
+          el.style.height = '';
+          el.style.maxHeight = '';
+          el.style.overflow = '';
+          el.style.borderRadius = '';
+          el.style.display = '';
+          if (img) {
+            img.style.width = '';
+            img.style.height = '';
+            img.style.objectFit = '';
+            img.style.display = '';
+          }
+        }
+      }
+
+      function check() {
+        const isMobile = window.innerWidth <= 768;
+        applyMobileHero(isMobile);
+      }
+
+      document.addEventListener('DOMContentLoaded', check);
+      window.addEventListener('resize', function() { requestAnimationFrame(check); });
+    })();
+    </script>
 </body>
 </html>
