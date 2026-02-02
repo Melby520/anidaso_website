@@ -55,7 +55,8 @@ if (hamburger) {
 
 // Close menu when link is clicked
 navLinks.forEach(link => {
-    link.addEventListener('click', () => {
+    link.addEventListener('click', (e) => {
+        // Close mobile menu after navigation (allow links to navigate normally)
         navMenu.classList.remove('active');
         hamburger.classList.remove('active');
         hamburger.setAttribute('aria-expanded', 'false');
@@ -67,6 +68,47 @@ navLinks.forEach(link => {
         document.body.classList.remove('menu-open');
         hamburger.focus();
     });
+    // No keyboard toggle here; dropdowns are opened via the separate toggle button
+});
+
+// Dropdown toggle buttons: open/close the menu when clicked (and support keyboard)
+const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+dropdownToggles.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        const parent = btn.closest('.has-dropdown');
+        if (!parent) return;
+        const isOpen = parent.classList.toggle('open');
+        // Reflect state on both toggle and parent nav-link for accessibility
+        btn.setAttribute('aria-expanded', String(isOpen));
+        const link = parent.querySelector('.nav-link');
+        if (link) link.setAttribute('aria-expanded', String(isOpen));
+    });
+    btn.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            btn.click();
+        }
+    });
+});
+
+// Toggle dropdowns via click and close when clicking outside
+document.addEventListener('click', (e) => {
+    const dropdownParents = document.querySelectorAll('.has-dropdown');
+    let clickedInsideAny = false;
+
+    dropdownParents.forEach(parent => {
+        if (parent.contains(e.target)) clickedInsideAny = true;
+    });
+
+    if (!clickedInsideAny) {
+        dropdownParents.forEach(parent => {
+            if (parent.classList.contains('open')) {
+                parent.classList.remove('open');
+                const link = parent.querySelector('.nav-link');
+                if (link) link.setAttribute('aria-expanded', 'false');
+            }
+        });
+    }
 });
 
 // Set active nav link based on current filename (multi-page support)
@@ -285,5 +327,38 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.paginated').forEach(el => {
         const pageSize = parseInt(el.getAttribute('data-page-size') || '6', 10) || 6;
         try { createPagination(el, pageSize); } catch (e) { /* fail silently */ }
+    });
+    // Attach membership form handlers (client-side demo)
+    document.querySelectorAll('.membership-form').forEach(form => {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const successEl = form.querySelector('.form-success');
+            if (!submitBtn) return;
+
+            // quick validation
+            const required = Array.from(form.querySelectorAll('[required]'));
+            const invalid = required.find(i => !i.value || i.value.trim() === '');
+            if (invalid) {
+                invalid.focus();
+                successEl.style.display = 'block';
+                successEl.style.color = '#c5292e';
+                successEl.textContent = 'Please complete required fields.';
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting…';
+
+            // simulate server submission
+            setTimeout(() => {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit application';
+                form.reset();
+                successEl.style.display = 'block';
+                successEl.style.color = 'var(--primary-red)';
+                successEl.textContent = 'Application received. We will contact you shortly.';
+            }, 900);
+        });
     });
 });

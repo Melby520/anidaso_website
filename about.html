@@ -17,7 +17,14 @@
                 <li><a href="index.html" class="nav-link">Home</a></li>
                 <li><a href="about.html" class="nav-link">About</a></li>
                 <li><a href="how-it-works.html" class="nav-link">How it works</a></li>
-                <li><a href="membership.html" class="nav-link">Membership</a></li>
+                <li class="has-dropdown">
+                    <a href="membership.html" class="nav-link" aria-haspopup="true" aria-expanded="false">Membership</a>
+                    <button class="dropdown-toggle" type="button" aria-expanded="false" aria-label="Toggle membership menu">▾</button>
+                    <ul class="dropdown" role="menu" aria-label="Membership options">
+                        <li><a href="_membership/uk.html" class="dropdown-link" role="menuitem">Uk</a></li>
+                        <li><a href="_membership/ghana.html" class="dropdown-link" role="menuitem">Ghana</a></li>
+                    </ul>
+                </li>
                 <li><a href="governance.html" class="nav-link">Governance</a></li>
             </ul>
             <button class="hamburger" type="button" aria-label="Menu" aria-controls="primary-nav" aria-expanded="false">

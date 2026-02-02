@@ -352,6 +352,7 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
+    overflow: visible; /* allow absolute dropdowns to extend outside container */
 }
 
 .logo {
@@ -2224,6 +2225,84 @@ body {
 .nav-link { padding: 0.6rem 0.5rem; border-radius: 6px; }
 .nav-link:hover { background: rgba(var(--primary-red-rgb), 0.06); color: var(--accent-orange); }
 
+/* Membership dropdown styles (styled to match screenshot) */
+.nav-menu li.has-dropdown { position: relative; }
+.nav-menu li.has-dropdown > a::after {
+    content: '\25BE';
+    display: inline-block;
+    margin-left: 8px;
+    font-size: 0.7rem;
+    vertical-align: middle;
+    color: rgba(255,255,255,0.9);
+}
+.dropdown-toggle {
+    background: transparent;
+    border: none;
+    color: rgba(255,255,255,0.95);
+    font-size: 0.9rem;
+    margin-left: 6px;
+    padding: 4px 6px;
+    border-radius: 4px;
+    cursor: pointer;
+    line-height: 1;
+}
+.dropdown-toggle:focus { outline: 2px solid rgba(255,255,255,0.18); }
+.has-dropdown.open > .dropdown-toggle { transform: rotate(180deg); }
+.nav-menu .dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0; /* align to the left edge of the parent list item */
+    transform: none;
+    min-width: 220px;
+    background: var(--primary-red); /* Solid primary red background */
+    border-radius: 6px; /* very slight rounding */
+    display: none;
+    flex-direction: column;
+    padding: 8px 6px;
+    box-shadow: 0 12px 28px rgba(0,0,0,0.25); /* subtle drop shadow */
+    z-index: 1200;
+}
+/* show only when explicitly opened (via click) or when focused for keyboard users */
+.nav-menu li.has-dropdown.open > .dropdown,
+.nav-menu li.has-dropdown:focus-within > .dropdown {
+    display: flex;
+}
+
+/* Desktop: also open dropdown on hover for quick access */
+/* Desktop hover-open removed so only the toggle opens the dropdown */
+.nav-menu .dropdown li { margin: 8px 0; }
+.nav-menu .dropdown-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #fff; /* bold white text */
+    padding: 12px 14px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 800;
+    font-size: 1.06rem;
+    letter-spacing: 0.3px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+/* Hover state: yellow background, dark text */
+.nav-menu .dropdown-link:hover {
+    background: #ffd400; /* Yellow hover */
+    color: #111;
+}
+/* Mobile: keep dropdown inline inside vertical menu and hide until expanded */
+@media (max-width: 768px) {
+    .nav-menu .dropdown {
+        position: static;
+        box-shadow: none;
+        background: transparent;
+        padding: 0;
+        display: none; /* default collapsed on mobile until opened */
+    }
+    .dropdown-toggle { margin-left: 8px; }
+    .nav-menu li.has-dropdown.open > .dropdown { display: flex; flex-direction: column; }
+    .nav-menu .dropdown-link { padding-left: 1.25rem; color: var(--primary-red); font-weight:700; }
+}
+
 /* Ensure page content isn't visually obstructed by sticky nav */
 body > section { padding-top: 0.5rem; }
 
@@ -3491,5 +3570,64 @@ input[type="radio"] {
         object-fit: cover !important;
     }
 }
+
+/* Homepage flags (restored) */
+.homepage-flags {
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+    justify-content: center;
+    overflow: visible; /* allow small visual tweaks without pushing layout */
+}
+.locale-banner__inner .homepage-flags .homepage-flag {
+    /* readable icon footprint */
+    width: 48px !important; /* desktop layout width */
+    height: auto !important;
+    max-width: none !important;
+    max-height: 48px !important;
+    display: inline-block !important;
+    border-radius: 6px !important;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.10) !important;
+    transition: transform 0.18s ease, box-shadow 0.18s ease !important;
+    transform: none !important;
+    z-index: 6 !important;
+}
+.locale-banner__inner .homepage-flags .homepage-flag:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.12) !important;
+}
+.flag-link { line-height: 0; display: inline-block; }
+@media (max-width: 900px) {
+    .locale-banner__inner .homepage-flags .homepage-flag { width: 36px !important; max-height:36px !important; }
+}
+@media (max-width: 520px) {
+    .locale-banner__inner .homepage-flags .homepage-flag { width: 28px !important; max-height:28px !important; }
+}
+
+/* Strong override to ensure image files render as icons */
+img.homepage-flag,
+.locale-banner__inner .homepage-flags img.homepage-flag {
+    width: 48px !important;
+    height: auto !important;
+    max-height: 48px !important;
+    display: inline-block !important;
+    object-fit: contain !important;
+}
+@media (max-width: 900px) {
+    img.homepage-flag,
+    .locale-banner__inner .homepage-flags img.homepage-flag { width: 36px !important; max-height:36px !important; }
+}
+@media (max-width: 520px) {
+    img.homepage-flag,
+    .locale-banner__inner .homepage-flags img.homepage-flag { width: 28px !important; max-height:28px !important; }
+}
+
+/* On wider screens make the search and flags inline */
+@media (min-width: 900px) {
+    .locale-banner__inner { flex-direction: row; justify-content: center; align-items: center; }
+    .search-wrap { width: 520px; max-width: 60%; }
+    .locale-banner__row { width: auto; display: flex; align-items: center; justify-content: center; gap: 1rem; }
+}
+
 
 
