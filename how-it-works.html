@@ -13,17 +13,29 @@
             <div class="logo">
                 <img src="assets/images/Anidaso logo.png" alt="Anidaso Logo" class="logo-img">
             </div>
+            <div class="header-flags" aria-label="Choose country">
+              <a href="_membership/uk.html" class="flag-link" aria-label="United Kingdom membership page">
+                <img src="assets/images/flag-uk.svg" class="homepage-flag" alt="United Kingdom flag">
+              </a>
+              <a href="_membership/ghana.html" class="flag-link" aria-label="Ghana membership page">
+                <img src="assets/images/flag-ghana.svg" class="homepage-flag" alt="Ghana flag">
+              </a>
+            </div>
             <ul class="nav-menu" id="primary-nav">
               <li><a href="index.html" class="nav-link">Home</a></li>
               <li><a href="about.html" class="nav-link">About</a></li>
               <li><a href="how-it-works.html" class="nav-link">How it works</a></li>
               <li class="has-dropdown">
                 <a href="membership.html" class="nav-link" aria-haspopup="true" aria-expanded="false">Membership</a>
-                <button class="dropdown-toggle" type="button" aria-expanded="false" aria-label="Toggle membership menu">▾</button>
-                <ul class="dropdown" role="menu" aria-label="Membership options">
-                        <li><a href="_membership/uk.html" class="dropdown-link" role="menuitem">Uk</a></li>
-                        <li><a href="_membership/ghana.html" class="dropdown-link" role="menuitem">Ghana</a></li>
-                </ul>
+                <button class="dropdown-toggle" type="button" aria-expanded="false" aria-label="Toggle membership menu">
+                  <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                    <path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </button>
+                <div class="dropdown" role="menu" aria-label="Membership options">
+                  <a href="_membership/uk.html" class="dropdown-link" role="menuitem">United Kingdom</a>
+                  <a href="_membership/ghana.html" class="dropdown-link" role="menuitem">Ghana</a>
+                </div>
               </li>
               <li><a href="governance.html" class="nav-link">Governance</a></li>
             </ul>

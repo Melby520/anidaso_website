@@ -71,25 +71,101 @@ navLinks.forEach(link => {
     // No keyboard toggle here; dropdowns are opened via the separate toggle button
 });
 
-// Dropdown toggle buttons: open/close the menu when clicked (and support keyboard)
-const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
-dropdownToggles.forEach(btn => {
+// Dropdown toggle buttons: initialize ARIA, open/close on click, support keyboard (Enter/Space/Escape)
+const dropdownToggles = Array.from(document.querySelectorAll('.dropdown-toggle'));
+dropdownToggles.forEach((btn, idx) => {
+    const parent = btn.closest('.has-dropdown');
+    if (!parent) return;
+
+    // initialize ARIA attributes
+    btn.setAttribute('aria-haspopup', 'true');
+    btn.setAttribute('aria-expanded', btn.getAttribute('aria-expanded') || 'false');
+
+    const dropdown = parent.querySelector('.dropdown');
+    if (dropdown) {
+        if (!dropdown.id) dropdown.id = `membership-dropdown-${idx}`;
+        btn.setAttribute('aria-controls', dropdown.id);
+    }
+
     btn.addEventListener('click', (e) => {
-        const parent = btn.closest('.has-dropdown');
-        if (!parent) return;
         const isOpen = parent.classList.toggle('open');
-        // Reflect state on both toggle and parent nav-link for accessibility
         btn.setAttribute('aria-expanded', String(isOpen));
         const link = parent.querySelector('.nav-link');
         if (link) link.setAttribute('aria-expanded', String(isOpen));
+        if (isOpen && dropdown) {
+            const first = dropdown.querySelector('.dropdown-link');
+            if (first) first.focus();
+        }
     });
+
     btn.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
             btn.click();
+        } else if (e.key === 'Escape' || e.key === 'Esc') {
+            parent.classList.remove('open');
+            btn.setAttribute('aria-expanded', 'false');
+            const link = parent.querySelector('.nav-link');
+            if (link) link.setAttribute('aria-expanded', 'false');
+            btn.focus();
         }
     });
 });
+
+// Global Escape handler: close any open dropdowns
+document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    const openParents = document.querySelectorAll('.has-dropdown.open');
+    openParents.forEach(parent => {
+        parent.classList.remove('open');
+        const btn = parent.querySelector('.dropdown-toggle');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+        const link = parent.querySelector('.nav-link');
+        if (link) link.setAttribute('aria-expanded', 'false');
+    });
+});
+
+// Hover support for pointer-capable devices: open dropdown on hover and sync ARIA
+try {
+    if (window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        document.querySelectorAll('.has-dropdown').forEach(parent => {
+            parent.addEventListener('mouseenter', () => {
+                parent.classList.add('open');
+                const btn = parent.querySelector('.dropdown-toggle');
+                if (btn) btn.setAttribute('aria-expanded', 'true');
+                const link = parent.querySelector('.nav-link');
+                if (link) link.setAttribute('aria-expanded', 'true');
+            });
+            parent.addEventListener('mouseleave', () => {
+                parent.classList.remove('open');
+                const btn = parent.querySelector('.dropdown-toggle');
+                if (btn) btn.setAttribute('aria-expanded', 'false');
+                const link = parent.querySelector('.nav-link');
+                if (link) link.setAttribute('aria-expanded', 'false');
+            });
+        });
+    }
+} catch (e) { /* ignore in older browsers */ }
+
+// If device supports hover, sync ARIA and .open on mouse enter/leave
+if (window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    document.querySelectorAll('.has-dropdown').forEach(parent => {
+        parent.addEventListener('mouseenter', () => {
+            parent.classList.add('open');
+            const btn = parent.querySelector('.dropdown-toggle');
+            if (btn) btn.setAttribute('aria-expanded', 'true');
+            const link = parent.querySelector('.nav-link');
+            if (link) link.setAttribute('aria-expanded', 'true');
+        });
+        parent.addEventListener('mouseleave', () => {
+            parent.classList.remove('open');
+            const btn = parent.querySelector('.dropdown-toggle');
+            if (btn) btn.setAttribute('aria-expanded', 'false');
+            const link = parent.querySelector('.nav-link');
+            if (link) link.setAttribute('aria-expanded', 'false');
+        });
+    });
+}
 
 // Toggle dropdowns via click and close when clicking outside
 document.addEventListener('click', (e) => {
@@ -109,6 +185,35 @@ document.addEventListener('click', (e) => {
             }
         });
     }
+});
+
+// Allow clicking the top-level nav link itself to toggle its dropdown (prevent navigation)
+document.querySelectorAll('.has-dropdown').forEach(parent => {
+    const link = parent.querySelector('.nav-link');
+    const dropdown = parent.querySelector('.dropdown');
+    const toggleBtn = parent.querySelector('.dropdown-toggle');
+    if (!link || !dropdown) return;
+
+    link.addEventListener('click', (e) => {
+        // Prevent following the href and toggle the menu instead
+        e.preventDefault();
+        const isOpen = parent.classList.toggle('open');
+        if (toggleBtn) toggleBtn.setAttribute('aria-expanded', String(isOpen));
+        link.setAttribute('aria-expanded', String(isOpen));
+        if (isOpen) {
+            const first = dropdown.querySelector('.dropdown-link');
+            if (first) first.focus();
+        } else {
+            link.focus();
+        }
+    });
+
+    link.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            link.click();
+        }
+    });
 });
 
 // Set active nav link based on current filename (multi-page support)
@@ -183,27 +288,31 @@ window.addEventListener('scroll', () => {
     });
 });
 
-// Button click handlers
-const joinBtn = document.querySelector('.btn-primary');
-const howItWorksBtn = document.querySelector('.btn-secondary');
+// Hero CTA handling: smooth-scroll to in-page sections when available, otherwise navigate
+document.querySelectorAll('.hero a.btn, .hero .btn').forEach(btn => {
+    btn.addEventListener('click', function (e) {
+        const href = this.getAttribute('href') || '';
+        if (!href) return;
+        // Prevent immediate navigation so we can decide behavior
+        e.preventDefault();
 
-if (joinBtn) {
-    joinBtn.addEventListener('click', () => {
-        alert('Redirecting to Join Anidaso page...');
-        // window.location.href = '#membership';
-    });
-}
+        const parts = href.split('#');
+        const hash = parts[1];
 
-if (howItWorksBtn) {
-    howItWorksBtn.addEventListener('click', () => {
-        const howItWorksSection = document.querySelector('#how-it-works');
-        if (howItWorksSection) {
-            howItWorksSection.scrollIntoView({ behavior: 'smooth' });
-        } else {
-            alert('Redirecting to How it works page...');
+        if (hash) {
+            const target = document.getElementById(hash);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                // update hash without causing an extra jump
+                try { history.replaceState && history.replaceState(null, '', '#' + hash); } catch (err) { /* ignore */ }
+                return;
+            }
         }
+
+        // If no in-page target, navigate to the href (same or other page)
+        window.location.href = href;
     });
-}
+});
 
 // Smooth scroll for all anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -322,6 +431,8 @@ function createPagination(container, pageSize) {
     container.parentNode.insertBefore(controls, container.nextSibling);
     showPage(1);
 }
+
+/* Chat widget removed per request. */
 
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.paginated').forEach(el => {
