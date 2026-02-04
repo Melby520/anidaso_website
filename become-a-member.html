@@ -13,25 +13,17 @@
     </style>
   </head>
   <body>
-    <nav class="navbar">
+    <nav class="navbar" role="navigation" aria-label="Primary">
       <div class="nav-container">
-        <div class="logo">
+        <a class="logo" href="index.html" aria-label="Anidaso Home">
           <img src="assets/images/Anidaso logo.png" alt="Anidaso Logo" class="logo-img">
-        </div>
-        <div class="header-flags" aria-label="Choose country">
-          <a href="_membership/uk.html" class="flag-link" aria-label="United Kingdom membership page">
-            <img src="assets/images/flag-uk.svg" class="homepage-flag" alt="United Kingdom flag">
-          </a>
-          <a href="_membership/ghana.html" class="flag-link" aria-label="Ghana membership page">
-            <img src="assets/images/flag-ghana.svg" class="homepage-flag" alt="Ghana flag">
-          </a>
-        </div>
-        <ul class="nav-menu">
+        </a>
+        <ul class="nav-menu" id="primary-nav">
           <li><a href="index.html" class="nav-link">Home</a></li>
-          <li><a href="index.html#about" class="nav-link">About</a></li>
-          <li><a href="index.html#how-it-works" class="nav-link">How it works</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="how-it-works.html" class="nav-link">How it works</a></li>
           <li class="has-dropdown">
-            <a href="index.html#membership" class="nav-link" aria-haspopup="true" aria-expanded="false">Membership</a>
+            <a href="membership.html" class="nav-link" aria-haspopup="true" aria-expanded="false">Membership</a>
             <button class="dropdown-toggle" type="button" aria-expanded="false" aria-label="Toggle membership menu">
               <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
                 <path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
@@ -42,13 +34,13 @@
                         <a href="_membership/ghana.html" class="dropdown-link" role="menuitem">Ghana</a>
             </div>
           </li>
-          <li><a href="index.html#governance" class="nav-link">Governance</a></li>
+          <li><a href="governance.html" class="nav-link">Governance</a></li>
         </ul>
-        <div class="hamburger">
+        <button class="hamburger" type="button" aria-label="Menu" aria-controls="primary-nav" aria-expanded="false">
           <span></span>
           <span></span>
           <span></span>
-        </div>
+        </button>
       </div>
     </nav>
 
@@ -69,7 +61,7 @@
 
         <p>Membership is open to individuals and families of all ages and backgrounds. Being a member means standing together with others to ensure that no family faces loss alone.</p>
 
-        <a class="back" href="index.html#how-it-works">← Back to How it works</a>
+        <a class="back" href="how-it-works.html">← Back to How it works</a>
       </article>
     </main>
 

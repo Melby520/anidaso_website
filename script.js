@@ -3,10 +3,47 @@ const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
 const navLinks = document.querySelectorAll('.nav-link');
 
+const supportsHover = (() => {
+    try {
+        return window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    } catch {
+        return false;
+    }
+})();
+
+function closeMobileMenu({ focusHamburger = false } = {}) {
+    if (!navMenu || !hamburger) return;
+    navMenu.classList.remove('active');
+    hamburger.classList.remove('active');
+    hamburger.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('menu-open');
+    const overlay = document.querySelector('.mobile-menu-overlay');
+    if (overlay) {
+        overlay.classList.remove('active');
+        setTimeout(() => overlay.remove(), 260);
+    }
+    if (focusHamburger) hamburger.focus();
+}
+
+function setDropdownOpen(parent, open) {
+    if (!parent) return;
+    parent.classList.toggle('open', open);
+    const btn = parent.querySelector('.dropdown-toggle');
+    if (btn) btn.setAttribute('aria-expanded', String(open));
+    const link = parent.querySelector('.nav-link');
+    if (link) link.setAttribute('aria-expanded', String(open));
+}
+
+function closeAllDropdowns(exceptParent = null) {
+    document.querySelectorAll('.has-dropdown.open').forEach(parent => {
+        if (exceptParent && parent === exceptParent) return;
+        setDropdownOpen(parent, false);
+    });
+}
+
 // Toggle mobile menu
 if (hamburger) {
     hamburger.addEventListener('click', () => {
-        console.log('hamburger clicked');
         const opened = navMenu.classList.toggle('active');
         hamburger.classList.toggle('active');
         hamburger.setAttribute('aria-expanded', String(opened));
@@ -23,25 +60,13 @@ if (hamburger) {
         if (!overlay) {
             overlay = document.createElement('div');
             overlay.className = 'mobile-menu-overlay';
-            overlay.addEventListener('click', () => {
-                navMenu.classList.remove('active');
-                hamburger.classList.remove('active');
-                hamburger.setAttribute('aria-expanded', 'false');
-                overlay.classList.remove('active');
-                document.body.classList.remove('menu-open');
-                setTimeout(() => overlay.remove(), 260);
-                hamburger.focus();
-            });
             document.body.appendChild(overlay);
             requestAnimationFrame(() => overlay.classList.add('active'));
         } else {
             if (navMenu.classList.contains('active')) {
                 overlay.classList.add('active');
             } else {
-                overlay.classList.remove('active');
-                document.body.classList.remove('menu-open');
-                setTimeout(() => overlay.remove(), 260);
-                hamburger.focus();
+                closeMobileMenu({ focusHamburger: true });
             }
         }
 
@@ -53,22 +78,38 @@ if (hamburger) {
     });
 }
 
+// Close mobile menu when clicking outside the menu (overlay is visual-only)
+document.addEventListener('click', (e) => {
+    if (!navMenu || !hamburger) return;
+    if (!navMenu.classList.contains('active')) return;
+
+    const clickedMenu = e.target.closest('.nav-menu');
+    const clickedHamburger = e.target.closest('.hamburger');
+    if (clickedMenu || clickedHamburger) return;
+
+    closeMobileMenu({ focusHamburger: false });
+});
+
 // Close menu when link is clicked
 navLinks.forEach(link => {
     link.addEventListener('click', (e) => {
         // Close mobile menu after navigation (allow links to navigate normally)
-        navMenu.classList.remove('active');
-        hamburger.classList.remove('active');
-        hamburger.setAttribute('aria-expanded', 'false');
-        const overlay = document.querySelector('.mobile-menu-overlay');
-        if (overlay) {
-            overlay.classList.remove('active');
-            setTimeout(() => overlay.remove(), 260);
-        }
-        document.body.classList.remove('menu-open');
-        hamburger.focus();
+        // Note: submenu expansion is handled by the dedicated `.dropdown-toggle` button.
+        closeMobileMenu();
     });
     // No keyboard toggle here; dropdowns are opened via the separate toggle button
+});
+
+// Close mobile menu when a dropdown link is clicked
+document.querySelectorAll('.dropdown-link').forEach(link => {
+    link.addEventListener('click', () => {
+        const href = link.getAttribute('href') || '';
+        // For normal page navigation, let the browser handle it.
+        // Only close menus on hash-links or empty links.
+        if (href && !href.startsWith('#')) return;
+        closeMobileMenu();
+        closeAllDropdowns();
+    });
 });
 
 // Dropdown toggle buttons: initialize ARIA, open/close on click, support keyboard (Enter/Space/Escape)
@@ -88,10 +129,10 @@ dropdownToggles.forEach((btn, idx) => {
     }
 
     btn.addEventListener('click', (e) => {
-        const isOpen = parent.classList.toggle('open');
-        btn.setAttribute('aria-expanded', String(isOpen));
-        const link = parent.querySelector('.nav-link');
-        if (link) link.setAttribute('aria-expanded', String(isOpen));
+        e.preventDefault();
+        const isOpen = !parent.classList.contains('open');
+        closeAllDropdowns(parent);
+        setDropdownOpen(parent, isOpen);
         if (isOpen && dropdown) {
             const first = dropdown.querySelector('.dropdown-link');
             if (first) first.focus();
@@ -103,10 +144,7 @@ dropdownToggles.forEach((btn, idx) => {
             e.preventDefault();
             btn.click();
         } else if (e.key === 'Escape' || e.key === 'Esc') {
-            parent.classList.remove('open');
-            btn.setAttribute('aria-expanded', 'false');
-            const link = parent.querySelector('.nav-link');
-            if (link) link.setAttribute('aria-expanded', 'false');
+            setDropdownOpen(parent, false);
             btn.focus();
         }
     });
@@ -115,96 +153,55 @@ dropdownToggles.forEach((btn, idx) => {
 // Global Escape handler: close any open dropdowns
 document.addEventListener('keydown', (e) => {
     if (e.key !== 'Escape') return;
-    const openParents = document.querySelectorAll('.has-dropdown.open');
-    openParents.forEach(parent => {
-        parent.classList.remove('open');
-        const btn = parent.querySelector('.dropdown-toggle');
-        if (btn) btn.setAttribute('aria-expanded', 'false');
-        const link = parent.querySelector('.nav-link');
-        if (link) link.setAttribute('aria-expanded', 'false');
-    });
+    closeAllDropdowns();
+    closeMobileMenu();
 });
 
 // Hover support for pointer-capable devices: open dropdown on hover and sync ARIA
-try {
-    if (window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-        document.querySelectorAll('.has-dropdown').forEach(parent => {
-            parent.addEventListener('mouseenter', () => {
-                parent.classList.add('open');
-                const btn = parent.querySelector('.dropdown-toggle');
-                if (btn) btn.setAttribute('aria-expanded', 'true');
-                const link = parent.querySelector('.nav-link');
-                if (link) link.setAttribute('aria-expanded', 'true');
-            });
-            parent.addEventListener('mouseleave', () => {
-                parent.classList.remove('open');
-                const btn = parent.querySelector('.dropdown-toggle');
-                if (btn) btn.setAttribute('aria-expanded', 'false');
-                const link = parent.querySelector('.nav-link');
-                if (link) link.setAttribute('aria-expanded', 'false');
-            });
-        });
-    }
-} catch (e) { /* ignore in older browsers */ }
-
-// If device supports hover, sync ARIA and .open on mouse enter/leave
-if (window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+if (supportsHover) {
     document.querySelectorAll('.has-dropdown').forEach(parent => {
         parent.addEventListener('mouseenter', () => {
-            parent.classList.add('open');
-            const btn = parent.querySelector('.dropdown-toggle');
-            if (btn) btn.setAttribute('aria-expanded', 'true');
-            const link = parent.querySelector('.nav-link');
-            if (link) link.setAttribute('aria-expanded', 'true');
+            closeAllDropdowns(parent);
+            setDropdownOpen(parent, true);
         });
         parent.addEventListener('mouseleave', () => {
-            parent.classList.remove('open');
-            const btn = parent.querySelector('.dropdown-toggle');
-            if (btn) btn.setAttribute('aria-expanded', 'false');
-            const link = parent.querySelector('.nav-link');
-            if (link) link.setAttribute('aria-expanded', 'false');
+            setDropdownOpen(parent, false);
         });
     });
 }
 
 // Toggle dropdowns via click and close when clicking outside
 document.addEventListener('click', (e) => {
-    const dropdownParents = document.querySelectorAll('.has-dropdown');
-    let clickedInsideAny = false;
-
-    dropdownParents.forEach(parent => {
-        if (parent.contains(e.target)) clickedInsideAny = true;
-    });
-
-    if (!clickedInsideAny) {
-        dropdownParents.forEach(parent => {
-            if (parent.classList.contains('open')) {
-                parent.classList.remove('open');
-                const link = parent.querySelector('.nav-link');
-                if (link) link.setAttribute('aria-expanded', 'false');
-            }
-        });
-    }
+    const clickedInsideDropdown = e.target.closest('.has-dropdown');
+    if (!clickedInsideDropdown) closeAllDropdowns();
 });
 
-// Allow clicking the top-level nav link itself to toggle its dropdown (prevent navigation)
+// (Optional legacy support) If a dropdown's top-level link is an in-page anchor,
+// allow tapping it to toggle the submenu on touch/mobile. Normal page links should navigate.
 document.querySelectorAll('.has-dropdown').forEach(parent => {
     const link = parent.querySelector('.nav-link');
     const dropdown = parent.querySelector('.dropdown');
     const toggleBtn = parent.querySelector('.dropdown-toggle');
     if (!link || !dropdown) return;
 
+    const href = link.getAttribute('href') || '';
+    if (!href.startsWith('#')) return;
+
     link.addEventListener('click', (e) => {
-        // Prevent following the href and toggle the menu instead
-        e.preventDefault();
-        const isOpen = parent.classList.toggle('open');
-        if (toggleBtn) toggleBtn.setAttribute('aria-expanded', String(isOpen));
-        link.setAttribute('aria-expanded', String(isOpen));
-        if (isOpen) {
-            const first = dropdown.querySelector('.dropdown-link');
-            if (first) first.focus();
-        } else {
-            link.focus();
+        const mobileMenuOpen = navMenu && navMenu.classList.contains('active');
+
+        // If we're in the mobile menu OR the device is touch-first, treat hash-link as a submenu toggle.
+        if (!supportsHover || mobileMenuOpen) {
+            e.preventDefault();
+            const isOpen = !parent.classList.contains('open');
+            closeAllDropdowns(parent);
+            setDropdownOpen(parent, isOpen);
+            if (isOpen) {
+                const first = dropdown.querySelector('.dropdown-link');
+                if (first) first.focus();
+            } else {
+                link.focus();
+            }
         }
     });
 
