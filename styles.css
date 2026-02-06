@@ -116,7 +116,8 @@ section[id] {
 
 /* Locale / Search banner (matches screenshot) */
 .locale-banner {
-    background: linear-gradient(180deg, #f6d7d9 0%, #f2cfd3 100%);
+    /* pink gradient (increased intensity) */
+    background: linear-gradient(180deg, rgba(246,215,217,0.34) 0%, rgba(242,207,211,0.34) 100%);
     padding: 56px 0 40px;
 }
 .locale-banner__inner {
@@ -139,7 +140,7 @@ section[id] {
 .search-wrap {
     width: 620px;
     max-width: 92%;
-    background: #fff;
+    background: #f5f5f5;
     display: flex;
     align-items: center;
     padding: 14px 18px;
@@ -239,7 +240,7 @@ section[id] {
         gap: 2.25rem;
         align-items: center;
         padding: 2.5rem;
-        background: var(--page-bg);
+        background: #e8a723;
         border-radius: 14px;
         color: var(--dark-text);
         box-shadow: 0 12px 36px rgba(0,0,0,0.12);
@@ -310,11 +311,93 @@ section[id] {
         margin-bottom: 0.6rem;
     }
 
+    /* Remove underlines for How it works step links and for links inside page articles
+       Targets: how-it-works steps (.how-step / .how-link) and article.page (register, become-a-member,
+       monthly-contribution, community-support) */
+    .how-step,
+    .how-step:link,
+    .how-step:visited,
+    .how-step:hover,
+    .how-link,
+    .how-steps a {
+        text-decoration: none;
+    }
+
+    .page a,
+    .page a:link,
+    .page a:visited,
+    .page a:hover {
+        text-decoration: none;
+    }
+
     .how-why__copy {
         font-size: 1.05rem;
         line-height: 1.85;
         color: var(--dark-text);
     }
+
+/* Tint and add padding around the How hero image container */
+.wide-image.how-hero {
+    padding: 1rem;
+    background: linear-gradient(180deg, rgba(246,215,217,0.34) 0%, rgba(242,207,211,0.34) 100%);
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+}
+
+/* Tint the How It Works container with a subtle pink (do NOT affect the Why-join panel) */
+#how-it-works .content {
+    background: linear-gradient(180deg, rgba(246,215,217,0.28) 0%, rgba(242,207,211,0.28) 100%);
+    padding: 1.25rem;
+    border-radius: 12px;
+}
+
+/* Tint the Governance page content with the same subtle pink */
+#governance .content {
+    background: linear-gradient(180deg, rgba(246,215,217,0.28) 0%, rgba(242,207,211,0.28) 100%);
+    padding: 1.25rem;
+    border-radius: 12px;
+}
+
+/* Governance page specific tweaks */
+.page-governance .btn.btn-primary {
+    color: var(--white) !important;
+}
+
+/* Ensure membership submit buttons (UK / Ghana) display primary red with white text */
+.membership .btn--primary-red,
+.form-actions .btn--primary-red,
+.form-grid .btn--primary-red {
+    background: var(--primary-red) !important;
+    color: #ffffff !important;
+    border-color: rgba(0,0,0,0.06) !important;
+}
+
+/* Tint the About page background to a soft pink */
+body.page-about {
+    background: linear-gradient(180deg, rgba(246,215,217,0.34) 0%, rgba(242,207,211,0.34) 100%);
+}
+
+/* Tint the Membership page content with the same subtle pink */
+#membership .content, .content.membership {
+    background: linear-gradient(180deg, rgba(246,215,217,0.28) 0%, rgba(242,207,211,0.28) 100%);
+    padding: 1.25rem;
+    border-radius: 12px;
+}
+
+/* Why Join Anidaso — use solid brand yellow for the panel */
+.how-why {
+    background: #e8a723 !important;
+    padding: 1rem !important;
+    border-radius: 12px !important;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.06) !important;
+    color: var(--white) !important;
+}
+
+/* Ensure headings and links inside the yellow panel are readable */
+.how-why h2,
+.how-why h3,
+.how-why p { color: var(--white) !important; }
+.how-why a { color: rgba(255,255,255,0.95) !important; }
 
     @media (max-width: 900px) {
         .how-why {
@@ -347,6 +430,25 @@ body {
     color: var(--dark-text);
     line-height: 1.6;
     padding-bottom: var(--footer-height);
+    /* full-page pink gradient (slightly stronger) */
+    background: linear-gradient(180deg, rgba(246,215,217,0.20) 0%, rgba(242,207,211,0.20) 100%);
+    min-height: 100vh;
+    background-attachment: fixed;
+}
+
+/* Page panels: subtle tinted background for content areas and inset panels for text */
+.page {
+    background: linear-gradient(180deg, rgba(246,215,217,0.28) 0%, rgba(242,207,211,0.28) 100%);
+    padding: 1.5rem;
+    border-radius: 12px;
+}
+.page .panel,
+.content-panel {
+    background: rgba(255,255,255,0.96);
+    padding: 1.25rem;
+    border-radius: 10px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+    color: var(--dark-text);
 }
 
 /* Navbar Styles */
@@ -373,6 +475,17 @@ body {
     margin: 0 auto;
     padding: 0 2rem;
     overflow: visible; /* allow absolute dropdowns to extend outside container */
+}
+
+/* Utility button: primary-red variant for important actions */
+.btn--primary-red {
+    background: var(--primary-red) !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+.btn--primary-red:hover,
+.btn--primary-red:focus {
+    filter: brightness(0.95);
 }
 
 .logo {
@@ -469,7 +582,7 @@ body {
 .hamburger span {
     width: 25px;
     height: 3px;
-    background: var(--white);
+    background: #f5f5f5;
     margin: 5px 0;
     border-radius: 2px;
     transition: var(--transition);
@@ -688,7 +801,7 @@ body {
 }
 
 .btn-secondary {
-    background: var(--white);
+    background: #f5f5f5;
     color: var(--primary-red);
     box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
 }
@@ -899,7 +1012,7 @@ body {
     margin: 1.25rem 0 2rem;
 }
 .pagination button {
-    background: var(--white);
+    background: #f5f5f5;
     border: 1px solid rgba(0,0,0,0.08);
     padding: 0.45rem 0.7rem;
     border-radius: 6px;
@@ -951,7 +1064,7 @@ body {
 }
 
 .about-card {
-    background: var(--white);
+    background: #f5f5f5;
     padding: 2rem;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -1130,11 +1243,11 @@ body {
     font-weight: 800;
 }
 
-.how-why {
+    .how-why {
     margin-top: 2rem;
     margin-bottom: 2rem;
     padding: 2.5rem;
-    background-color: var(--page-bg);
+    background: #e8a723;
     border-radius: 12px;
     display: flex;
     gap: 3rem;
@@ -1185,7 +1298,7 @@ body {
 }
 
 .how-why__icon-item {
-    background: var(--white);
+    background: #f5f5f5;
     padding: 1.25rem;
     border-radius: 8px;
     display: flex;
@@ -1285,7 +1398,7 @@ body {
 }
 
 .form-card {
-    background: var(--white);
+    background: #f5f5f5;
     padding: 2rem;
     border-radius: 16px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.08);
@@ -1343,7 +1456,7 @@ body {
     border: 1.5px solid rgba(0,0,0,0.1);
     border-radius: 10px;
     font-size: 0.95rem;
-    background: linear-gradient(135deg, #fafafa 0%, #ffffff 100%);
+    background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
     transition: all 0.2s ease;
     font-family: inherit;
 }
@@ -1354,13 +1467,13 @@ body {
     border-color: rgba(var(--primary-red-rgb), 0.3);
 }
 
-.row input:focus,
-.row select:focus,
-.row textarea:focus {
+row input:focus,
+row select:focus,
+row textarea:focus {
     outline: none;
     border-color: var(--primary-red);
     box-shadow: 0 8px 24px rgba(var(--primary-red-rgb), 0.15);
-    background: var(--white);
+    background: #f5f5f5;
 }
 
 .checks .tick,
@@ -1450,7 +1563,7 @@ body {
 }
 
 .membership__card {
-    background: var(--white);
+    background: #f5f5f5;
     padding: 2rem;
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -1508,7 +1621,7 @@ body {
 }
 
 .tier {
-    background: var(--white);
+    background: #f5f5f5;
     padding: 2rem;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -1563,7 +1676,7 @@ body {
 /* Governance Section */
 .governance {
     padding: 5rem 2rem;
-    background: var(--white);
+    background: #f5f5f5;
 }
 
 .governance h2 {
@@ -1609,7 +1722,7 @@ body {
 /* Why Anidaso Works Section */
 .why-anidaso {
     padding: 5rem 2rem;
-    background: var(--white);
+    background: #f5f5f5;
 }
 
 .why-anidaso h2 {
@@ -1673,7 +1786,7 @@ body {
 }
 
 .feature-card {
-    background: var(--white);
+    background: #f5f5f5;
     padding: 2rem;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -1695,7 +1808,7 @@ body {
 /* Features Section - What Sets Anidaso Apart */
 .features {
     padding: 5rem 2rem;
-    background: var(--white);
+    background: #f5f5f5;
     max-width: 100%;
 }
 
@@ -1715,7 +1828,7 @@ body {
 }
 
 .feature-card {
-    background: var(--white);
+    background: #f5f5f5;
     padding: 2rem;
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -1786,7 +1899,7 @@ body {
 /* Trust Section */
 .trust {
     padding: 5rem 2rem;
-    background: var(--white);
+    background: #f5f5f5;
 }
 
 .trust h2 {
@@ -1860,7 +1973,7 @@ body {
 }
 
 .structure-tab {
-    background: var(--white);
+    background: #f5f5f5;
     padding: 2rem;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -1900,7 +2013,7 @@ body {
 /* Locations Section */
 .locations {
     padding: 5rem 2rem;
-    background: var(--white);
+    background: #f5f5f5;
 }
 
 .locations h2 {
@@ -1974,7 +2087,7 @@ body {
 
 .join-step {
     text-align: center;
-    background: var(--white);
+    background: #f5f5f5;
     padding: 2rem;
     border-radius: 8px;
     transition: var(--transition);
@@ -2123,7 +2236,7 @@ body {
         width: 48px;
         height: 48px;
         padding: 8px;
-        background: var(--white);
+        background: #f5f5f5;
         border: 0;
         border-radius: 10px;
         z-index: 20020; /* above overlay and menu */
@@ -2150,7 +2263,7 @@ body {
         max-width: 100%;
         transform: translateY(-110%);
         flex-direction: column;
-        background: var(--white);
+        background: #f5f5f5;
         text-align: left;
         transition: transform 0.28s ease;
         padding: 1rem 1rem 1.5rem 1rem;
@@ -2207,18 +2320,18 @@ body {
     .nav-menu > li.has-dropdown > .dropdown-toggle { margin-left: auto; }
 
     .dropdown-toggle {
-        border: 1px solid rgba(var(--primary-red-rgb), 0.22);
-        background: rgba(var(--primary-red-rgb), 0.06);
-        color: var(--primary-red);
+        border: 1px solid rgba(232,167,35,0.22);
+        background: rgba(232,167,35,0.06);
+        color: var(--accent-orange);
     }
 
     .dropdown-toggle:hover {
-        background: rgba(var(--primary-red-rgb), 0.10);
+        background: rgba(232,167,35,0.10);
     }
 
     .dropdown-toggle:focus {
         outline: none;
-        box-shadow: 0 0 0 4px rgba(var(--primary-red-rgb), 0.18);
+        box-shadow: 0 0 0 4px rgba(232,167,35,0.18);
     }
 }
 
@@ -2233,7 +2346,7 @@ body {
         width: 48px;
         height: 48px;
         padding: 8px;
-        background: var(--white);
+        background: #f5f5f5;
         border: 0;
         border-radius: 8px;
         z-index: 20020; /* above overlay and menu */
@@ -2262,7 +2375,7 @@ body {
         /* start hidden above, slide down on active */
         transform: translateY(-110%);
         flex-direction: column;
-        background: var(--white);
+        background: #f5f5f5;
         text-align: left;
         transition: transform 0.28s ease;
         padding: 1rem 1rem 1.5rem 1rem;
@@ -2396,17 +2509,17 @@ body {
     padding: 0;
     margin-left: 8px;
     background: transparent;
-    border: 1px solid rgba(255,255,255,0.14);
-    color: #fff;
+    border: 1px solid var(--accent-orange);
+    color: var(--accent-orange);
     font-size: 0.95rem;
     border-radius: 10px;
     cursor: pointer;
     line-height: 1;
     transition: transform 0.18s ease, background-color 0.18s ease, box-shadow 0.18s ease, color 0.12s ease;
 }
-.dropdown-toggle svg { display: block; }
+.dropdown-toggle svg { display: block; fill: var(--accent-orange); }
 .dropdown-toggle { margin-top: -1px; }
-.dropdown-toggle:focus { outline: none; box-shadow: 0 0 0 4px rgba(255,212,64,0.08); }
+.dropdown-toggle:focus { outline: none; box-shadow: 0 0 0 4px rgba(232,167,35,0.12); }
 .has-dropdown.open > .dropdown-toggle { transform: rotate(180deg) scale(1.02); }
 
 /* Mobile: dropdown toggle must be visible on the white hamburger menu */
@@ -2415,19 +2528,19 @@ body {
         width: 44px;
         height: 44px;
         flex: 0 0 auto;
-        border: 1px solid rgba(var(--primary-red-rgb), 0.22);
-        background: rgba(var(--primary-red-rgb), 0.06);
-        color: var(--primary-red);
+        border: 1px solid rgba(232,167,35,0.22);
+        background: rgba(232,167,35,0.06);
+        color: var(--accent-orange);
         box-shadow: 0 8px 20px rgba(0,0,0,0.06);
     }
 
     .nav-menu li.has-dropdown > .dropdown-toggle:hover {
-        background: rgba(var(--primary-red-rgb), 0.10);
+        background: rgba(232,167,35,0.10);
     }
 
     .nav-menu li.has-dropdown > .dropdown-toggle:focus {
         outline: none;
-        box-shadow: 0 0 0 4px rgba(var(--primary-red-rgb), 0.18);
+        box-shadow: 0 0 0 4px rgba(232,167,35,0.18);
     }
 }
 
@@ -2438,6 +2551,7 @@ body {
     left: 0; /* align to the left edge of the parent list item */
     min-width: 240px;
     background: rgba(255,255,255,0.96);
+    background: var(--accent-orange);
     border: 1px solid rgba(15,20,30,0.10);
     border-radius: 14px;
     display: flex;
@@ -2462,7 +2576,7 @@ body {
     left: 18px;
     width: 14px;
     height: 14px;
-    background: rgba(255,255,255,0.96);
+    background: var(--accent-orange);
     border-left: 1px solid rgba(15,20,30,0.10);
     border-top: 1px solid rgba(15,20,30,0.10);
     transform: rotate(45deg);
@@ -2486,7 +2600,7 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-    color: var(--dark-text);
+    color: var(--white);
     padding: 12px 12px;
     text-decoration: none;
     border-radius: 12px;
@@ -2497,7 +2611,9 @@ body {
     transition: background-color 140ms ease, color 120ms ease, transform 120ms ease;
 }
 
-.nav-menu .dropdown-link:visited { color: var(--dark-text); }
+.nav-menu .dropdown-link:visited { color: var(--white); }
+
+.nav-menu .dropdown-link svg { display: inline-block; fill: var(--white); }
 
 /* Ensure dropdown labels keep their exact casing and stack cleanly */
 .nav-menu .dropdown-link { text-transform: none !important; display: block !important; }
@@ -2534,8 +2650,8 @@ ul.dropdown,
 .dropdown li { list-style: none !important; }
 /* Hover state: yellow background, dark text */
 .nav-menu .dropdown-link:hover {
-    background: rgba(var(--primary-red-rgb), 0.08);
-    color: var(--dark-red);
+    background: rgba(255,255,255,0.12);
+    color: var(--white);
     transform: translateY(-1px);
 }
 
@@ -2663,7 +2779,7 @@ body > section { padding-top: 0.5rem; }
 }
 
 .form-card {
-    background: var(--white);
+    background: #f5f5f5;
     padding: 2.5rem;
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
@@ -2771,7 +2887,7 @@ input[type="date"]:focus,
 textarea:focus {
     outline: none;
     border-color: var(--primary-red);
-    background: var(--white);
+    background: #f5f5f5;
     box-shadow: 0 0 0 3px rgba(196, 30, 58, 0.1);
 }
 
@@ -2790,7 +2906,7 @@ textarea {
 
 /* Checkbox and Radio Styles */
 .tick {
-    display: flex;
+    background: #f5f5f5;
     align-items: center;
     gap: 0.75rem;
     cursor: pointer;
@@ -2873,7 +2989,7 @@ input[type="radio"] {
 /* Country Selector Section */
 .country-selector {
     padding: 3rem 2rem;
-    background: var(--white);
+    background: #f5f5f5;
 }
 
 .country-selector__container {
@@ -3035,7 +3151,7 @@ input[type="radio"] {
 
 .trust-notes .bullets,
 .trust-notes .trust-bullets {
-    background: var(--white);
+    background: #f5f5f5;
     padding: 1rem 1.25rem;
     border-radius: 10px;
     box-shadow: 0 10px 30px rgba(8,10,20,0.06);
@@ -3060,7 +3176,7 @@ input[type="radio"] {
 /* Modernized Governance & Trust styling */
 .governance {
     padding: 3.5rem 1rem;
-    background: linear-gradient(180deg,#ffffff 0%, #fcfcfd 100%);
+    background: linear-gradient(180deg,#f5f5f5 0%, #fcfcfd 100%);
 }
 
 .governance .content {
@@ -3117,7 +3233,7 @@ input[type="radio"] {
 
 .governance .trust-notes .bullets,
 .governance .trust-notes .trust-bullets {
-    background: linear-gradient(180deg, #ffffff, #fbfbfc);
+    background: linear-gradient(180deg, #f5f5f5, #fbfbfc);
     padding: 1.25rem 1.5rem;
     border-radius: 12px;
     box-shadow: 0 10px 30px rgba(8,10,20,0.06);
@@ -3203,7 +3319,7 @@ input[type="radio"] {
 }
 
 .governance .trust-notes li {
-    background: linear-gradient(180deg, #fff, #f8f9fb);
+    background: linear-gradient(180deg, #f5f5f5, #f8f9fb);
     border: 1px solid rgba(15,20,30,0.04);
     padding: 0.9rem 1rem;
     border-radius: 10px;
@@ -3315,7 +3431,7 @@ input[type="radio"] {
 /* Join CTA Section */
 .join-cta {
     padding: 5rem 2rem;
-    background: var(--white);
+    background: #f5f5f5;
 }
 
 .hero-card {
@@ -3828,7 +3944,7 @@ input[type="radio"] {
 /* Minimal override: ensure hero secondary button is white with primary red text only */
 .hero .hero-buttons a.btn.btn-secondary,
 .hero .btn.btn-secondary {
-    background: var(--white) !important;
+    background: #f5f5f5 !important;
     color: var(--primary-red) !important;
 }
 
@@ -3903,6 +4019,34 @@ input[type="radio"] {
     transform: translateY(-4px);
     box-shadow: 0 12px 30px rgba(0,0,0,0.12);
 }
+/* Improve UK flag appearance: slightly stronger contrast, subtle border, and crisper shadow */
+.locale-banner__inner .homepage-flags .homepage-flag[src*="flag-uk"] {
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow: 0 14px 36px rgba(0,0,0,0.16);
+    filter: contrast(1.05) saturate(1.12);
+}
+.locale-banner__inner .homepage-flags .homepage-flag[src*="flag-uk"]:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 18px 44px rgba(0,0,0,0.18);
+}
+
+/* Final override: force submit buttons on membership pages to primary red with white text */
+button.btn.btn-primary.btn--primary-red,
+button[type="submit"].btn--primary-red,
+#membership-form-gh .btn--primary-red,
+#membership-form-uk .btn--primary-red {
+    background: var(--primary-red) !important;
+    color: #ffffff !important;
+    border-color: rgba(0,0,0,0.06) !important;
+}
+
+button.btn.btn-primary.btn--primary-red:hover,
+button[type="submit"].btn--primary-red:hover,
+#membership-form-gh .btn--primary-red:hover,
+#membership-form-uk .btn--primary-red:hover {
+    background: var(--dark-red) !important;
+}
 .flag-link { line-height: 0; display: inline-block; }
 @media (max-width: 1200px) {
     .locale-banner__inner .homepage-flags .flag-link { width: 96px; height: 56px; }
@@ -3943,7 +4087,7 @@ input[type="radio"] {
     width: 320px;
     max-width: calc(100vw - 40px);
     height: 420px;
-    background: var(--white);
+    background: #f5f5f5;
     border-radius: 12px;
     box-shadow: 0 18px 40px rgba(0,0,0,0.16);
     display: none;
@@ -3982,19 +4126,19 @@ input[type="radio"] {
 .chat-message.user { justify-content: flex-end; }
 .chat-bubble { max-width: 78%; padding: 0.6rem 0.8rem; border-radius: 10px; display: inline-block; }
 .chat-message.user .chat-bubble { background: var(--primary-red); color: var(--white); border-bottom-right-radius: 2px; }
-.chat-message.bot .chat-bubble { background: #fff; color: #222; border: 1px solid #eee; }
+.chat-message.bot .chat-bubble { background: #f5f5f5; color: #222; border: 1px solid #eee; }
 .chat-sr-only { position: absolute !important; left: -10000px !important; top: auto !important; width: 1px !important; height: 1px !important; overflow: hidden !important; }
 
 /* Modern chat widget styles */
 .chat-widget { position: fixed; right: 18px; bottom: 18px; z-index: 12000; font-family: inherit; }
 .chat-toggle { background: linear-gradient(90deg,var(--primary-red),var(--dark-red)); color: var(--white); width:56px; height:56px; border-radius:50%; border:none; display:inline-flex; align-items:center; justify-content:center; box-shadow:0 12px 30px rgba(0,0,0,0.18); cursor:pointer; }
-.chat-panel { width: 360px; max-width: calc(100vw - 40px); height: 520px; background: linear-gradient(180deg, #ffffff, #fafafa); border-radius: 14px; box-shadow: 0 20px 48px rgba(0,0,0,0.18); display: none; flex-direction: column; overflow: hidden; border: 1px solid rgba(0,0,0,0.06); }
+.chat-panel { width: 360px; max-width: calc(100vw - 40px); height: 520px; background: linear-gradient(180deg, #f5f5f5, #fafafa); border-radius: 14px; box-shadow: 0 20px 48px rgba(0,0,0,0.18); display: none; flex-direction: column; overflow: hidden; border: 1px solid rgba(0,0,0,0.06); }
 .chat-panel.open { display: flex; }
 .chat-header { display:flex; align-items:center; justify-content:space-between; padding: 12px 14px; background: linear-gradient(90deg,var(--primary-red),var(--dark-red)); color: var(--white); }
 .chat-title { font-weight:700; }
 .chat-close { background: transparent; border:none; color: rgba(255,255,255,0.95); font-size:16px; cursor:pointer; }
 .chat-messages { padding: 14px; flex:1 1 auto; overflow-y:auto; background: linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0.01)); }
-.chat-input { display:flex; gap:8px; padding: 10px; border-top: 1px solid rgba(0,0,0,0.06); background: #fff; }
+.chat-input { display:flex; gap:8px; padding: 10px; border-top: 1px solid rgba(0,0,0,0.06); background: #f5f5f5; }
 .chat-input input[type="text"] { flex:1; padding: 10px 12px; border-radius: 10px; border: 1px solid #e6e6e6; }
 .chat-send { background: var(--primary-red); color: var(--white); border: none; padding: 8px 12px; border-radius: 10px; cursor:pointer; }
 .chat-message { margin-bottom: 10px; display:flex; }
@@ -4002,10 +4146,10 @@ input[type="radio"] {
 .chat-message.user { justify-content:flex-end; }
 .chat-bubble { max-width:78%; padding: 10px 12px; border-radius: 12px; display:inline-block; }
 .chat-message.user .chat-bubble { background: var(--primary-red); color: var(--white); border-bottom-right-radius: 4px; }
-.chat-message.bot .chat-bubble { background: #fff; color: #222; border: 1px solid #eee; }
+.chat-message.bot .chat-bubble { background: #f5f5f5; color: #222; border: 1px solid #eee; }
 
 /* Avatar for bot messages */
-.chat-avatar { width: 40px; height: 40px; border-radius: 50%; background: #fff; display: inline-flex; align-items: center; justify-content: center; margin-right: 10px; border: 1px solid rgba(0,0,0,0.06); box-shadow: 0 6px 16px rgba(0,0,0,0.06); }
+.chat-avatar { width: 40px; height: 40px; border-radius: 50%; background: #f5f5f5; display: inline-flex; align-items: center; justify-content: center; margin-right: 10px; border: 1px solid rgba(0,0,0,0.06); box-shadow: 0 6px 16px rgba(0,0,0,0.06); }
 .chat-avatar-emoji { font-size: 18px; line-height: 1; }
 .chat-message.user .chat-bubble { margin-left: 8px; }
 .chat-message.bot .chat-bubble { margin-left: 0; }
@@ -4077,6 +4221,17 @@ input[type="radio"] {
 
 @media (max-width: 520px) {
     .membership-chooser .chooser-btn .chooser-flag { width: 64px; height: 32px; }
+}
+
+/* Back link used on content pages (e.g. register, become-a-member). Make it primary color */
+.back {
+    color: var(--primary-red);
+    text-decoration: none;
+    font-weight: 600;
+}
+.back:hover,
+.back:focus {
+    text-decoration: underline;
 }
 
 @media (max-width: 520px) {

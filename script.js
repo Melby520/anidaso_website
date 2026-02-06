@@ -469,4 +469,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 900);
         });
     });
+    // Ensure any button labeled "Submit application" uses the primary-red styling
+    document.querySelectorAll('button').forEach(btn => {
+        if (!btn.textContent) return;
+        if (btn.textContent.trim().toLowerCase() === 'submit application') {
+            btn.classList.add('btn--primary-red');
+        }
+    });
 });

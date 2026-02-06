@@ -9,9 +9,42 @@
       .page { max-width: 900px; margin: 3rem auto; padding: 2rem; background: #fff; border-radius: 8px; }
       .page h1 { color: var(--primary-red); margin-bottom: 1rem; }
       .page p { margin-bottom: 1rem; line-height: 1.6; }
+      .back { display:inline-block; margin-top:1rem; }
     </style>
   </head>
   <body>
+    <nav class="navbar" role="navigation" aria-label="Primary">
+      <div class="nav-container">
+        <a class="logo" href="index.html" aria-label="Anidaso Home">
+          <img src="assets/images/Anidaso logo.png" alt="Anidaso Logo" class="logo-img">
+        </a>
+        <ul class="nav-menu" id="primary-nav">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="about.html" class="nav-link">About Us</a></li>
+          <li><a href="how-it-works.html" class="nav-link">How it works</a></li>
+          <li class="has-dropdown">
+            <a href="membership.html" class="nav-link" aria-haspopup="true" aria-expanded="false">Membership</a>
+            <button class="dropdown-toggle" type="button" aria-expanded="false" aria-label="Toggle membership menu">
+              <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                <path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+            <div class="dropdown" role="menu" aria-label="Membership options">
+                        <a href="_membership/uk.html" class="dropdown-link" role="menuitem">United Kingdom</a>
+                        <a href="_membership/ghana.html" class="dropdown-link" role="menuitem">Ghana</a>
+            </div>
+          </li>
+          <li><a href="governance.html" class="nav-link">Governance</a></li>
+          <li><a href="contact-us.html" class="nav-link">Contact Us</a></li>
+        </ul>
+        <button class="hamburger" type="button" aria-label="Menu" aria-controls="primary-nav" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </nav>
+
     <main class="container">
       <article class="page">
         <h1>COMMUNITY SUPPORT</h1>
@@ -26,8 +59,40 @@
           <li>Is dependent on fund sustainability at the time of the request</li>
         </ul>
         <p>Anidaso operates as a community-led family protection fund and not an insurance scheme. Community support payments are discretionary and are not guaranteed. This approach helps protect the long-term stability of the fund and the interests of all members.</p>
-        <p><a href="index.html">Return to site</a></p>
+       <a class="back" href="how-it-works.html">← Back to How it works</a>
       </article>
     </main>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+      <div class="footer-content">
+        <div class="footer-section">
+          <img src="assets/images/Anidaso logo.png" alt="Anidaso Logo" class="logo-img">
+        </div>
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="membership.html">Membership</a></li>
+            <li><a href="governance.html">Governance</a></li>
+            <li><a href="contact-us.html">Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Contact Us</h4>
+          <p>Email: info@anidaso.org</p>
+          <p>Phone: Available upon request</p>
+          <!-- Inline chat will be inserted here by script if present -->
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Anidaso Family Protection Fund. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- Chat widget is rendered into the Contact footer section by the script -->
+
+    <script src="script.js"></script>
   </body>
 </html>

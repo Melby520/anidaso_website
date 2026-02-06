@@ -16,7 +16,7 @@
 						</a>
 						<ul class="nav-menu" id="primary-nav">
 								<li><a href="index.html" class="nav-link">Home</a></li>
-								<li><a href="about.html" class="nav-link">About</a></li>
+								<li><a href="about.html" class="nav-link">About Us</a></li>
 								<li><a href="how-it-works.html" class="nav-link">How it works</a></li>
 								<li class="has-dropdown">
 									<a href="membership.html" class="nav-link" aria-haspopup="true" aria-expanded="false">Membership</a>
@@ -69,39 +69,198 @@
 						<ul class="membership__list">
 							<li>
 								<div class="membership__item-strong">GHS 30,000 community support payment</div>
-								<div class="membership__item-sub">Payable to the deceased member’s nominated next of kin, subject to membership terms.</div>
+									<div class="membership__item-sub">Payable to the deceased member’s nominated next of kin, subject to:</div>
+                                <div class="membership__item-sub">A minimum 6 months of active membership</div>
+								<div class="membership__item-sub">Up-to-date monthly contributions</div>
+								<div class="membership__item-sub">Compliance with Anidaso Ghana membership terms</div>
+								<div class="membership__item-sub">Governance and fund sustainability checks at the time of claim</div>
 							</li>
 						</ul>
 					</section>
 				</div>
 			</section>
-		</main>
+		<div class="form-stack" aria-label="Membership registration form" style="margin-top:18px;">
+            <form class="form-grid membership-form" id="membership-form-gh" novalidate data-country="Ghana">
+            <section class="form-card form-card--narrow">
+              <h3 class="form-card__title">MEMBERSHIP REGISTRATION FORM</h3>
+              <h4 class="form-card__subtitle">APPLICANT DETAILS</h4>
 
-		<!-- Footer -->
-		<footer class="footer" role="contentinfo">
-				<div class="footer-content">
-						<div class="footer-section">
-								<img src="assets/images/Anidaso logo.png" alt="Anidaso Logo" class="logo-img">
-						</div>
-						<div class="footer-section">
-								<h4>Quick Links</h4>
-								<ul>
-										<li><a href="index.html">Home</a></li>
-										<li><a href="about.html">About</a></li>
-										<li><a href="membership.html">Membership</a></li>
-										<li><a href="governance.html">Governance</a></li>
-								</ul>
-						</div>
-						<div class="footer-section">
-								<h4>Contact</h4>
-								<p>Email: info@anidaso.org</p>
-						</div>
-				</div>
-				<div class="footer-bottom">
-						<p>&copy; 2026 Anidaso Family Protection Fund. All rights reserved.</p>
-				</div>
-		</footer>
+                <div class="row">
+                  <label for="fullName-gh">Full Legal Name</label>
+                  <input id="fullName-gh" name="fullName" type="text" autocomplete="name" required />
+                </div>
+                <div class="row">
+                  <label for="dob-gh">Date of Birth</label>
+                  <input id="dob-gh" name="dob" type="date" autocomplete="bday" required />
+                </div>
+            </section>
 
-		<script src="script.js"></script>
+                <div class="row row--inline">
+                  <span class="label">Gender (optional)</span>
+                  <label class="tick"><input type="checkbox" name="gender" value="male" /> Male</label>
+                  <label class="tick"><input type="checkbox" name="gender" value="female" /> Female</label>
+                  <label class="tick"><input type="checkbox" name="gender" value="na" /> Prefer not to say</label>
+                </div>
+                <div class="row">
+                  <label for="nationality-gh">Nationality / Ethnic Background (optional)</label>
+                  <input id="nationality-gh" name="nationality" type="text" />
+                </div>
+                <div class="row">
+                  <label for="address-gh">Home Address</label>
+                  <input id="address-gh" name="address" type="text" autocomplete="street-address" required />
+                </div>
+                <div class="row">
+                  <label for="postcode-gh">Postcode:</label>
+                  <input id="postcode-gh" name="postcode" type="text" autocomplete="postal-code" required />
+                </div>
+                <div class="row">
+                  <label for="email-gh">Email Address</label>
+                  <input id="email-gh" name="email" type="email" autocomplete="email" required />
+                </div>
+                <div class="row">
+                  <label for="phone-gh">Telephone Number</label>
+                  <input id="phone-gh" name="phone" type="tel" autocomplete="tel" required />
+                </div>
+
+            <section class="form-card form-card--wide">
+              <h4 class="form-card__subtitle">AGE &amp; GUARDIAN INFORMATION</h4>
+              <div class="checks">
+                <label class="tick"><input type="checkbox" id="over18-gh" /> I confirm that I am 18 years or over</label>
+                <label class="tick"><input type="checkbox" id="under18-gh" /> I am under 18 and registering with a parent / legal guardian</label>
+                <div class="muted">(If under 18 – Guardian Details Required)</div>
+              </div>
+
+              <div class="form-grid">
+                <div class="row">
+                  <label for="guardianName-gh">Parent / Guardian Full Name</label>
+                  <input id="guardianName-gh" name="guardianName" type="text" autocomplete="name" />
+                </div>
+                <div class="row">
+                  <label for="relationship-gh">Relationship to Applicant</label>
+                  <input id="relationship-gh" name="relationship" type="text" />
+                </div>
+                <div class="row">
+                  <label for="guardianPhone-gh">Guardian Contact Number</label>
+                  <input id="guardianPhone-gh" name="guardianPhone" type="tel" autocomplete="tel" />
+                </div>
+                <div class="row">
+                  <label for="guardianEmail-gh">Guardian Email Address</label>
+                  <input id="guardianEmail-gh" name="guardianEmail" type="email" autocomplete="email" />
+                </div>
+              </div>
+
+              <div class="checks checks--footer">
+                <label class="tick"><input type="checkbox" /> I confirm I am the legal guardian and accept responsibility for this membership</label>
+              </div>
+            </section>
+
+            <section class="form-card form-card--wide form-card--center-title">
+              <h4 class="form-card__subtitle form-card__subtitle--center">NEXT OF KIN DETAILS</h4>
+              <div class="form-grid">
+                <div class="row">
+                  <label for="nokName-gh">Next of Kin Full Name</label>
+                  <input id="nokName-gh" name="nokName" type="text" autocomplete="name" required />
+                </div>
+                <div class="row">
+                  <label for="nokRelationship-gh">Relationship to Member</label>
+                  <input id="nokRelationship-gh" name="nokRelationship" type="text" required />
+                </div>
+                <div class="row">
+                  <label for="nokContact-gh">Next of Kin Contact Number</label>
+                  <input id="nokContact-gh" name="nokContact" type="tel" autocomplete="tel" required />
+                </div>
+                <div class="row">
+                  <label for="nokEmail-gh">Next of Kin Email Address (if available)</label>
+                  <input id="nokEmail-gh" name="nokEmail" type="email" autocomplete="email" />
+                </div>
+                <div class="row">
+                  <label for="nokAddress-gh">Address (if different from applicant)</label>
+                  <input id="nokAddress-gh" name="nokAddress" type="text" />
+                </div>
+              </div>
+            </section>
+
+            <section class="form-card form-card--medium">
+              <h4 class="form-card__subtitle">MEMBERSHIP INFORMATION</h4>
+              <div class="form-grid">
+                <div class="row row--stack">
+                  <div class="label">Membership Start Date</div>
+                  <div class="muted">(Office use) ________________________________</div>
+                </div>
+                <div class="row row--stack">
+                  <div class="label">Registration Fee</div>
+                  <label class="tick"><input type="checkbox" /> GHS 200 one-off registration fee paid</label>
+                </div>
+                <div class="row row--inline">
+                  <span class="label">Preferred Method of Communication</span>
+                  <label class="tick"><input type="checkbox" /> Email</label>
+                  <label class="tick"><input type="checkbox" /> SMS</label>
+                  <label class="tick"><input type="checkbox" /> WhatsApp</label>
+                </div>
+              </div>
+            </section>
+
+            <section class="form-card form-card--wide">
+              <h4 class="form-card__subtitle">DECLARATIONS &amp; ACKNOWLEDGEMENTS</h4>
+              <div class="muted" style="margin-bottom: 15px;">Please read and tick to confirm:</div>
+              <div class="declarations">
+                <label class="tick"><input type="checkbox" /> I understand that Anidaso Family Protection Fund is a community-led protection fund and NOT an insurance scheme.</label>
+                <label class="tick"><input type="checkbox" /> I understand that all support payments are discretionary and dependent on community participation.</label>
+                <label class="tick"><input type="checkbox" /> I understand that I must be a member for a minimum of 6 months before any support can be considered.</label>
+                <label class="tick"><input type="checkbox" /> I agree to contribute when notified of a member’s passing, subject to the Fund’s rules.</label>
+                <label class="tick"><input type="checkbox" /> I understand that failure to contribute may result in suspension or removal from membership.</label>
+                <label class="tick"><input type="checkbox" /> I agree to comply with Anidaso’s Membership Agreement, policies, and governance rules.</label>
+              </div>
+            </section>
+
+            <section class="form-card form-card--wide">
+              <h4 class="form-card__subtitle">DATA PROTECTION (GPR)</h4>
+              <div class="muted" style="margin-bottom: 1px;">Please read and tick to confirm:</div>
+              <div class="declarations">
+                <label class="tick"><input type="checkbox" /> I consent to Anidaso Family Protection Fund collecting and processing my personal data for the purposes of membership administration, in accordance with data protection legislation.</label>
+                <label class="tick"><input type="checkbox" /> I understand my data will not be shared with third parties except where required by law or governance processes.</label>
+              </div>
+            </section>
+
+            <div class="form-actions" style="margin-top:12px;">
+              <button type="submit" class="btn btn-primary btn--primary-red">Submit application</button>
+            </div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+      <div class="footer-content">
+        <div class="footer-section">
+          <img src="../assets/images/Anidaso logo.png" alt="Anidaso Logo" class="logo-img">
+        </div>
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../about.html">About Us</a></li>
+            <li><a href="../membership.html">Membership</a></li>
+            <li><a href="../governance.html">Governance</a></li>
+            <li><a href="../contact-us.html">Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Contact Us</h4>
+          <p>Email: info@anidaso.org</p>
+          <p>Phone: Available upon request</p>
+          <!-- Inline chat will be inserted here by script if present -->
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Anidaso Family Protection Fund. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- Chat widget is rendered into the Contact footer section by the script -->
+
+    <script src="../script.js"></script>
 </body>
 </html>
