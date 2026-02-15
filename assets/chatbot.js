@@ -503,6 +503,38 @@
     $('#chatbot-messages').scrollTop = $('#chatbot-messages').scrollHeight;
   }
 
+  function appendSuggestedQuestions({text, questions, onPick}){
+    const box = document.createElement('div');
+    box.className = 'msg bot';
+
+    const bubble = document.createElement('div');
+    bubble.className = 'bubble';
+
+    const intro = document.createElement('div');
+    intro.textContent = text || 'Try one of these:';
+    bubble.appendChild(intro);
+
+    const wrap = document.createElement('div');
+    wrap.className = 'chatbot-suggestions';
+
+    (questions || []).forEach(q => {
+      if(!q) return;
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'chatbot-suggestion-btn';
+      btn.textContent = q;
+      btn.addEventListener('click', () => {
+        try{ onPick && onPick(q); }catch(e){ /* ignore */ }
+      });
+      wrap.appendChild(btn);
+    });
+
+    bubble.appendChild(wrap);
+    box.appendChild(bubble);
+    $('#chatbot-messages').appendChild(box);
+    $('#chatbot-messages').scrollTop = $('#chatbot-messages').scrollHeight;
+  }
+
   function respond(query){
     const q = (query || '').toLowerCase().trim();
 
@@ -570,6 +602,31 @@
 
     if(!toggle || !panel || !close || !form || !input){ return; }
 
+    let hasShownSuggestions = false;
+
+    function askQuestion(q){
+      const question = String(q || '').trim();
+      if(!question) return;
+      appendMessage({who:'user', text: question});
+      input.value = '';
+      window.setTimeout(()=> respond(question), 220);
+    }
+
+    function showWelcome(){
+      appendMessage({who:'bot', text:'Hi — I can help answer questions about Anidaso using information from this website.'});
+      appendSuggestedQuestions({
+        text: 'Suggested questions:',
+        questions: [
+          'How does Anidaso work?',
+          'How do I become a member?',
+          'What is the monthly contribution?',
+          'How can I contact you?',
+          'Membership options for UK and Ghana?'
+        ],
+        onPick: (q) => askQuestion(q)
+      });
+    }
+
     function setToggleState(isOpen){
       toggle.classList.toggle('is-open', isOpen);
       toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
@@ -582,6 +639,16 @@
       });
       setToggleState(true);
       input.focus();
+
+       // Show suggestions the first time the panel is opened.
+       if(!hasShownSuggestions){
+         hasShownSuggestions = true;
+         if($('#chatbot-messages') && $('#chatbot-messages').children.length === 0){
+           showWelcome();
+         } else {
+           // If some other script already added messages, avoid duplication.
+         }
+       }
     }
 
     function closePanel(){
@@ -615,13 +682,8 @@
       ev.preventDefault();
       const q = input.value && input.value.trim();
       if(!q) return;
-      appendMessage({who:'user', text:q});
-      input.value = '';
-      setTimeout(()=> respond(q), 250);
+      askQuestion(q);
     });
-
-    // greet
-    appendMessage({who:'bot', text:'Hi — I can help with site questions. Try asking about membership, how it works, or contact details.'});
 
     setToggleState(false);
   }
