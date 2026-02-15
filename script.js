@@ -361,6 +361,58 @@ buttons.forEach(button => {
 
 console.log('Anidaso Website - Loaded Successfully');
 
+// Ensure chatbot is available on every page that loads `script.js`.
+function ensureChatbot() {
+        try {
+                if (document.getElementById('site-chatbot')) return;
+
+                const wrap = document.createElement('div');
+                wrap.innerHTML = `
+<div id="site-chatbot" class="chatbot" aria-hidden="false">
+    <button id="chatbot-toggle" class="chatbot-toggle" aria-label="Toggle Ask Anidaso" aria-expanded="false">
+        <span class="chatbot-brand-icon" aria-hidden="true">
+            <svg viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
+                <path class="bubble" d="M14 3C7.95 3 3 7.38 3 12.83c0 3.31 1.82 6.26 4.62 8.03V25l4.21-2.58c.89.18 1.7.24 2.17.24 6.05 0 11-4.38 11-9.83S20.05 3 14 3Z"/>
+                <circle class="dot" cx="10" cy="12.8" r="1.5"/>
+                <circle class="dot" cx="14" cy="12.8" r="1.5"/>
+                <circle class="dot" cx="18" cy="12.8" r="1.5"/>
+            </svg>
+        </span>
+    </button>
+    <div id="chatbot-panel" class="chatbot-panel" hidden>
+        <div class="chatbot-header"><span>Ask Anidaso</span><button id="chatbot-close" class="chatbot-close" aria-label="Close chat">×</button></div>
+        <div id="chatbot-messages" class="chatbot-messages" role="log" aria-live="polite"></div>
+        <form id="chatbot-form" class="chatbot-form" aria-label="Chat form">
+            <input id="chatbot-input" class="chatbot-input" placeholder="Ask about membership, how it works..." aria-label="Ask a question" autocomplete="off" />
+            <button type="submit" class="chatbot-send">Send</button>
+        </form>
+    </div>
+</div>`;
+
+                const node = wrap.firstElementChild;
+                if (!node) return;
+                document.body.appendChild(node);
+
+                // Load chatbot script if not already present.
+                const existing = document.querySelector('script[src*="assets/chatbot.js"]');
+                if (!existing) {
+                        const s = document.createElement('script');
+                    // Resolve assets path relative to where `script.js` is served from.
+                    const hostScript = document.querySelector('script[src*="script.js"]');
+                    try {
+                        const base = hostScript && hostScript.src ? new URL('.', hostScript.src) : new URL('.', window.location.href);
+                        s.src = new URL('assets/chatbot.js', base).toString();
+                    } catch (e) {
+                        s.src = 'assets/chatbot.js';
+                    }
+                        s.defer = true;
+                        document.head.appendChild(s);
+                }
+        } catch (e) {
+                // fail silently
+        }
+}
+
 /* -------------------------
    Client-side Pagination
    - Finds any element with the `paginated` class
@@ -476,4 +528,6 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.classList.add('btn--primary-red');
         }
     });
+
+    ensureChatbot();
 });
