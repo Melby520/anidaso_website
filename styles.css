@@ -108,6 +108,9 @@ img, picture, figure, video {
     --ash: #E9E9E9;
 }
 
+/* Utility text colors */
+.text-primary-red { color: var(--primary-red); }
+
 /* Prevent sticky navbar from covering in-page anchor targets (e.g. #membership-form) */
 #membership-form,
 section[id] {
@@ -416,6 +419,22 @@ section[id] {
     .chatbot-messages .user { text-align: right; }
     .chatbot-messages .user .bubble { display: inline-block; background: var(--primary-red); color: #fff; padding: 8px 10px; border-radius: 14px; max-width: 84%; white-space: pre-wrap; }
     .chatbot-messages .bot .bubble { display: inline-block; background: #ffffff; border: 1px solid #e6e6e6; padding: 8px 10px; border-radius: 10px; max-width: 84%; white-space: pre-wrap; }
+
+    /* Links inside chatbot messages should use the primary red rather than default blue
+       Display links like strong text (bold) and remove underlines for a cleaner look */
+    .chatbot-messages a,
+    .chatbot-messages a:link,
+    .chatbot-messages a:visited {
+        color: var(--primary-red);
+        text-decoration: none;
+        font-weight: 700;
+    }
+
+    .chatbot-messages a:hover,
+    .chatbot-messages a:active {
+        color: var(--dark-red);
+        text-decoration: none;
+    }
 
     .chatbot-suggestions { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 8px; }
     .chatbot-suggestion-btn {
@@ -1255,7 +1274,13 @@ body {
     transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 
-.how-step__icon > svg { width: 28px !important; height: 28px !important; stroke: var(--white); }
+.how-step__icon > svg {
+    width: 28px !important;
+    height: 28px !important;
+    stroke: none !important;
+    stroke-width: 0 !important;
+    fill: var(--accent-orange) !important;
+}
 
 .how-step__label {
     color: var(--accent-orange);
@@ -1440,7 +1465,7 @@ body {
 }
 
 .how-why__icon {
-    color: var(--primary-red);
+    color: var(--accent-orange);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1449,7 +1474,9 @@ body {
 .how-why__icon svg {
     width: 48px;
     height: 48px;
-    stroke: currentColor;
+    stroke: none !important;
+    stroke-width: 0 !important;
+    fill: currentColor;
 }
 
 .how-why__icon-label {
@@ -2404,9 +2431,13 @@ row textarea:focus {
         -webkit-overflow-scrolling: touch;
     }
 
-    /* Ensure menu and links receive pointer events */
-    .nav-menu,
-    .nav-menu * {
+    /* When hidden, the fixed mobile nav should not intercept taps.
+       Only enable pointer events when the menu is active. */
+    .nav-menu {
+        pointer-events: none;
+    }
+    .nav-menu.active,
+    .nav-menu.active * {
         pointer-events: auto;
     }
 
@@ -2417,14 +2448,15 @@ row textarea:focus {
         inset: 0;
         background: rgba(0,0,0,0.48);
         opacity: 0;
-        pointer-events: none; /* visual only; do not block menu taps */
+        pointer-events: none; /* visual only when closed */
         transition: opacity 0.25s ease;
         z-index: 20000;
     }
 
     .mobile-menu-overlay.active {
         opacity: 1;
-        pointer-events: none;
+        /* Allow the overlay to receive taps so clicking outside the menu closes it */
+        pointer-events: auto;
     }
 
     .nav-link {
@@ -2518,7 +2550,11 @@ row textarea:focus {
 
     /* Ensure menu and links receive pointer events */
     .nav-menu,
-    .nav-menu * {
+    .nav-menu {
+        pointer-events: none;
+    }
+    .nav-menu.active,
+    .nav-menu.active * {
         pointer-events: auto;
     }
 
@@ -2538,7 +2574,7 @@ row textarea:focus {
 
     .mobile-menu-overlay.active {
         opacity: 1;
-        pointer-events: none;
+        pointer-events: auto;
     }
 
     .nav-link {
@@ -2713,13 +2749,21 @@ row textarea:focus {
 }
 
 /* Open on hover (desktop) or keyboard focus, when JS adds .open, or when link/button hovered */
-.nav-menu li.has-dropdown:hover > .dropdown,
-.nav-menu li.has-dropdown:focus-within > .dropdown,
-.nav-menu li.has-dropdown.open > .dropdown,
-.nav-menu li.has-dropdown > a:hover ~ .dropdown,
-.nav-menu li.has-dropdown > a:focus ~ .dropdown,
-.nav-menu li.has-dropdown > .dropdown-toggle:hover ~ .dropdown,
-.nav-menu li.has-dropdown > .dropdown-toggle:focus ~ .dropdown {
+    .how-step__icon > svg {
+        width: 28px !important;
+        height: 28px !important;
+        stroke: #e8a723 !important;
+        stroke-width: 2px !important;
+        fill: none !important;
+    }
+
+    .how-steps .how-step__icon svg,
+    .how-steps .how-step__icon svg * {
+        stroke: #e8a723 !important;
+        stroke-width: 2px !important;
+        fill: none !important;
+        color: #e8a723 !important;
+    }
     opacity: 1;
     transform: translateY(0) scale(1);
     pointer-events: auto;
