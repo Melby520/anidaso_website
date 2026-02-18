@@ -531,3 +531,91 @@ document.addEventListener('DOMContentLoaded', () => {
 
     ensureChatbot();
 });
+
+// Simple client-side site search for country pages
+(function () {
+    const input = document.querySelector('.search-input');
+    const icon = document.querySelector('.search-icon');
+    if (!input || !icon) return;
+
+    function makeContainer() {
+        let c = document.querySelector('.search-results');
+        if (c) return c;
+        c = document.createElement('div');
+        c.className = 'search-results';
+        const ul = document.createElement('ul');
+        ul.className = 'search-results__list';
+        c.appendChild(ul);
+        document.body.appendChild(c);
+        document.addEventListener('click', (e) => {
+            if (!c.contains(e.target) && !e.target.closest('.search-wrap')) {
+                c.classList.remove('active');
+            }
+        });
+        return c;
+    }
+
+    async function search(q) {
+        const query = String(q || '').trim().toLowerCase();
+        const container = makeContainer();
+        const list = container.querySelector('.search-results__list');
+        if (!query) { container.classList.remove('active'); return; }
+        list.innerHTML = '<li class="search-results__item">Searching…</li>';
+        container.classList.add('active');
+        try {
+            const res = await fetch('assets/content_manifest.json');
+            const pages = await res.json();
+            const hits = [];
+            for (const p of pages) {
+                const normal = p.toLowerCase();
+                if (normal.includes(query)) {
+                    hits.push({ path: p.replace(/^\//, ''), title: p.split('/').pop().replace('.html', '') });
+                } else {
+                    const name = p.split('/').pop().replace(/[-_]/g, ' ').replace('.html', '');
+                    if (name.toLowerCase().includes(query)) hits.push({ path: p.replace(/^\//, ''), title: name });
+                }
+            }
+
+            if (hits.length === 0) {
+                const checks = pages.slice(0, 12);
+                await Promise.all(checks.map(async p => {
+                    try {
+                        const r = await fetch(p.replace(/^\//, ''));
+                        const t = await r.text();
+                        if (t.toLowerCase().includes(query)) {
+                            const m = t.match(/<title>(.*?)<\/title>/i);
+                            hits.push({ path: p.replace(/^\//, ''), title: m ? m[1] : p.split('/').pop() });
+                        }
+                    } catch (e) { /* ignore page fetch errors */ }
+                }));
+            }
+
+            if (hits.length === 0) {
+                list.innerHTML = '<li class="search-results__item">No results found</li>';
+                return;
+            }
+
+            list.innerHTML = '';
+            hits.forEach(h => {
+                const li = document.createElement('li');
+                li.className = 'search-results__item';
+                const a = document.createElement('a');
+                a.href = h.path;
+                a.textContent = h.title || h.path;
+                li.appendChild(a);
+                list.appendChild(li);
+            });
+        } catch (err) {
+            list.innerHTML = '<li class="search-results__item">Search failed</li>';
+            console.error('Search error', err);
+        }
+    }
+
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            search(input.value);
+        }
+    });
+    icon.addEventListener('click', (e) => { e.preventDefault(); search(input.value); });
+})();
