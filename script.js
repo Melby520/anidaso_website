@@ -176,8 +176,8 @@ document.addEventListener('click', (e) => {
     if (!clickedInsideDropdown) closeAllDropdowns();
 });
 
-// (Optional legacy support) If a dropdown's top-level link is an in-page anchor,
-// allow tapping it to toggle the submenu on touch/mobile. Normal page links should navigate.
+// (Optional legacy support) Allow the top-level link to act as a submenu toggle
+// on touch devices or when the mobile menu is open. Desktop hover behavior remains unchanged.
 document.querySelectorAll('.has-dropdown').forEach(parent => {
     const link = parent.querySelector('.nav-link');
     const dropdown = parent.querySelector('.dropdown');
@@ -185,13 +185,18 @@ document.querySelectorAll('.has-dropdown').forEach(parent => {
     if (!link || !dropdown) return;
 
     const href = link.getAttribute('href') || '';
-    if (!href.startsWith('#')) return;
+
+    // Continue only when one of:
+    // - the link is an in-page anchor (starts with '#')
+    // - OR the device is touch-first (no hover support)
+    // - OR the mobile menu is currently open
+    // Otherwise, let the link navigate normally on hover-capable devices.
+    if (!href.startsWith('#') && supportsHover && !(navMenu && navMenu.classList.contains('active'))) return;
 
     link.addEventListener('click', (e) => {
         const mobileMenuOpen = navMenu && navMenu.classList.contains('active');
 
-        // If we're in the mobile menu OR the device is touch-first, treat hash-link as a submenu toggle.
-        if (!supportsHover || mobileMenuOpen) {
+        if (!supportsHover || mobileMenuOpen || href.startsWith('#')) {
             e.preventDefault();
             const isOpen = !parent.classList.contains('open');
             closeAllDropdowns(parent);
