@@ -431,6 +431,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const href = (anchor && anchor.getAttribute('href')) ? anchor.getAttribute('href') : fallbackHref;
         if (!href) return;
 
+        // If it's already a real link to another page, let the browser handle it
+        // (avoids “first tap only highlights” issues on some mobile browsers).
+        if (anchor && anchor.tagName === 'A' && anchor.getAttribute('href') && !String(href).startsWith('#')) {
+            return;
+        }
+
         // make element keyboard-focusable if not already
         if (!el.hasAttribute('tabindex')) el.tabIndex = 0;
         el.setAttribute('role', 'link');

@@ -1282,9 +1282,38 @@ body {
     text-align: center;
 }
 
-.how-step:hover .how-step__icon {
-    transform: translateY(-6px);
-    box-shadow: 0 20px 40px rgba(var(--primary-red-rgb), 0.16);
+@media (hover: hover) and (pointer: fine) {
+    .how-step:hover .how-step__icon {
+        transform: translateY(-6px);
+        box-shadow: 0 20px 40px rgba(var(--primary-red-rgb), 0.16);
+    }
+}
+
+/* Highlight + animate the Community Support step (How it works page) */
+@keyframes anidasoCtaFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-7px); }
+}
+
+.how-step.how-step--community-support .how-step__icon {
+    animation: anidasoCtaFloat 1.8s ease-in-out infinite;
+    box-shadow: 0 18px 46px rgba(var(--primary-red-rgb), 0.22);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .how-step.how-step--community-support:hover .how-step__icon {
+        animation: none;
+    }
+}
+
+.how-step.how-step--community-support:focus-visible .how-step__icon,
+.how-step.how-step--community-support:focus-visible .how-step__label {
+    outline: 3px solid rgba(var(--primary-red-rgb), 0.35);
+    outline-offset: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .how-step.how-step--community-support .how-step__icon { animation: none; }
 }
 
 @media (max-width: 1000px) {
