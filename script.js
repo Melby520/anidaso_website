@@ -413,6 +413,74 @@ function ensureChatbot() {
         }
 }
 
+// Ensure icon tiles and any non-linked flags redirect to the expected pages
+document.addEventListener('DOMContentLoaded', () => {
+    const labelToHref = {
+        'register': 'register.html',
+        'become a member': 'become-a-member.html',
+        'monthly contribution': 'monthly-contribution.html',
+        'community support': 'community-support.html'
+    };
+
+    // Ensure every .how-step (anchor or not) navigates on tap/Enter/Space.
+    document.querySelectorAll('.how-step').forEach(el => {
+        const anchor = (el.tagName === 'A') ? el : el.closest('a');
+        const labelEl = el.querySelector('.how-step__label');
+        const key = labelEl ? labelEl.textContent.trim().toLowerCase() : '';
+        const fallbackHref = labelToHref[key];
+        const href = (anchor && anchor.getAttribute('href')) ? anchor.getAttribute('href') : fallbackHref;
+        if (!href) return;
+
+        // make element keyboard-focusable if not already
+        if (!el.hasAttribute('tabindex')) el.tabIndex = 0;
+        el.setAttribute('role', 'link');
+        el.style.cursor = 'pointer';
+
+        el.addEventListener('click', function (e) {
+            // allow modifier clicks (open in new tab) and non-left buttons to behave normally
+            if (e.defaultPrevented) return;
+            if (e.button && e.button !== 0) return;
+            if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+            e.preventDefault();
+            const targetBlank = anchor && anchor.getAttribute && anchor.getAttribute('target') === '_blank';
+            if (targetBlank) window.open(href, '_blank');
+            else window.location.href = href;
+        });
+
+        el.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                const targetBlank = anchor && anchor.getAttribute && anchor.getAttribute('target') === '_blank';
+                if (targetBlank) window.open(href, '_blank');
+                else window.location.href = href;
+            }
+        });
+    });
+
+    // Some flag elements may not be proper anchors (or may be missing href); ensure they navigate
+    document.querySelectorAll('.flag-link').forEach(a => {
+        // if it's a real anchor with href, leave it
+        if (a.tagName === 'A' && a.getAttribute('href')) return;
+        const img = a.querySelector('img');
+        if (!img) return;
+        const alt = (img.getAttribute('alt') || '').toLowerCase();
+        let href = '';
+        if (alt.includes('ghana')) href = 'membership/ghana.html';
+        else if (alt.includes('united kingdom') || alt.includes('uk')) href = 'membership/uk.html';
+        if (!href) return;
+        a.setAttribute('role', 'link');
+        a.tabIndex = 0;
+        a.style.cursor = 'pointer';
+        a.addEventListener('click', (e) => { e.preventDefault(); window.location.href = href; });
+        a.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                window.location.href = href;
+            }
+        });
+    });
+});
+
 /* -------------------------
    Client-side Pagination
    - Finds any element with the `paginated` class
@@ -619,3 +687,47 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     icon.addEventListener('click', (e) => { e.preventDefault(); search(input.value); });
 })();
+
+// General accessibility/navigation audit: attach handlers to elements that should navigate
+document.addEventListener('DOMContentLoaded', () => {
+    // 1) Elements that declare a data-href should act like links
+    document.querySelectorAll('[data-href]').forEach(el => {
+        const href = el.getAttribute('data-href');
+        if (!href) return;
+        if (!el.hasAttribute('tabindex')) el.tabIndex = 0;
+        el.setAttribute('role', el.getAttribute('role') || 'link');
+        el.style.cursor = 'pointer';
+        el.addEventListener('click', (e) => {
+            if (e.button && e.button !== 0) return;
+            if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+            e.preventDefault();
+            window.location.href = href;
+        });
+        el.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                window.location.href = href;
+            }
+        });
+    });
+
+    // 2) Anchors with empty href but with data-href should navigate
+    document.querySelectorAll('a').forEach(a => {
+        const href = a.getAttribute('href');
+        if (href && href.trim() !== '') return;
+        const dh = a.getAttribute('data-href') || a.dataset.href;
+        if (!dh) return;
+        a.addEventListener('click', (e) => { e.preventDefault(); window.location.href = dh; });
+        a.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); window.location.href = dh; } });
+    });
+
+    // 3) Elements with role=link but no handler — ensure keyboard/click works
+    document.querySelectorAll('[role="link"]').forEach(el => {
+        // if it already navigates via anchor inside or has data-href, skip
+        if (el.closest('a') || el.getAttribute('data-href')) return;
+        if (!el.hasAttribute('tabindex')) el.tabIndex = 0;
+        if (!el.onclick && !el.hasAttribute('data-click')) {
+            // no-op: we avoid inventing destinations; leave element focusable so authors can add handlers
+        }
+    });
+});
