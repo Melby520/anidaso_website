@@ -431,6 +431,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const href = (anchor && anchor.getAttribute('href')) ? anchor.getAttribute('href') : fallbackHref;
         if (!href) return;
 
+        // If it's already a real link to another page, let the browser handle it
+        // (avoids “first tap only highlights” issues on some mobile browsers).
+        if (anchor && anchor.tagName === 'A' && anchor.getAttribute('href') && !String(href).startsWith('#')) {
+            return;
+        }
+
         // make element keyboard-focusable if not already
         if (!el.hasAttribute('tabindex')) el.tabIndex = 0;
         el.setAttribute('role', 'link');
@@ -600,92 +606,227 @@ document.addEventListener('DOMContentLoaded', () => {
     ensureChatbot();
 });
 
-// Simple client-side site search for country pages
+// Homepage country picker: Ghana / UK redirect
 (function () {
-    const input = document.querySelector('.search-input');
-    const icon = document.querySelector('.search-icon');
-    if (!input || !icon) return;
+    const form = document.getElementById('country-search-form');
+    const input = document.getElementById('country-search-input');
+    const hint = document.getElementById('country-search-hint');
+    if (!form || !input) return;
 
-    function makeContainer() {
-        let c = document.querySelector('.search-results');
-        if (c) return c;
-        c = document.createElement('div');
-        c.className = 'search-results';
-        const ul = document.createElement('ul');
-        ul.className = 'search-results__list';
-        c.appendChild(ul);
-        document.body.appendChild(c);
-        document.addEventListener('click', (e) => {
-            if (!c.contains(e.target) && !e.target.closest('.search-wrap')) {
-                c.classList.remove('active');
+    const submitBtn = form.querySelector('button[type="submit"]');
+
+    let suggestions = document.getElementById('country-suggestions');
+    if (!suggestions) {
+        suggestions = document.createElement('div');
+        suggestions.id = 'country-suggestions';
+        suggestions.className = 'country-suggestions';
+        suggestions.setAttribute('role', 'listbox');
+        suggestions.setAttribute('aria-label', 'Country suggestions');
+        suggestions.hidden = true;
+        form.insertAdjacentElement('afterend', suggestions);
+    }
+
+    const flagLinks = Array.from(document.querySelectorAll('.homepage-flags .flag-link'));
+
+    const countries = [
+        { name: 'Ghana', href: 'membership/ghana.html', terms: ['ghana', 'gh'] },
+        { name: 'United Kingdom (UK)', href: 'membership/uk.html', terms: ['united kingdom', 'uk', 'u k', 'u.k', 'britain', 'great britain'] }
+    ];
+
+    const normalize = (value) => String(value || '')
+        .toLowerCase()
+        .replace(/\(.*?\)/g, ' ')
+        .replace(/[^a-z\s]/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+
+    function resolveCountry(value) {
+        const q = normalize(value);
+        if (!q) return null;
+        for (const c of countries) {
+            const nameN = normalize(c.name);
+            if (q === nameN) return c;
+            for (const t of c.terms) {
+                const tN = normalize(t);
+                if (q === tN) return c;
+            }
+        }
+        return null;
+    }
+
+    function resolveCountryLoose(value) {
+        const q = normalize(value);
+        if (!q) return null;
+
+        // Prefix match on country name
+        const prefixMatches = countries.filter(c => normalize(c.name).startsWith(q));
+        if (prefixMatches.length === 1) return prefixMatches[0];
+
+        // Contains match on known terms (helps on mobile where datalist may not appear)
+        for (const c of countries) {
+            const haystack = [c.name, ...c.terms].map(normalize).join(' ');
+            if (haystack.includes(q) || q.includes(normalize(c.name))) return c;
+        }
+
+        // Small heuristics for common inputs
+        if (q.startsWith('gh') || q.includes('ghana')) return countries.find(c => c.href.includes('ghana')) || null;
+        if (q === 'uk' || q.includes('kingdom') || q.includes('britain')) return countries.find(c => c.href.includes('/uk')) || countries.find(c => c.href.includes('uk')) || null;
+
+        return null;
+    }
+
+    function setHint(message, isError = false) {
+        if (!hint) return;
+        hint.textContent = message || '';
+        hint.style.color = isError ? '#c5292e' : '#6c757d';
+    }
+
+    function showSuggestions() {
+        if (!suggestions) return;
+        suggestions.hidden = false;
+    }
+
+    function hideSuggestions() {
+        if (!suggestions) return;
+        suggestions.hidden = true;
+    }
+
+    function renderSuggestions() {
+        if (!suggestions) return;
+        const q = normalize(input.value);
+        const items = countries.filter(c => {
+            if (!q) return true;
+            const haystack = [c.name, ...c.terms].map(normalize).join(' ');
+            return haystack.includes(q) || normalize(c.name).startsWith(q);
+        });
+
+        suggestions.innerHTML = '';
+        if (items.length === 0) {
+            hideSuggestions();
+            return;
+        }
+
+        items.forEach((c) => {
+            const opt = document.createElement('div');
+            opt.className = 'country-suggestion';
+            opt.setAttribute('role', 'option');
+            opt.tabIndex = 0;
+            opt.textContent = c.name;
+
+            const choose = (e) => {
+                if (e) e.preventDefault();
+                input.value = c.name;
+                hideSuggestions();
+                go();
+            };
+
+            // Use pointerdown so mobile selection works even if focus/blur would interfere.
+            opt.addEventListener('pointerdown', choose);
+            opt.addEventListener('click', choose);
+            opt.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') choose(e);
+            });
+
+            suggestions.appendChild(opt);
+        });
+
+        showSuggestions();
+    }
+
+    function go() {
+        const match = resolveCountry(input.value) || resolveCountryLoose(input.value);
+        if (!match) {
+            setHint('Please choose Ghana or United Kingdom (UK).', true);
+            return;
+        }
+        setHint(`Redirecting to ${match.name}…`, false);
+        window.location.href = match.href;
+    }
+
+    function setCountryAndGo(countryName) {
+        input.value = countryName;
+        go();
+    }
+
+    // As the user types, show a helpful hint; redirect only on explicit action.
+    input.addEventListener('input', () => {
+        const match = resolveCountry(input.value) || resolveCountryLoose(input.value);
+        if (!match) setHint('');
+        else setHint(`Tap the icon or press Enter for ${match.name}.`, false);
+        renderSuggestions();
+    });
+
+    input.addEventListener('focus', () => {
+        renderSuggestions();
+    });
+
+    // If the user selects a datalist option, treat it as a selection and redirect.
+    input.addEventListener('change', () => {
+        const match = resolveCountry(input.value);
+        if (!match) return;
+        go();
+    });
+
+    // Mobile keyboards sometimes submit oddly; explicitly handle Enter.
+    input.addEventListener('keydown', (e) => {
+        if (e.key !== 'Enter') return;
+        e.preventDefault();
+        go();
+    });
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        go();
+    });
+
+    // Extra safety: ensure tapping the icon button always triggers the same flow.
+    if (submitBtn) {
+        submitBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            go();
+        });
+    }
+
+    // Close suggestions when tapping elsewhere.
+    document.addEventListener('pointerdown', (e) => {
+        if (!suggestions || suggestions.hidden) return;
+        const inside = e.target && (e.target === suggestions || suggestions.contains(e.target) || e.target === form || form.contains(e.target));
+        if (!inside) hideSuggestions();
+    });
+
+    // Keep flag links consistent with the picker (left-click/Enter triggers same flow)
+    flagLinks.forEach(a => {
+        a.addEventListener('click', (e) => {
+            // Let modifier clicks open in a new tab/window as normal.
+            if (e.defaultPrevented) return;
+            if (e.button && e.button !== 0) return;
+            if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+
+            const href = (a.getAttribute('href') || '').toLowerCase();
+            if (!href) return;
+
+            if (href.includes('ghana')) {
+                e.preventDefault();
+                setCountryAndGo('Ghana');
+            } else if (href.includes('/uk') || href.includes('united') || href.includes('kingdom')) {
+                e.preventDefault();
+                setCountryAndGo('United Kingdom (UK)');
             }
         });
-        return c;
-    }
 
-    async function search(q) {
-        const query = String(q || '').trim().toLowerCase();
-        const container = makeContainer();
-        const list = container.querySelector('.search-results__list');
-        if (!query) { container.classList.remove('active'); return; }
-        list.innerHTML = '<li class="search-results__item">Searching…</li>';
-        container.classList.add('active');
-        try {
-            const res = await fetch('assets/content_manifest.json');
-            const pages = await res.json();
-            const hits = [];
-            for (const p of pages) {
-                const normal = p.toLowerCase();
-                if (normal.includes(query)) {
-                    hits.push({ path: p.replace(/^\//, ''), title: p.split('/').pop().replace('.html', '') });
-                } else {
-                    const name = p.split('/').pop().replace(/[-_]/g, ' ').replace('.html', '');
-                    if (name.toLowerCase().includes(query)) hits.push({ path: p.replace(/^\//, ''), title: name });
-                }
+        a.addEventListener('keydown', (e) => {
+            if (e.key !== 'Enter' && e.key !== ' ') return;
+            const href = (a.getAttribute('href') || '').toLowerCase();
+            if (!href) return;
+            if (href.includes('ghana')) {
+                e.preventDefault();
+                setCountryAndGo('Ghana');
+            } else if (href.includes('/uk') || href.includes('united') || href.includes('kingdom')) {
+                e.preventDefault();
+                setCountryAndGo('United Kingdom (UK)');
             }
-
-            if (hits.length === 0) {
-                const checks = pages.slice(0, 12);
-                await Promise.all(checks.map(async p => {
-                    try {
-                        const r = await fetch(p.replace(/^\//, ''));
-                        const t = await r.text();
-                        if (t.toLowerCase().includes(query)) {
-                            const m = t.match(/<title>(.*?)<\/title>/i);
-                            hits.push({ path: p.replace(/^\//, ''), title: m ? m[1] : p.split('/').pop() });
-                        }
-                    } catch (e) { /* ignore page fetch errors */ }
-                }));
-            }
-
-            if (hits.length === 0) {
-                list.innerHTML = '<li class="search-results__item">No results found</li>';
-                return;
-            }
-
-            list.innerHTML = '';
-            hits.forEach(h => {
-                const li = document.createElement('li');
-                li.className = 'search-results__item';
-                const a = document.createElement('a');
-                a.href = h.path;
-                a.textContent = h.title || h.path;
-                li.appendChild(a);
-                list.appendChild(li);
-            });
-        } catch (err) {
-            list.innerHTML = '<li class="search-results__item">Search failed</li>';
-            console.error('Search error', err);
-        }
-    }
-
-    input.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            search(input.value);
-        }
+        });
     });
-    icon.addEventListener('click', (e) => { e.preventDefault(); search(input.value); });
 })();
 
 // General accessibility/navigation audit: attach handlers to elements that should navigate

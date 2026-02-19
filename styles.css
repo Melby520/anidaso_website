@@ -136,6 +136,7 @@ section[id] {
     align-items: center;
     justify-content: center;
     gap: 18px;
+    position: relative;
 }
 .search-wrap {
     width: 620px;
@@ -146,6 +147,11 @@ section[id] {
     padding: 14px 18px;
     border-radius: 12px;
     box-shadow: 0 12px 36px rgba(15,20,30,0.08);
+}
+
+@media (max-width: 600px) {
+    .locale-banner { padding: 34px 0 26px; }
+    .search-wrap { padding: 12px 12px; }
 }
 
 .search-flags {
@@ -183,6 +189,25 @@ section[id] {
     font-size: 18px;
     color: #9aa3a9;
 }
+.search-icon {
+    appearance: none;
+    border: none;
+    background: transparent;
+    padding: 0;
+    margin: 0 10px 0 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+    border-radius: 10px;
+    touch-action: manipulation;
+}
+.search-icon:active {
+    background: rgba(0,0,0,0.05);
+}
+.search-icon svg { display: block; }
 .search-input {
     border: none;
     outline: none;
@@ -190,6 +215,44 @@ section[id] {
     font-size: 1rem;
     color: #333;
     background: transparent;
+}
+
+.country-search-hint {
+    margin-top: 8px;
+    font-size: 0.95rem;
+    color: #6c757d;
+}
+
+.country-suggestions {
+    width: 620px;
+    max-width: 92%;
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,0.08);
+    box-shadow: 0 14px 44px rgba(15,20,30,0.12);
+    overflow: hidden;
+    margin-top: -10px; /* tuck closer to the search box */
+}
+
+.country-suggestion {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 12px 14px;
+    cursor: pointer;
+    color: #111;
+    font-weight: 600;
+}
+
+.country-suggestion:hover,
+.country-suggestion:focus-visible {
+    background: rgba(var(--primary-red-rgb), 0.06);
+    outline: none;
+}
+
+@media (max-width: 600px) {
+    .country-suggestions { border-radius: 10px; }
+    .country-suggestion { padding: 12px 12px; }
 }
 .flags {
     display: flex;
@@ -540,6 +603,17 @@ body.page-about {
 
 html {
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+/* Prevent accidental horizontal scroll on mobile */
+html, body {
+    max-width: 100%;
+    overflow-x: clip;
+}
+@supports not (overflow-x: clip) {
+    html, body { overflow-x: hidden; }
 }
 
 body {
@@ -551,6 +625,28 @@ body {
     background: linear-gradient(180deg, rgba(246,215,217,0.20) 0%, rgba(242,207,211,0.20) 100%);
     min-height: 100vh;
     background-attachment: fixed;
+}
+
+/* Mobile browsers often struggle with fixed backgrounds */
+@media (max-width: 768px) {
+    body { background-attachment: scroll; }
+}
+
+/* Tap target sizing + prevent iOS zoom on form focus */
+button,
+.btn,
+input,
+select,
+textarea {
+    min-height: 44px;
+}
+
+@media (max-width: 520px) {
+    input,
+    select,
+    textarea {
+        font-size: 16px;
+    }
 }
 
 /* Page panels: subtle tinted background for content areas and inset panels for text */
@@ -732,6 +828,10 @@ body {
     padding: 2rem 1.5rem;
     position: relative;
     overflow: hidden;
+}
+
+@supports (min-height: 70svh) {
+    .hero { min-height: 70svh; }
 }
 
 /* constrain hero content for readability on large screens */
@@ -1264,9 +1364,38 @@ body {
     text-align: center;
 }
 
-.how-step:hover .how-step__icon {
-    transform: translateY(-6px);
-    box-shadow: 0 20px 40px rgba(var(--primary-red-rgb), 0.16);
+@media (hover: hover) and (pointer: fine) {
+    .how-step:hover .how-step__icon {
+        transform: translateY(-6px);
+        box-shadow: 0 20px 40px rgba(var(--primary-red-rgb), 0.16);
+    }
+}
+
+/* Highlight + animate the Community Support step (How it works page) */
+@keyframes anidasoCtaFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-7px); }
+}
+
+.how-step.how-step--community-support .how-step__icon {
+    animation: anidasoCtaFloat 1.8s ease-in-out infinite;
+    box-shadow: 0 18px 46px rgba(var(--primary-red-rgb), 0.22);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .how-step.how-step--community-support:hover .how-step__icon {
+        animation: none;
+    }
+}
+
+.how-step.how-step--community-support:focus-visible .how-step__icon,
+.how-step.how-step--community-support:focus-visible .how-step__label {
+    outline: 3px solid rgba(var(--primary-red-rgb), 0.35);
+    outline-offset: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .how-step.how-step--community-support .how-step__icon { animation: none; }
 }
 
 @media (max-width: 1000px) {
@@ -1486,6 +1615,19 @@ body {
     background: #f0f0f0;
 }
 
+@media (max-width: 600px) {
+    .membership__hero,
+    .membership__hero--gh {
+        height: auto;
+        min-height: 60vh;
+        margin: 1rem auto;
+    }
+    .membership__hero--gh picture,
+    .membership__hero--gh img {
+        padding: 1rem;
+    }
+}
+
 .membership__hero img,
 .membership__hero picture {
     width: 100%;
@@ -1597,13 +1739,30 @@ body {
     border-color: rgba(var(--primary-red-rgb), 0.3);
 }
 
-row input:focus,
-row select:focus,
-row textarea:focus {
+.row input:focus,
+.row select:focus,
+.row textarea:focus {
     outline: none;
     border-color: var(--primary-red);
     box-shadow: 0 8px 24px rgba(var(--primary-red-rgb), 0.15);
     background: #f5f5f5;
+}
+
+@media (max-width: 520px) {
+    .page { padding: 1rem; }
+    .page .panel,
+    .content-panel { padding: 1rem; }
+    .nav-container { padding: 0 1rem; }
+    .form-actions { flex-direction: column; }
+    .form-actions .btn { width: 100%; }
+}
+
+/* Use stable viewport units when available (reduces mobile address-bar jump) */
+@supports (height: 100svh) {
+    .membership__hero,
+    .membership__hero--gh {
+        height: 100svh;
+    }
 }
 
 .checks .tick,
