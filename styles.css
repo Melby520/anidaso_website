@@ -193,6 +193,13 @@ section[id] {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+    border-radius: 10px;
+    touch-action: manipulation;
+}
+.search-icon:active {
+    background: rgba(0,0,0,0.05);
 }
 .search-icon svg { display: block; }
 .search-input {

@@ -613,6 +613,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const hint = document.getElementById('country-search-hint');
     if (!form || !input) return;
 
+    const submitBtn = form.querySelector('button[type="submit"]');
+
     const flagLinks = Array.from(document.querySelectorAll('.homepage-flags .flag-link'));
 
     const countries = [
@@ -641,6 +643,27 @@ document.addEventListener('DOMContentLoaded', () => {
         return null;
     }
 
+    function resolveCountryLoose(value) {
+        const q = normalize(value);
+        if (!q) return null;
+
+        // Prefix match on country name
+        const prefixMatches = countries.filter(c => normalize(c.name).startsWith(q));
+        if (prefixMatches.length === 1) return prefixMatches[0];
+
+        // Contains match on known terms (helps on mobile where datalist may not appear)
+        for (const c of countries) {
+            const haystack = [c.name, ...c.terms].map(normalize).join(' ');
+            if (haystack.includes(q) || q.includes(normalize(c.name))) return c;
+        }
+
+        // Small heuristics for common inputs
+        if (q.startsWith('gh') || q.includes('ghana')) return countries.find(c => c.href.includes('ghana')) || null;
+        if (q === 'uk' || q.includes('kingdom') || q.includes('britain')) return countries.find(c => c.href.includes('/uk')) || countries.find(c => c.href.includes('uk')) || null;
+
+        return null;
+    }
+
     function setHint(message, isError = false) {
         if (!hint) return;
         hint.textContent = message || '';
@@ -648,7 +671,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function go() {
-        const match = resolveCountry(input.value);
+        const match = resolveCountry(input.value) || resolveCountryLoose(input.value);
         if (!match) {
             setHint('Please choose Ghana or United Kingdom (UK).', true);
             return;
@@ -679,10 +702,25 @@ document.addEventListener('DOMContentLoaded', () => {
         go();
     });
 
+    // Mobile keyboards sometimes submit oddly; explicitly handle Enter.
+    input.addEventListener('keydown', (e) => {
+        if (e.key !== 'Enter') return;
+        e.preventDefault();
+        go();
+    });
+
     form.addEventListener('submit', (e) => {
         e.preventDefault();
         go();
     });
+
+    // Extra safety: ensure tapping the icon button always triggers the same flow.
+    if (submitBtn) {
+        submitBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            go();
+        });
+    }
 
     // Keep flag links consistent with the picker (left-click/Enter triggers same flow)
     flagLinks.forEach(a => {
