@@ -183,6 +183,18 @@ section[id] {
     font-size: 18px;
     color: #9aa3a9;
 }
+.search-icon {
+    appearance: none;
+    border: none;
+    background: transparent;
+    padding: 0;
+    margin: 0 10px 0 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.search-icon svg { display: block; }
 .search-input {
     border: none;
     outline: none;
@@ -190,6 +202,12 @@ section[id] {
     font-size: 1rem;
     color: #333;
     background: transparent;
+}
+
+.country-search-hint {
+    margin-top: 8px;
+    font-size: 0.95rem;
+    color: #6c757d;
 }
 .flags {
     display: flex;

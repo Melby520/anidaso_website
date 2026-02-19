@@ -68,10 +68,28 @@
         <section class="locale-banner">
                         <div class="locale-banner__inner container animate-fade">
                                                 <div class="locale-banner__row">
-                                                    <div class="search-wrap" role="search" aria-label="Site search">
-                                                        <span class="search-icon" aria-hidden="true"></span>
-                                                        <input type="search" class="search-input" placeholder="Search" aria-label="Search the site">
-                                                    </div>
+                                                    <form class="search-wrap" id="country-search-form" role="search" aria-label="Choose your country for membership">
+                                                        <button class="search-icon" type="submit" aria-label="Go to selected country">
+                                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                                                                <path d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                <path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                            </svg>
+                                                        </button>
+                                                        <input
+                                                            type="text"
+                                                            id="country-search-input"
+                                                            class="search-input"
+                                                            placeholder="Search country (Ghana or UK)"
+                                                            aria-label="Search and select a country"
+                                                            autocomplete="off"
+                                                            list="country-options"
+                                                        >
+                                                        <datalist id="country-options">
+                                                            <option value="Ghana"></option>
+                                                            <option value="United Kingdom (UK)"></option>
+                                                        </datalist>
+                                                    </form>
+                                                    <p class="country-search-hint" id="country-search-hint" aria-live="polite"></p>
 
                                                     <div class="homepage-flags">
                                                         <a href="membership/uk.html" class="flag-link" aria-label="United Kingdom membership page">
