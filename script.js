@@ -615,6 +615,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const submitBtn = form.querySelector('button[type="submit"]');
 
+    let suggestions = document.getElementById('country-suggestions');
+    if (!suggestions) {
+        suggestions = document.createElement('div');
+        suggestions.id = 'country-suggestions';
+        suggestions.className = 'country-suggestions';
+        suggestions.setAttribute('role', 'listbox');
+        suggestions.setAttribute('aria-label', 'Country suggestions');
+        suggestions.hidden = true;
+        form.insertAdjacentElement('afterend', suggestions);
+    }
+
     const flagLinks = Array.from(document.querySelectorAll('.homepage-flags .flag-link'));
 
     const countries = [
@@ -670,6 +681,58 @@ document.addEventListener('DOMContentLoaded', () => {
         hint.style.color = isError ? '#c5292e' : '#6c757d';
     }
 
+    function showSuggestions() {
+        if (!suggestions) return;
+        suggestions.hidden = false;
+    }
+
+    function hideSuggestions() {
+        if (!suggestions) return;
+        suggestions.hidden = true;
+    }
+
+    function renderSuggestions() {
+        if (!suggestions) return;
+        const q = normalize(input.value);
+        const items = countries.filter(c => {
+            if (!q) return true;
+            const haystack = [c.name, ...c.terms].map(normalize).join(' ');
+            return haystack.includes(q) || normalize(c.name).startsWith(q);
+        });
+
+        suggestions.innerHTML = '';
+        if (items.length === 0) {
+            hideSuggestions();
+            return;
+        }
+
+        items.forEach((c) => {
+            const opt = document.createElement('div');
+            opt.className = 'country-suggestion';
+            opt.setAttribute('role', 'option');
+            opt.tabIndex = 0;
+            opt.innerHTML = `<span>${c.name}</span><small>${c.href}</small>`;
+
+            const choose = (e) => {
+                if (e) e.preventDefault();
+                input.value = c.name;
+                hideSuggestions();
+                go();
+            };
+
+            // Use pointerdown so mobile selection works even if focus/blur would interfere.
+            opt.addEventListener('pointerdown', choose);
+            opt.addEventListener('click', choose);
+            opt.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') choose(e);
+            });
+
+            suggestions.appendChild(opt);
+        });
+
+        showSuggestions();
+    }
+
     function go() {
         const match = resolveCountry(input.value) || resolveCountryLoose(input.value);
         if (!match) {
@@ -687,12 +750,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // As the user types, show a helpful hint; redirect only on explicit action.
     input.addEventListener('input', () => {
-        const match = resolveCountry(input.value);
-        if (!match) {
-            setHint('');
-            return;
-        }
-        setHint(`Press Enter to go to ${match.name}.`, false);
+        const match = resolveCountry(input.value) || resolveCountryLoose(input.value);
+        if (!match) setHint('');
+        else setHint(`Tap the icon or press Enter for ${match.name}.`, false);
+        renderSuggestions();
+    });
+
+    input.addEventListener('focus', () => {
+        renderSuggestions();
     });
 
     // If the user selects a datalist option, treat it as a selection and redirect.
@@ -721,6 +786,13 @@ document.addEventListener('DOMContentLoaded', () => {
             go();
         });
     }
+
+    // Close suggestions when tapping elsewhere.
+    document.addEventListener('pointerdown', (e) => {
+        if (!suggestions || suggestions.hidden) return;
+        const inside = e.target && (e.target === suggestions || suggestions.contains(e.target) || e.target === form || form.contains(e.target));
+        if (!inside) hideSuggestions();
+    });
 
     // Keep flag links consistent with the picker (left-click/Enter triggers same flow)
     flagLinks.forEach(a => {
