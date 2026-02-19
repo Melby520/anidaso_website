@@ -711,7 +711,7 @@ document.addEventListener('DOMContentLoaded', () => {
             opt.className = 'country-suggestion';
             opt.setAttribute('role', 'option');
             opt.tabIndex = 0;
-            opt.innerHTML = `<span>${c.name}</span><small>${c.href}</small>`;
+            opt.textContent = c.name;
 
             const choose = (e) => {
                 if (e) e.preventDefault();

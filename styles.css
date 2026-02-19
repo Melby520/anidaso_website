@@ -237,17 +237,11 @@ section[id] {
 .country-suggestion {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 10px;
+    justify-content: flex-start;
     padding: 12px 14px;
     cursor: pointer;
     color: #111;
     font-weight: 600;
-}
-
-.country-suggestion small {
-    font-weight: 500;
-    color: #6b7280;
 }
 
 .country-suggestion:hover,
