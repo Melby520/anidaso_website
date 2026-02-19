@@ -1,0 +1,79 @@
+﻿Checked 18 HTML files
+Missing references:
+File: C:\Users\HP\Downloads\ANIDASO WEBSITE\governance.html
+  Link: membership.html#membership-form
+  Resolved: C:\Users\HP\Downloads\ANIDASO WEBSITE\membership.html#membership-form
+File: C:\Users\HP\Downloads\ANIDASO WEBSITE\how-it-works.html
+  Link: assets/images/how-hero.jpg
+  Resolved: C:\Users\HP\Downloads\ANIDASO WEBSITE\assets\images\how-hero.jpg
+File: C:\Users\HP\Downloads\ANIDASO WEBSITE\index.html
+  Link: styles.css?v=1
+  Resolved: C:\Users\HP\Downloads\ANIDASO WEBSITE\styles.css?v=1
+File: C:\Users\HP\Downloads\ANIDASO WEBSITE\index.html
+  Link: membership.html#membership-form
+  Resolved: C:\Users\HP\Downloads\ANIDASO WEBSITE\membership.html#membership-form
+File: C:\Users\HP\Downloads\ANIDASO WEBSITE\membership-gh.html
+  Link: styles.css?v=5
+  Resolved: C:\Users\HP\Downloads\ANIDASO WEBSITE\styles.css?v=5
+File: C:\Users\HP\Downloads\ANIDASO WEBSITE\membership-gh.html
+  Link: ../assets/images/Anidaso logo.png
+  Resolved: C:\Users\HP\Downloads\ANIDASO WEBSITE\..\assets\images\Anidaso logo.png
+File: C:\Users\HP\Downloads\ANIDASO WEBSITE\membership-gh.html
+  Link: ../index.html
+  Resolved: C:\Users\HP\Downloads\ANIDASO WEBSITE\..\index.html
+File: C:\Users\HP\Downloads\ANIDASO WEBSITE\membership-gh.html
+  Link: ../about.html
+  Resolved: C:\Users\HP\Downloads\ANIDASO WEBSITE\..\about.html
+File: C:\Users\HP\Downloads\ANIDASO WEBSITE\membership-gh.html
+  Link: ../membership.html
+  Resolved: C:\Users\HP\Downloads\ANIDASO WEBSITE\..\membership.html
+File: C:\Users\HP\Downloads\ANIDASO WEBSITE\membership-gh.html
+  Link: ../governance.html
+  Resolved: C:\Users\HP\Downloads\ANIDASO WEBSITE\..\governance.html
+File: C:\Users\HP\Downloads\ANIDASO WEBSITE\membership-gh.html
+  Link: ../contact-us.html
+  Resolved: C:\Users\HP\Downloads\ANIDASO WEBSITE\..\contact-us.html
+File: C:\Users\HP\Downloads\ANIDASO WEBSITE\membership-gh.html
+  Link: ../script.js
+  Resolved: C:\Users\HP\Downloads\ANIDASO WEBSITE\..\script.js
+File: C:\Users\HP\Downloads\ANIDASO WEBSITE\membership-uk.html
+  Link: styles.css?v=5
+  Resolved: C:\Users\HP\Downloads\ANIDASO WEBSITE\styles.css?v=5
+File: C:\Users\HP\Downloads\ANIDASO WEBSITE\membership-uk.html
+  Link: ../assets/images/Anidaso logo.png
+  Resolved: C:\Users\HP\Downloads\ANIDASO WEBSITE\..\assets\images\Anidaso logo.png
+File: C:\Users\HP\Downloads\ANIDASO WEBSITE\membership-uk.html
+  Link: ../index.html
+  Resolved: C:\Users\HP\Downloads\ANIDASO WEBSITE\..\index.html
+File: C:\Users\HP\Downloads\ANIDASO WEBSITE\membership-uk.html
+  Link: ../about.html
+  Resolved: C:\Users\HP\Downloads\ANIDASO WEBSITE\..\about.html
+File: C:\Users\HP\Downloads\ANIDASO WEBSITE\membership-uk.html
+  Link: ../membership.html
+  Resolved: C:\Users\HP\Downloads\ANIDASO WEBSITE\..\membership.html
+File: C:\Users\HP\Downloads\ANIDASO WEBSITE\membership-uk.html
+  Link: ../governance.html
+  Resolved: C:\Users\HP\Downloads\ANIDASO WEBSITE\..\governance.html
+File: C:\Users\HP\Downloads\ANIDASO WEBSITE\membership-uk.html
+  Link: ../contact-us.html
+  Resolved: C:\Users\HP\Downloads\ANIDASO WEBSITE\..\contact-us.html
+File: C:\Users\HP\Downloads\ANIDASO WEBSITE\membership-uk.html
+  Link: ../script.js
+  Resolved: C:\Users\HP\Downloads\ANIDASO WEBSITE\..\script.js
+File: C:\Users\HP\Downloads\ANIDASO WEBSITE\membership.html
+  Link: styles.css?v=5
+  Resolved: C:\Users\HP\Downloads\ANIDASO WEBSITE\styles.css?v=5
+File: C:\Users\HP\Downloads\ANIDASO WEBSITE\membership\ghana.html
+  Link: ../styles.css?v=5
+  Resolved: C:\Users\HP\Downloads\ANIDASO WEBSITE\membership\..\styles.css?v=5
+File: C:\Users\HP\Downloads\ANIDASO WEBSITE\membership\uk.html
+  Link: ../styles.css?v=5
+  Resolved: C:\Users\HP\Downloads\ANIDASO WEBSITE\membership\..\styles.css?v=5
+File: C:\Users\HP\Downloads\ANIDASO WEBSITE\_membership\ghana.html
+  Link: /anidaso_website/membership/ghana.html
+  Resolved: C:\Users\HP\Downloads\ANIDASO WEBSITE\anidaso_website\membership\ghana.html
+File: C:\Users\HP\Downloads\ANIDASO WEBSITE\_membership\uk.html
+  Link: /anidaso_website/membership/uk.html
+  Resolved: C:\Users\HP\Downloads\ANIDASO WEBSITE\anidaso_website\membership\uk.html
+No <img> tags without alt found.
+
